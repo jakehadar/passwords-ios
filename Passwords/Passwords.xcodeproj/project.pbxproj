@@ -8,20 +8,34 @@
 
 /* Begin PBXBuildFile section */
 		2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B7D5208B81450096B512 /* AppDelegate.swift */; };
-		2E84B7D8208B81450096B512 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B7D7208B81450096B512 /* ViewController.swift */; };
 		2E84B7DB208B81450096B512 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E84B7D9208B81450096B512 /* Main.storyboard */; };
 		2E84B7DD208B81460096B512 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E84B7DC208B81460096B512 /* Assets.xcassets */; };
 		2E84B7E0208B81460096B512 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E84B7DE208B81460096B512 /* LaunchScreen.storyboard */; };
+		2E84B7E9208B83A30096B512 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B7E7208B83A30096B512 /* KeychainItemAccessibility.swift */; };
+		2E84B7EA208B83A30096B512 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B7E8208B83A30096B512 /* KeychainWrapper.swift */; };
+		2E84B816208B94C20096B512 /* PasswordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B815208B94C20096B512 /* PasswordListViewController.swift */; };
+		2E84B818208B94DA0096B512 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B817208B94DA0096B512 /* MainViewController.swift */; };
+		2E84B81A208B95340096B512 /* PasswordEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B819208B95340096B512 /* PasswordEditViewController.swift */; };
+		2E84B81E208B95A40096B512 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B81D208B95A40096B512 /* Coordinator.swift */; };
+		2E84B820208B95B00096B512 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B81F208B95B00096B512 /* Storyboarded.swift */; };
+		2E84B823208B98560096B512 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B822208B98560096B512 /* MainCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2E84B7D2208B81450096B512 /* Passwords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passwords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E84B7D5208B81450096B512 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2E84B7D7208B81450096B512 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2E84B7DA208B81450096B512 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2E84B7DC208B81460096B512 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E84B7DF208B81460096B512 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2E84B7E1208B81470096B512 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E84B7E7208B83A30096B512 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
+		2E84B7E8208B83A30096B512 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
+		2E84B815208B94C20096B512 /* PasswordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordListViewController.swift; sourceTree = "<group>"; };
+		2E84B817208B94DA0096B512 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		2E84B819208B95340096B512 /* PasswordEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEditViewController.swift; sourceTree = "<group>"; };
+		2E84B81D208B95A40096B512 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		2E84B81F208B95B00096B512 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
+		2E84B822208B98560096B512 /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,13 +69,44 @@
 			isa = PBXGroup;
 			children = (
 				2E84B7D5208B81450096B512 /* AppDelegate.swift */,
-				2E84B7D7208B81450096B512 /* ViewController.swift */,
+				2E84B821208B95B50096B512 /* Coordinators */,
+				2E84B81C208B95810096B512 /* ViewControllers */,
+				2E84B81B208B956A0096B512 /* Keychain */,
 				2E84B7D9208B81450096B512 /* Main.storyboard */,
 				2E84B7DC208B81460096B512 /* Assets.xcassets */,
 				2E84B7DE208B81460096B512 /* LaunchScreen.storyboard */,
 				2E84B7E1208B81470096B512 /* Info.plist */,
 			);
 			path = Passwords;
+			sourceTree = "<group>";
+		};
+		2E84B81B208B956A0096B512 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				2E84B7E7208B83A30096B512 /* KeychainItemAccessibility.swift */,
+				2E84B7E8208B83A30096B512 /* KeychainWrapper.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		2E84B81C208B95810096B512 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2E84B815208B94C20096B512 /* PasswordListViewController.swift */,
+				2E84B819208B95340096B512 /* PasswordEditViewController.swift */,
+				2E84B817208B94DA0096B512 /* MainViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		2E84B821208B95B50096B512 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				2E84B81D208B95A40096B512 /* Coordinator.swift */,
+				2E84B822208B98560096B512 /* MainCoordinator.swift */,
+				2E84B81F208B95B00096B512 /* Storyboarded.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +180,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E84B7D8208B81450096B512 /* ViewController.swift in Sources */,
+				2E84B7EA208B83A30096B512 /* KeychainWrapper.swift in Sources */,
+				2E84B816208B94C20096B512 /* PasswordListViewController.swift in Sources */,
+				2E84B818208B94DA0096B512 /* MainViewController.swift in Sources */,
+				2E84B81A208B95340096B512 /* PasswordEditViewController.swift in Sources */,
 				2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */,
+				2E84B7E9208B83A30096B512 /* KeychainItemAccessibility.swift in Sources */,
+				2E84B81E208B95A40096B512 /* Coordinator.swift in Sources */,
+				2E84B823208B98560096B512 /* MainCoordinator.swift in Sources */,
+				2E84B820208B95B00096B512 /* Storyboarded.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
