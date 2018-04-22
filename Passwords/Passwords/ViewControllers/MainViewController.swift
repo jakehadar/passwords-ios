@@ -15,13 +15,11 @@ class MainViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        title = ""
     }
 
-    @IBAction func passwordListTapped(_ sender: UIButton) {
+    @IBAction func authenticateTapped(_ sender: UIButton) {
+        // TODO: biometric authentication
         coordinator?.passwordList()
-    }
-    @IBAction func editPasswordTapped(_ sender: UIButton) {
-        coordinator?.editPassword()
     }
 }

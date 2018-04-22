@@ -18,11 +18,11 @@ class PasswordListViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         
         title = "Passwords"
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordCell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordRecordCell")
+        tableView.dataSource = PasswordRecordManager.sharedInstance
     }
     
     @IBAction func addPassword(_ sender: UIBarButtonItem) {
-        
+        coordinator?.addPassword()
     }
-
 }

@@ -25,7 +25,18 @@ class MainCoordinator: Coordinator {
     func editPassword() {
         let vc = PasswordEditViewController.instantiate()
         vc.coordinator = self
+        vc.title = "Edit"
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func addPassword() {
+        let vc = PasswordEditViewController.instantiate()
+        let navController = UINavigationController(rootViewController: vc)
+        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: vc, action: "dismiss")
+        vc.coordinator = self
+        vc.title = "Add"
+        
+        navigationController.present(navController, animated: true)
     }
     
     func passwordList() {
