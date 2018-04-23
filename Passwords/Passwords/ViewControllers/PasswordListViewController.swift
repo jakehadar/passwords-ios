@@ -10,8 +10,8 @@ import UIKit
 
 class PasswordListViewController: UIViewController, Storyboarded {
     
-    weak var coordinator: MainCoordinator?
-
+    weak var viewModel: PasswordListViewModel?
+    
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -19,10 +19,11 @@ class PasswordListViewController: UIViewController, Storyboarded {
         
         title = "Passwords"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordRecordCell")
-        tableView.dataSource = PasswordRecordManager.sharedInstance
+        tableView.dataSource = viewModel
+        tableView.delegate = viewModel
     }
     
     @IBAction func addPassword(_ sender: UIBarButtonItem) {
-        coordinator?.addPassword()
+        viewModel?.addPassword()
     }
 }

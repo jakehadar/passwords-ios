@@ -11,9 +11,11 @@ import UIKit
 class MainCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
+    var recordManager: PasswordRecordManager
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, recordManager: PasswordRecordManager) {
         self.navigationController = navigationController
+        self.recordManager = recordManager
     }
     
     func start() {
@@ -22,9 +24,10 @@ class MainCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: false)
     }
     
-    func editPassword() {
+    func editPassword(passwordRecord: PasswordRecord) {
         let vc = PasswordEditViewController.instantiate()
         vc.coordinator = self
+        vc.passwordRecord = passwordRecord
         vc.title = "Edit"
         navigationController.pushViewController(vc, animated: true)
     }
@@ -41,7 +44,8 @@ class MainCoordinator: Coordinator {
     
     func passwordList() {
         let vc = PasswordListViewController.instantiate()
-        vc.coordinator = self
+        let viewModel = PasswordListViewModel(coordinator: self, recordManager: recordManager, vc: vc)
+        vc.viewModel = viewModel
         navigationController.pushViewController(vc, animated: true)
     }
 }

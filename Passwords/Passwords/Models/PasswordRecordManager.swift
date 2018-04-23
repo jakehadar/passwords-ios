@@ -9,8 +9,13 @@
 import Foundation
 import UIKit
 
+protocol PasswordRecordManagerDelegate {
+    func passwordRecordManagerDidUpdate()
+}
+
 class PasswordRecordManager: NSObject {
     static let sharedInstance = PasswordRecordManager()
+    var delegate: PasswordRecordManagerDelegate?
     
     var passwordRecords = [PasswordRecord]() {
         didSet {
@@ -99,26 +104,19 @@ class PasswordRecordManager: NSObject {
         print("Added password record for \(app) \(user)")
     }
     
-}
-
-extension PasswordRecordManager: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard apps.count > 0 else { return 0 }
-        let app = apps[section]
-        return appRecordsDict[app]!.count
+    func getApps() -> [String]? {
+        return Array(appRecordsDict.keys)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let app = apps[indexPath.section]
-        let records = appRecordsDict[app]
-        let record = records![indexPath.row]
-        var cell = UITableViewCell()
-        
-        if let passwordRecordCell = tableView.dequeueReusableCell(withIdentifier: "PasswordRecordCell") {
-            passwordRecordCell.textLabel?.text = record.user
-            cell = passwordRecordCell
-        }
-        
-        return cell
+    func getPasswordRecords(forApp app: String) -> [PasswordRecord]? {
+        return appRecordsDict[app]
     }
+    
+    func getPasswordRecordsCount(forApp app: String) -> Int {
+        if let count = appRecordsDict[app]?.count {
+            return count
+        }
+        return 0
+    }
+    
 }

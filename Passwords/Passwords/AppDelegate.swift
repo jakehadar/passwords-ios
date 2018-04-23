@@ -20,7 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navController = UINavigationController()
         navController.navigationBar.prefersLargeTitles = true
         
-        coordinator = MainCoordinator(navigationController: navController)
+        let recordManager = PasswordRecordManager.sharedInstance
+        
+        coordinator = MainCoordinator(navigationController: navController, recordManager: recordManager)
         coordinator?.start()
         
         window = UIWindow(frame: UIScreen.main.bounds)
