@@ -23,6 +23,7 @@
 		2E84B828208BE8620096B512 /* PasswordRecordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B827208BE8620096B512 /* PasswordRecordManager.swift */; };
 		2E84B82D208BF0AE0096B512 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B82C208BF0AE0096B512 /* DateHelper.swift */; };
 		2E84B830208E03010096B512 /* PasswordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B82F208E03010096B512 /* PasswordListViewModel.swift */; };
+		2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		2E84B827208BE8620096B512 /* PasswordRecordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordRecordManager.swift; sourceTree = "<group>"; };
 		2E84B82C208BF0AE0096B512 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		2E84B82F208E03010096B512 /* PasswordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordListViewModel.swift; sourceTree = "<group>"; };
+		2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				2E84B815208B94C20096B512 /* PasswordListViewController.swift */,
 				2E84B82F208E03010096B512 /* PasswordListViewModel.swift */,
 				2E84B819208B95340096B512 /* PasswordEditViewController.swift */,
+				2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */,
 				2E84B817208B94DA0096B512 /* MainViewController.swift */,
 			);
 			path = ViewControllers;
@@ -214,6 +217,7 @@
 				2E84B81A208B95340096B512 /* PasswordEditViewController.swift in Sources */,
 				2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */,
 				2E84B7E9208B83A30096B512 /* KeychainItemAccessibility.swift in Sources */,
+				2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */,
 				2E84B81E208B95A40096B512 /* Coordinator.swift in Sources */,
 				2E84B830208E03010096B512 /* PasswordListViewModel.swift in Sources */,
 				2E84B82D208BF0AE0096B512 /* DateHelper.swift in Sources */,

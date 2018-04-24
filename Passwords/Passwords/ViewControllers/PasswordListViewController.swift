@@ -10,17 +10,37 @@ import UIKit
 
 class PasswordListViewController: UIViewController, Storyboarded {
     
-    weak var viewModel: PasswordListViewModel?
-    
     @IBOutlet weak var tableView: UITableView!
+    
+    var viewModel: PasswordListViewModel? {
+        didSet {
+            setupTableView()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Passwords"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordRecordCell")
-        tableView.dataSource = viewModel
-        tableView.delegate = viewModel
+        setupTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel?.reloadData()
+        tableView.reloadData()
+        tableView.reloadSectionIndexTitles()
+    }
+    
+    func setupTableView() {
+        if let tableView = tableView {
+            if let viewModel = viewModel {
+                tableView.dataSource = viewModel
+                tableView.delegate = viewModel
+                tableView.reloadData()
+            }
+        }
     }
     
     @IBAction func addPassword(_ sender: UIBarButtonItem) {

@@ -9,13 +9,8 @@
 import Foundation
 import UIKit
 
-protocol PasswordRecordManagerDelegate {
-    func passwordRecordManagerDidUpdate()
-}
-
 class PasswordRecordManager: NSObject {
     static let sharedInstance = PasswordRecordManager()
-    var delegate: PasswordRecordManagerDelegate?
     
     var passwordRecords = [PasswordRecord]() {
         didSet {
@@ -78,20 +73,12 @@ class PasswordRecordManager: NSObject {
         }
     }
     
-    func deletePasswordRecord(app: String, user: String) {
+    func deletePasswordRecord(_ record: PasswordRecord) {
+        let uuidToDelete = record.uuid
         for (index, record) in passwordRecords.enumerated() {
-            if record.app == app && record.user == user {
+            if record.uuid == uuidToDelete {
                 passwordRecords.remove(at: index)
-                print("Deleted password records for \(app) \(user)")
-            }
-        }
-    }
-    
-    func deletePasswordRecord(uuid: String) {
-        for (index, record) in passwordRecords.enumerated() {
-            if record.uuid == uuid {
-                passwordRecords.remove(at: index)
-                print("Deleted password record \(uuid)")
+                print("Deleted password record \(uuidToDelete)")
                 break
             }
         }
