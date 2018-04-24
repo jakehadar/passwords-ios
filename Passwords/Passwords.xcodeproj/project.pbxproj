@@ -14,7 +14,6 @@
 		2E84B7E9208B83A30096B512 /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B7E7208B83A30096B512 /* KeychainItemAccessibility.swift */; };
 		2E84B7EA208B83A30096B512 /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B7E8208B83A30096B512 /* KeychainWrapper.swift */; };
 		2E84B816208B94C20096B512 /* PasswordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B815208B94C20096B512 /* PasswordListViewController.swift */; };
-		2E84B818208B94DA0096B512 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B817208B94DA0096B512 /* MainViewController.swift */; };
 		2E84B81A208B95340096B512 /* PasswordEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B819208B95340096B512 /* PasswordEditViewController.swift */; };
 		2E84B81E208B95A40096B512 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B81D208B95A40096B512 /* Coordinator.swift */; };
 		2E84B820208B95B00096B512 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B81F208B95B00096B512 /* Storyboarded.swift */; };
@@ -24,6 +23,7 @@
 		2E84B82D208BF0AE0096B512 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B82C208BF0AE0096B512 /* DateHelper.swift */; };
 		2E84B830208E03010096B512 /* PasswordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B82F208E03010096B512 /* PasswordListViewModel.swift */; };
 		2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */; };
+		2E84B834208F5C730096B512 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B833208F5C730096B512 /* AuthenticationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,7 +36,6 @@
 		2E84B7E7208B83A30096B512 /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainItemAccessibility.swift; sourceTree = "<group>"; };
 		2E84B7E8208B83A30096B512 /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		2E84B815208B94C20096B512 /* PasswordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordListViewController.swift; sourceTree = "<group>"; };
-		2E84B817208B94DA0096B512 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2E84B819208B95340096B512 /* PasswordEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordEditViewController.swift; sourceTree = "<group>"; };
 		2E84B81D208B95A40096B512 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		2E84B81F208B95B00096B512 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
@@ -46,6 +45,7 @@
 		2E84B82C208BF0AE0096B512 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		2E84B82F208E03010096B512 /* PasswordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordListViewModel.swift; sourceTree = "<group>"; };
 		2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDetailViewController.swift; sourceTree = "<group>"; };
+		2E84B833208F5C730096B512 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +108,7 @@
 				2E84B82F208E03010096B512 /* PasswordListViewModel.swift */,
 				2E84B819208B95340096B512 /* PasswordEditViewController.swift */,
 				2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */,
-				2E84B817208B94DA0096B512 /* MainViewController.swift */,
+				2E84B833208F5C730096B512 /* AuthenticationViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,11 +213,11 @@
 			files = (
 				2E84B7EA208B83A30096B512 /* KeychainWrapper.swift in Sources */,
 				2E84B816208B94C20096B512 /* PasswordListViewController.swift in Sources */,
-				2E84B818208B94DA0096B512 /* MainViewController.swift in Sources */,
 				2E84B81A208B95340096B512 /* PasswordEditViewController.swift in Sources */,
 				2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */,
 				2E84B7E9208B83A30096B512 /* KeychainItemAccessibility.swift in Sources */,
 				2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */,
+				2E84B834208F5C730096B512 /* AuthenticationViewController.swift in Sources */,
 				2E84B81E208B95A40096B512 /* Coordinator.swift in Sources */,
 				2E84B830208E03010096B512 /* PasswordListViewModel.swift in Sources */,
 				2E84B82D208BF0AE0096B512 /* DateHelper.swift in Sources */,
