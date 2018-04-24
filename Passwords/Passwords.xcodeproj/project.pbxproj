@@ -81,7 +81,7 @@
 				2E84B7D5208B81450096B512 /* AppDelegate.swift */,
 				2E84B826208BE5E10096B512 /* Models */,
 				2E84B821208B95B50096B512 /* Coordinators */,
-				2E84B81C208B95810096B512 /* ViewControllers */,
+				2E84B81C208B95810096B512 /* Views */,
 				2E84B81B208B956A0096B512 /* Keychain */,
 				2E84B82E208BF0B40096B512 /* Helpers */,
 				2E84B7D9208B81450096B512 /* Main.storyboard */,
@@ -101,7 +101,7 @@
 			path = Keychain;
 			sourceTree = "<group>";
 		};
-		2E84B81C208B95810096B512 /* ViewControllers */ = {
+		2E84B81C208B95810096B512 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				2E84B815208B94C20096B512 /* PasswordListViewController.swift */,
@@ -110,7 +110,7 @@
 				2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */,
 				2E84B817208B94DA0096B512 /* MainViewController.swift */,
 			);
-			path = ViewControllers;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		2E84B821208B95B50096B512 /* Coordinators */ = {

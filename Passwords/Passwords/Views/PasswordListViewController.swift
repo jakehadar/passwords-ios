@@ -21,7 +21,7 @@ class PasswordListViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Passwords"
+        title = "Applications"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordRecordCell")
         setupTableView()
     }

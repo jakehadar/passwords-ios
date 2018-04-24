@@ -12,14 +12,16 @@ import UIKit
 class PasswordRecordManager: NSObject {
     static let sharedInstance = PasswordRecordManager()
     
+    typealias AppRecordsMap = Dictionary<String, [PasswordRecord]>
+    
     var passwordRecords = [PasswordRecord]() {
         didSet {
             savePasswordRecords()
-            refreshAppsRecords()
+            reloadAllData()
         }
     }
     
-    var appRecordsDict = Dictionary<String, [PasswordRecord]>()
+    var appRecordsMap = AppRecordsMap()
     var apps = [String]()
     
     let defaults = UserDefaults.standard
@@ -29,25 +31,25 @@ class PasswordRecordManager: NSObject {
         loadPasswordRecords()
     }
     
-    func refreshAppsRecords() {
-        var newAppRecordsDict = Dictionary<String, [PasswordRecord]>()
+    func reloadAllData() {
+        var newAppRecordsMap = AppRecordsMap()
         var newApps = [String]()
         for record in passwordRecords {
             let app = record.app
-            if newAppRecordsDict[app] == nil {
-                newAppRecordsDict[app] = [record]
+            if newAppRecordsMap[app] == nil {
+                newAppRecordsMap[app] = [record]
             } else {
-                newAppRecordsDict[app]!.append(record)
+                newAppRecordsMap[app]!.append(record)
             }
             if !newApps.contains(app) {
                 newApps.append(app)
             }
         }
-        appRecordsDict = newAppRecordsDict
+        appRecordsMap = newAppRecordsMap
         apps = newApps
     }
     
-    // MARK: - PasswordRecord
+    // MARK: - API
     
     func loadPasswordRecords() {
         if let savedData = defaults.object(forKey: "passwordRecords") as? Data {
@@ -92,15 +94,15 @@ class PasswordRecordManager: NSObject {
     }
     
     func getApps() -> [String]? {
-        return Array(appRecordsDict.keys)
+        return Array(appRecordsMap.keys)
     }
     
     func getPasswordRecords(forApp app: String) -> [PasswordRecord]? {
-        return appRecordsDict[app]
+        return appRecordsMap[app]
     }
     
     func getPasswordRecordsCount(forApp app: String) -> Int {
-        if let count = appRecordsDict[app]?.count {
+        if let count = appRecordsMap[app]?.count {
             return count
         }
         return 0
