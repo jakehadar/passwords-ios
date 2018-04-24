@@ -28,6 +28,7 @@ class PasswordListViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel?.checkAuthentication()
         viewModel?.reloadData()
         tableView.reloadData()
         tableView.reloadSectionIndexTitles()

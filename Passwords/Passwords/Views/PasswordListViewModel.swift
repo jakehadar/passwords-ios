@@ -23,6 +23,12 @@ class PasswordListViewModel: NSObject {
         reloadData()
     }
     
+    func checkAuthentication() {
+        if !coordinator.isAuthenticated() {
+            coordinator.authenticate()
+        }
+    }
+    
     func reloadData() {
         if let apps = recordManager.getApps() {
             self.apps = apps

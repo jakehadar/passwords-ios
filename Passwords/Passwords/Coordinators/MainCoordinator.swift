@@ -27,6 +27,10 @@ class MainCoordinator: Coordinator {
         authenticated = true
     }
     
+    func isAuthenticated() -> Bool {
+        return authenticated
+    }
+    
     func start() {
         if !authenticated { authenticate() }
         passwordList()
@@ -85,7 +89,7 @@ class MainCoordinator: Coordinator {
             let vc = PasswordListViewController.instantiate()
             vc.viewModel = viewModel
             passwordListViewController = vc
-            navigationController.pushViewController(vc, animated: true)
+            navigationController.pushViewController(vc, animated: false)
         }
     }
 }
