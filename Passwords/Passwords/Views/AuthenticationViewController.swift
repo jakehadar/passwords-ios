@@ -25,7 +25,7 @@ class AuthenticationViewController: UIViewController, Storyboarded {
         
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             let reason = "Identify yourself to unlock."
-            
+
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [unowned self] (success, authenticationError) in
                 DispatchQueue.main.async {
                     if success {

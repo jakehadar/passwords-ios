@@ -135,7 +135,7 @@
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last modified 0 days ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLF-7o-j3V">
                                         <rect key="frame" x="91.5" y="485.5" width="192" height="161.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -177,18 +177,29 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                        <connections>
+                                            <action selector="textFieldValueDidChange:" destination="RPc-fj-buu" eventType="valueChanged" id="xUX-0J-hKP"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VFd-rD-Kcw">
                                         <rect key="frame" x="0.0" y="40" width="355" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="username"/>
+                                        <connections>
+                                            <action selector="textFieldValueDidChange:" destination="RPc-fj-buu" eventType="editingChanged" id="jVj-SR-uDh"/>
+                                            <action selector="textFieldValueDidChange:" destination="RPc-fj-buu" eventType="valueChanged" id="tEA-Bn-U9s"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aqE-qo-tjm">
                                         <rect key="frame" x="0.0" y="80" width="355" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
+                                        <connections>
+                                            <action selector="textFieldValueDidChange:" destination="RPc-fj-buu" eventType="valueChanged" id="5tl-HQ-Gd5"/>
+                                            <action selector="textFieldValueDidChange:" destination="RPc-fj-buu" eventType="editingChanged" id="f1V-v5-PxM"/>
+                                        </connections>
                                     </textField>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CA8-J2-L6c">
                                         <rect key="frame" x="0.0" y="120" width="176.5" height="31"/>

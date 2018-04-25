@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum PasswordEditingMode {
+    case create
+    case modify
+}
+
 class PasswordEditViewController: UIViewController, Storyboarded {
     @IBOutlet weak var appTextField: UITextField!
     @IBOutlet weak var userTextField: UITextField!
@@ -16,13 +21,28 @@ class PasswordEditViewController: UIViewController, Storyboarded {
     @IBOutlet weak var maskSwitch: UISwitch!
     
     weak var coordinator: MainCoordinator?
-    weak var passwordRecord: PasswordRecord?
-    let recordManager = PasswordRecordManager.sharedInstance
+    weak var recordManager: PasswordRecordManager?
+    weak var passwordRecord: PasswordRecord? {
+        didSet {
+            if passwordRecord == nil {
+                editingMode = .create
+            } else {
+                editingMode = .modify
+            }
+        }
+    }
     
+    var editingMode: PasswordEditingMode = .create
     var editingCancelled = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+        
+        disableSaveButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,58 +59,74 @@ class PasswordEditViewController: UIViewController, Storyboarded {
     }
     
     fileprivate func setupView() {
-        if let passwordRecord = passwordRecord {
-            if let password = passwordRecord.getPassword() {
-                passwordTextField.text = password
-            }
-            appTextField.text = passwordRecord.app
-            userTextField.text = passwordRecord.user
-            deleteButton.isHidden = false
-        } else {
+        switch editingMode {
+        case .create:
             deleteButton.isHidden = true
+            
+        case .modify:
+            passwordTextField.text = passwordRecord!.getPassword()
+            appTextField.text = passwordRecord!.app
+            userTextField.text = passwordRecord!.user
+            deleteButton.isHidden = false
         }
     }
     
     func savePasswordRecord() {
+        guard recordManager != nil else { assertionFailure("No record manager"); return }
+        
         if validateInputs() {
             let app = appTextField.text!
             let user = userTextField.text!
             let password = passwordTextField.text!
             
-            if let passwordRecord = passwordRecord {
-                passwordRecord.app = app
-                passwordRecord.user = user
-                passwordRecord.setPassword(password)
-                recordManager.savePasswordRecords()
-            } else {
-                recordManager.createPasswordRecord(app: app, user: user, password: password)
+            switch editingMode {
+            case .create:
+                recordManager!.createPasswordRecord(app: app, user: user, password: password)
+                
+            case .modify:
+                passwordRecord!.app = app
+                passwordRecord!.user = user
+                passwordRecord!.setPassword(password)
+                recordManager!.savePasswordRecords()
             }
         }
     }
     
     func deletePasswordRecord() {
-        if let record = passwordRecord {
-            let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] (action: UIAlertAction) in
-                self.recordManager.deletePasswordRecord(record)
-                self.passwordRecord = nil
-                self.editingCancelled = true
-                self.coordinator?.passwordList()
-            }
-            ac.addAction(deleteAction)
-            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            present(ac, animated: true)
+        guard editingMode == .modify else { return }
+        guard recordManager != nil else { assertionFailure("No record manager"); return }
+        
+        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
+            self.recordManager!.deletePasswordRecord(self.passwordRecord!)
+            self.passwordRecord = nil
+            self.editingCancelled = true
+            self.coordinator?.passwordList()
         }
+        ac.addAction(deleteAction)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
     
     func validateInputs() -> Bool {
+        // Check that text fields have text
         guard appTextField.text != nil else { return false }
         guard userTextField.text != nil else { return false }
         guard passwordTextField.text != nil else { return false }
         
+        // Check that text fields have meaningful entries to save
         guard appTextField.text!.trimmingCharacters(in: .whitespaces) != "" else { return false }
         guard userTextField.text!.trimmingCharacters(in: .whitespaces) != "" else { return false }
         guard passwordTextField.text!.trimmingCharacters(in: .whitespaces) != "" else { return false }
+        
+        // In the case where an existing record is being edited, check that anything was actually modified
+        if editingMode == .modify {
+            let appUnchanged = appTextField.text == passwordRecord!.app
+            let userUnchanged = userTextField.text == passwordRecord!.user
+            let passwordUnchanged = passwordTextField.text == passwordRecord!.getPassword()
+            
+            if (appUnchanged && userUnchanged && passwordUnchanged) { return false }
+        }
         
         return true
     }
@@ -105,6 +141,35 @@ class PasswordEditViewController: UIViewController, Storyboarded {
         editingCancelled = true
         self.dismiss(animated: true)
     }
+    
+    @objc func dismissKeyboard() {
+        appTextField.resignFirstResponder()
+        userTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+    }
+    
+    func enableSaveButton() {
+        if let saveButton = navigationItem.rightBarButtonItem {
+            saveButton.isEnabled = true
+        }
+    }
+    
+    func disableSaveButton() {
+        if let saveButton = navigationItem.rightBarButtonItem {
+            saveButton.isEnabled = false
+        }
+    }
+    
+    @IBAction func textFieldValueDidChange(_ sender: UITextField) {
+        if editingMode == .create {
+            if validateInputs() {
+                enableSaveButton()
+            } else {
+                disableSaveButton()
+            }
+        }
+    }
+    
     @IBAction func maskSwitchToggled(_ sender: UISwitch) {
         if sender.isOn {
             passwordTextField.isSecureTextEntry = true
@@ -115,5 +180,11 @@ class PasswordEditViewController: UIViewController, Storyboarded {
     
     @IBAction func deleteButtonTapped(_ sender: UIButton) {
         deletePasswordRecord()
+    }
+}
+
+extension PasswordEditViewController: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
     }
 }

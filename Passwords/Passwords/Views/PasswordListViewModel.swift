@@ -13,7 +13,7 @@ class PasswordListViewModel: NSObject {
     var coordinator: MainCoordinator
     var recordManager: PasswordRecordManager
     
-    var apps = [String]()
+    fileprivate var apps = [String]()
     
     init(coordinator: MainCoordinator, recordManager: PasswordRecordManager) {
         self.coordinator = coordinator
@@ -62,21 +62,20 @@ extension PasswordListViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         
-        guard apps.count > 0 else { return cell }
-        
-        let app = apps[indexPath.section]
-        if let records = recordManager.getPasswordRecords(forApp: app) {
-            let record = records[indexPath.row]
-            if let passwordRecordCell = tableView.dequeueReusableCell(withIdentifier: "PasswordRecordCell") {
-                passwordRecordCell.textLabel?.text = record.user
-                cell = passwordRecordCell
+        if apps.count > 0 {
+            let app = apps[indexPath.section]
+            if let records = recordManager.getPasswordRecords(forApp: app) {
+                let record = records[indexPath.row]
+                if let passwordRecordCell = tableView.dequeueReusableCell(withIdentifier: "PasswordRecordCell") {
+                    passwordRecordCell.textLabel?.text = record.user
+                    cell = passwordRecordCell
+                }
             }
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard apps.count > 0 else { return "" }
         return apps[section]
     }
     
@@ -84,8 +83,6 @@ extension PasswordListViewModel: UITableViewDataSource {
 
 extension PasswordListViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard apps.count > 0 else { return }
-        
         let app = apps[indexPath.section]
         if let records = recordManager.getPasswordRecords(forApp: app) {
             let passwordRecord = records[indexPath.row]
