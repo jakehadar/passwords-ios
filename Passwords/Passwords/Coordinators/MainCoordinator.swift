@@ -53,7 +53,6 @@ class MainCoordinator: Coordinator {
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: vc, action: "edit")
         vc.coordinator = self
         vc.passwordRecord = passwordRecord
-        vc.title = "Detail"
         
         navigationController.pushViewController(vc, animated: true)
     }
@@ -64,7 +63,7 @@ class MainCoordinator: Coordinator {
         vc.coordinator = self
         vc.passwordRecord = passwordRecord
         vc.recordManager = recordManager
-        vc.title = "Edit"
+        vc.title = "Edit password"
         
         navigationController.pushViewController(vc, animated: true)
     }
@@ -76,7 +75,7 @@ class MainCoordinator: Coordinator {
         vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: vc, action: "cancel")
         vc.coordinator = self
         vc.recordManager = recordManager
-        vc.title = "New password record"
+        vc.title = "New password"
         
         let navController = UINavigationController(rootViewController: vc)
         navigationController.present(navController, animated: true)

@@ -178,6 +178,8 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                         <connections>
+                                            <action selector="textFieldPrimaryActionTriggered:" destination="RPc-fj-buu" eventType="primaryActionTriggered" id="5uo-Ua-bRE"/>
+                                            <action selector="textFieldValueDidChange:" destination="RPc-fj-buu" eventType="editingChanged" id="am7-3V-d9z"/>
                                             <action selector="textFieldValueDidChange:" destination="RPc-fj-buu" eventType="valueChanged" id="xUX-0J-hKP"/>
                                         </connections>
                                     </textField>
@@ -187,6 +189,7 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="username"/>
                                         <connections>
+                                            <action selector="textFieldPrimaryActionTriggered:" destination="RPc-fj-buu" eventType="primaryActionTriggered" id="olR-L0-M0V"/>
                                             <action selector="textFieldValueDidChange:" destination="RPc-fj-buu" eventType="editingChanged" id="jVj-SR-uDh"/>
                                             <action selector="textFieldValueDidChange:" destination="RPc-fj-buu" eventType="valueChanged" id="tEA-Bn-U9s"/>
                                         </connections>
@@ -197,6 +200,7 @@
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                         <connections>
+                                            <action selector="textFieldPrimaryActionTriggered:" destination="RPc-fj-buu" eventType="primaryActionTriggered" id="nWm-7E-Q0v"/>
                                             <action selector="textFieldValueDidChange:" destination="RPc-fj-buu" eventType="valueChanged" id="5tl-HQ-Gd5"/>
                                             <action selector="textFieldValueDidChange:" destination="RPc-fj-buu" eventType="editingChanged" id="f1V-v5-PxM"/>
                                         </connections>

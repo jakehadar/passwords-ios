@@ -59,14 +59,23 @@ class PasswordEditViewController: UIViewController, Storyboarded {
     }
     
     fileprivate func setupView() {
+        appTextField.tag = 1
+        userTextField.tag = 2
+        passwordTextField.tag = 3
+        
         switch editingMode {
         case .create:
+            appTextField.returnKeyType = .next
+            userTextField.returnKeyType = .next
+            passwordTextField.returnKeyType = .done
             deleteButton.isHidden = true
+            appTextField.becomeFirstResponder()
             
         case .modify:
-            passwordTextField.text = passwordRecord!.getPassword()
             appTextField.text = passwordRecord!.app
             userTextField.text = passwordRecord!.user
+            passwordTextField.text = passwordRecord!.getPassword()
+            
             deleteButton.isHidden = false
         }
     }
@@ -159,6 +168,24 @@ class PasswordEditViewController: UIViewController, Storyboarded {
             saveButton.isEnabled = false
         }
     }
+    
+    @IBAction func textFieldPrimaryActionTriggered(_ sender: UITextField) {
+        if editingMode == .create {
+            switch sender.tag {
+            case 1:
+                sender.resignFirstResponder()
+                userTextField.becomeFirstResponder()
+            case 2:
+                sender.resignFirstResponder()
+                passwordTextField.becomeFirstResponder()
+            default:
+                passwordTextField.resignFirstResponder()
+            }
+        } else {
+            sender.resignFirstResponder()
+        }
+    }
+    
     
     @IBAction func textFieldValueDidChange(_ sender: UITextField) {
         if editingMode == .create {
