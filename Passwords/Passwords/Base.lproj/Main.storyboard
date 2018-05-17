@@ -106,20 +106,20 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6UH-Qi-bJc">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bku-ST-LQM">
-                                        <rect key="frame" x="130" y="0.0" width="115.5" height="162"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bku-ST-LQM">
+                                        <rect key="frame" x="20" y="0.0" width="335" height="162"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BeZ-yb-chP">
-                                        <rect key="frame" x="143.5" y="162" width="88" height="161.5"/>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="BeZ-yb-chP">
+                                        <rect key="frame" x="20" y="162" width="335" height="161.5"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE7-ma-xx5">
-                                        <rect key="frame" x="75" y="323.5" width="225" height="162"/>
+                                        <rect key="frame" x="20" y="323.5" width="335" height="162"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <state key="normal" title="Hold to unmask password"/>
                                         <connections>
@@ -133,13 +133,23 @@
                                             <action selector="unmaskButtonRelease:" destination="kbV-tw-48Q" eventType="touchDragOutside" id="eXI-hb-cWl"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last modified 0 days ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLF-7o-j3V">
-                                        <rect key="frame" x="91.5" y="485.5" width="192" height="161.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last modified 0 days ago" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLF-7o-j3V">
+                                        <rect key="frame" x="20" y="485.5" width="335" height="161.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="hE7-ma-xx5" secondAttribute="trailing" constant="20" symbolic="YES" id="0yX-vn-bvJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="nLF-7o-j3V" secondAttribute="trailing" constant="20" symbolic="YES" id="6z7-01-1O4"/>
+                                    <constraint firstItem="Bku-ST-LQM" firstAttribute="leading" secondItem="6UH-Qi-bJc" secondAttribute="leading" constant="20" symbolic="YES" id="8MM-qm-9Af"/>
+                                    <constraint firstItem="nLF-7o-j3V" firstAttribute="leading" secondItem="6UH-Qi-bJc" secondAttribute="leading" constant="20" symbolic="YES" id="MhF-E6-MtH"/>
+                                    <constraint firstAttribute="trailing" secondItem="Bku-ST-LQM" secondAttribute="trailing" constant="20" symbolic="YES" id="ZpY-Zu-B9H"/>
+                                    <constraint firstItem="BeZ-yb-chP" firstAttribute="leading" secondItem="6UH-Qi-bJc" secondAttribute="leading" constant="20" symbolic="YES" id="fHW-Ia-J2V"/>
+                                    <constraint firstAttribute="trailing" secondItem="BeZ-yb-chP" secondAttribute="trailing" constant="20" symbolic="YES" id="rPJ-W0-oyF"/>
+                                    <constraint firstItem="hE7-ma-xx5" firstAttribute="leading" secondItem="6UH-Qi-bJc" secondAttribute="leading" constant="20" symbolic="YES" id="sYb-pI-Mdi"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

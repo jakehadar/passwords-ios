@@ -21,6 +21,9 @@ class MainCoordinator: Coordinator {
         self.navigationController = navigationController
         self.recordManager = recordManager
         NotificationCenter.default.addObserver(self, selector: #selector(authenticate), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        #if DEBUG
+            authenticated = true
+        #endif
     }
     
     func unlock() {
