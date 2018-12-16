@@ -16,12 +16,15 @@ Screenshots
 -----------
 
 **Applications view**
+
 ![Applications view](https://github.com/jakehadar/Passwords/blob/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%20XR%20-%202018-12-15%20at%2019.04.23%20300w.png)
 
 **Creating a new password record**
+
 ![Create password view](https://github.com/jakehadar/Passwords/blob/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%20XR%20-%202018-12-15%20at%2019.05.02%20300w.png)
 
 **Viewing existing credentials**
+
 ![Existing password view](https://github.com/jakehadar/Passwords/blob/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%20XR%20-%202018-12-15%20at%2019.06.18%20300w.png)
 
 Note
