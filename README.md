@@ -15,17 +15,22 @@ I needed a way to keep track of login credentials for infrequently used apps, bu
 Screenshots
 -----------
 
-**Applications view**
+**Applications list view**
 
-![Applications view](https://github.com/jakehadar/Passwords/blob/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%20XR%20-%202018-12-15%20at%2019.04.23%20300w.png)
+![Applications list view](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.47.12%20PM.png)
 
-**Creating a new password record**
+**Adding a new login/password credential**
 
-![Create password view](https://github.com/jakehadar/Passwords/blob/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%20XR%20-%202018-12-15%20at%2019.05.02%20300w.png)
+![Adding a new login/password credential**](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.47.21%20PM.png)
 
-**Viewing existing credentials**
+**Editing/deleting an existing credential**
 
-![Existing password view](https://github.com/jakehadar/Passwords/blob/master/screenshots/Simulator%20Screen%20Shot%20-%20iPhone%20XR%20-%202018-12-15%20at%2019.06.18%20300w.png)
+![Editing/deleting an existing credential](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.46.05%20PM.png)
+
+**Viewing an existing credential**
+
+![Viewint an existing credential](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.47.05%20PM.png)
+
 
 Note
 ----
