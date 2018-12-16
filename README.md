@@ -59,4 +59,4 @@ Notes on current version
 
 Disclaimer
 ----------
-* This codebase is made publically available for educational purposes only. *Passwords* (the compiled application) has not been adequately tested for commercial or production use. No contract or warrenty is implied. Use at your own risk.
+* This codebase is made publically available for educational purposes only. *Passwords* (the compiled application) has not been adequately tested for commercial or production use. No implied warrenty or contract. Use at your own risk.
