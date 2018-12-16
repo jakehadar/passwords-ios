@@ -2,6 +2,8 @@ Passwords
 ---------
 A password manager for you to build and install on your own iPhone :)
 
+![Applications list view](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.47.12%20PM%20@half.png)
+
 Features
 --------
 * Face ID authentication.
