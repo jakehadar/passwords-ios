@@ -6,6 +6,7 @@ Features
 --------
 * Face ID authentication.
 * Does not send any data over the internet.
+* Unlimited entries.
 * FREE!
 
 Motivation
