@@ -56,3 +56,7 @@ Notes on current version
 * *Passwords* (this app) is not available on the App store. You must have an Apple developer license to build and install to your iPhone.
 * You must have a newer iPhone with Face ID enabled to use and unlock the app.
 * Credentials stored in this app are persisted against your Apple keychain. *Passwords* uses a Keychain policy that prevents credentials from migrating to new devices. Thus, after buying a new iPhone or restoring a backup from a different device, all of your password data will be missing from the new device.
+
+Disclaimer
+----------
+* This codebase is made publically available for educational purposes only. *Passwords* (the compiled application) has not been adequately tested for commercial or production use. No contract or warrenty is implied. Use at your own risk.
