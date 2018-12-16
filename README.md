@@ -17,19 +17,19 @@ Screenshots
 
 **Applications list view**
 
-![Applications list view](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.47.12%20PM.png)
+![Applications list view](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.47.12%20PM%20@half.png)
 
 **Adding a new login/password credential**
 
-![Adding a new login/password credential**](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.47.21%20PM.png)
+![Adding a new login/password credential**](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.47.21%20PM%20@half.png)
 
 **Editing/deleting an existing credential**
 
-![Editing/deleting an existing credential](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.46.05%20PM.png)
+![Editing/deleting an existing credential](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.46.05%20PM%20@half.png)
 
 **Viewing an existing credential**
 
-![Viewint an existing credential](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.47.05%20PM.png)
+![Viewing an existing credential](https://github.com/jakehadar/Passwords/blob/master/screenshots/Screen%20Shot%202018-12-15%20at%207.47.05%20PM%20@half.png)
 
 
 Note
