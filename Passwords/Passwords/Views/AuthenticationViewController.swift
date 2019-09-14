@@ -17,15 +17,17 @@ class AuthenticationViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         
         title = "Locked"
+        
+        doAuthentication()
     }
     
-    @IBAction func authenticateTapped(_ sender: UIButton) {
+    private func doAuthentication() {
         let context = LAContext()
         var error: NSError?
         
         if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             let reason = "Identify yourself to unlock."
-
+            
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [unowned self] (success, authenticationError) in
                 DispatchQueue.main.async {
                     if success {
@@ -43,6 +45,10 @@ class AuthenticationViewController: UIViewController, Storyboarded {
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(ac, animated: true)
         }
+    }
+    
+    @IBAction func authenticateTapped(_ sender: UIButton) {
+        doAuthentication()
     }
 }
 

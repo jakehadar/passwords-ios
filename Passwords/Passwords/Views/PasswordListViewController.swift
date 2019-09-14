@@ -12,7 +12,7 @@ class PasswordListViewController: UIViewController, Storyboarded {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var viewModel: PasswordListViewModel? {
+    var dataSource: PasswordListDataSource? {
         didSet {
             setupTableView()
         }
@@ -28,23 +28,23 @@ class PasswordListViewController: UIViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel?.checkAuthentication()
-        viewModel?.reloadData()
+        dataSource?.checkAuthentication()
+        dataSource?.reloadData()
         tableView.reloadData()
         tableView.reloadSectionIndexTitles()
     }
     
     func setupTableView() {
         if let tableView = tableView {
-            if let viewModel = viewModel {
-                tableView.dataSource = viewModel
-                tableView.delegate = viewModel
+            if let dataSource = dataSource {
+                tableView.dataSource = dataSource
+                tableView.delegate = dataSource
                 tableView.reloadData()
             }
         }
     }
     
     @IBAction func addPassword(_ sender: UIBarButtonItem) {
-        viewModel?.addPassword()
+        dataSource?.addPassword()
     }
 }
