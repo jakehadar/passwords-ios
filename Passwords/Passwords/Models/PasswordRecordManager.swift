@@ -9,22 +9,19 @@
 import Foundation
 import UIKit
 
-protocol PasswordRecordManagerDelegate {
-    func passwordRecordManagerDidUpdate()
-}
-
 class PasswordRecordManager: NSObject {
     static let sharedInstance = PasswordRecordManager()
-    var delegate: PasswordRecordManagerDelegate?
+    
+    typealias AppRecordsMap = Dictionary<String, [PasswordRecord]>
     
     var passwordRecords = [PasswordRecord]() {
         didSet {
             savePasswordRecords()
-            refreshAppsRecords()
+            reloadAllData()
         }
     }
     
-    var appRecordsDict = Dictionary<String, [PasswordRecord]>()
+    var appRecordsMap = AppRecordsMap()
     var apps = [String]()
     
     let defaults = UserDefaults.standard
@@ -34,25 +31,25 @@ class PasswordRecordManager: NSObject {
         loadPasswordRecords()
     }
     
-    func refreshAppsRecords() {
-        var newAppRecordsDict = Dictionary<String, [PasswordRecord]>()
+    func reloadAllData() {
+        var newAppRecordsMap = AppRecordsMap()
         var newApps = [String]()
         for record in passwordRecords {
             let app = record.app
-            if newAppRecordsDict[app] == nil {
-                newAppRecordsDict[app] = [record]
+            if newAppRecordsMap[app] == nil {
+                newAppRecordsMap[app] = [record]
             } else {
-                newAppRecordsDict[app]!.append(record)
+                newAppRecordsMap[app]!.append(record)
             }
             if !newApps.contains(app) {
                 newApps.append(app)
             }
         }
-        appRecordsDict = newAppRecordsDict
+        appRecordsMap = newAppRecordsMap
         apps = newApps
     }
     
-    // MARK: - PasswordRecord
+    // MARK: - API
     
     func loadPasswordRecords() {
         if let savedData = defaults.object(forKey: "passwordRecords") as? Data {
@@ -78,20 +75,12 @@ class PasswordRecordManager: NSObject {
         }
     }
     
-    func deletePasswordRecord(app: String, user: String) {
+    func deletePasswordRecord(_ record: PasswordRecord) {
+        let uuidToDelete = record.uuid
         for (index, record) in passwordRecords.enumerated() {
-            if record.app == app && record.user == user {
+            if record.uuid == uuidToDelete {
                 passwordRecords.remove(at: index)
-                print("Deleted password records for \(app) \(user)")
-            }
-        }
-    }
-    
-    func deletePasswordRecord(uuid: String) {
-        for (index, record) in passwordRecords.enumerated() {
-            if record.uuid == uuid {
-                passwordRecords.remove(at: index)
-                print("Deleted password record \(uuid)")
+                print("Deleted password record \(uuidToDelete)")
                 break
             }
         }
@@ -105,15 +94,15 @@ class PasswordRecordManager: NSObject {
     }
     
     func getApps() -> [String]? {
-        return Array(appRecordsDict.keys)
+        return Array(appRecordsMap.keys)
     }
     
     func getPasswordRecords(forApp app: String) -> [PasswordRecord]? {
-        return appRecordsDict[app]
+        return appRecordsMap[app]
     }
     
     func getPasswordRecordsCount(forApp app: String) -> Int {
-        if let count = appRecordsDict[app]?.count {
+        if let count = appRecordsMap[app]?.count {
             return count
         }
         return 0
