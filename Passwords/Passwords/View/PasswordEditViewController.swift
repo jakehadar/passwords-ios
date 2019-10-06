@@ -20,9 +20,9 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     @IBOutlet weak var maskSwitch: UISwitch!
     
-    weak var coordinator: MainCoordinator?
-    weak var recordManager: PasswordRecordManager?
-    weak var passwordRecord: PasswordRecord? {
+    var coordinator: MainCoordinator!
+    var service: PasswordServiceProtocol!
+    var passwordRecord: Password? {
         didSet {
             if passwordRecord == nil {
                 editingMode = .create
@@ -34,6 +34,12 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
     
     var editingMode: PasswordEditingMode = .create
     var editingCancelled = false
+    
+    func configure(coordinator: MainCoordinator, service: PasswordServiceProtocol, record: Password?) {
+        self.coordinator = coordinator
+        self.service = service
+        self.passwordRecord = record
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,36 +99,36 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
     }
     
     func savePasswordRecord() {
-        guard recordManager != nil else { assertionFailure("No record manager"); return }
-        
         if validateInputs() {
             let app = appTextField.text!
             let user = userTextField.text!
-            let password = passwordTextField.text!
+            let password = "\(passwordTextField.text!)"
             
             switch editingMode {
             case .create:
-                recordManager!.createPasswordRecord(app: app, user: user, password: password)
+                service.createPasswordRecord(app: app, user: user, password: password)
                 
             case .modify:
-                passwordRecord!.app = app
-                passwordRecord!.user = user
-                passwordRecord!.setPassword(password)
-                recordManager!.savePasswordRecords()
+                guard let record = passwordRecord else { fatalError() }
+                record.app = app
+                record.user = user
+                record.setPassword(password)
+                service.updatePasswordRecord(record)
             }
         }
     }
     
     func deletePasswordRecord() {
         guard editingMode == .modify else { return }
-        guard recordManager != nil else { assertionFailure("No record manager"); return }
         
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
-            self.recordManager!.deletePasswordRecord(self.passwordRecord!)
+            guard let record = self.passwordRecord else { fatalError() }
+            
+            self.service.deletePasswordRecord(record)
             self.passwordRecord = nil
             self.editingCancelled = true
-            self.coordinator?.passwordList()
+            self.coordinator?.showPasswordList()
         }
         ac.addAction(deleteAction)
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
