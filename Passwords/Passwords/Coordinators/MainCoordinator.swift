@@ -42,12 +42,9 @@ class MainCoordinator: Coordinator {
     @objc func authenticate() {
         authenticated = false
         let vc = AuthenticationViewController.instantiate()
+        vc.modalPresentationStyle = .fullScreen
         vc.coordinator = self
-        navigationController.present(vc, animated: false) { [unowned self] in
-            if !self.authenticated {
-                self.authenticate()
-            }
-        }
+        navigationController.present(vc, animated: false)
     }
     
     func showPassword(passwordRecord: PasswordRecord) {
@@ -74,6 +71,7 @@ class MainCoordinator: Coordinator {
     func addPassword() {
         if !authenticated { authenticate() }
         let vc = PasswordEditViewController.instantiate()
+        vc.modalPresentationStyle = .fullScreen
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: vc, action: "save")
         vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: vc, action: "cancel")
         vc.coordinator = self
