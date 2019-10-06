@@ -17,11 +17,16 @@ class AuthenticationViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         
         title = "Locked"
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         doAuthentication()
     }
     
     private func doAuthentication() {
+        guard let coordinator = coordinator else { fatalError() }
+        if coordinator.isAuthenticated() { return }
         let context = LAContext()
         var error: NSError?
         
@@ -33,10 +38,6 @@ class AuthenticationViewController: UIViewController, Storyboarded {
                     if success {
                         self.coordinator?.unlock()
                         self.dismiss(animated: true)
-                    } else {
-                        let ac = UIAlertController(title: "Authentication failed", message: "You identity couldn't be verified; please try again.", preferredStyle: .alert)
-                        ac.addAction(UIAlertAction(title: "OK", style: .default))
-                        self.present(ac, animated: true)
                     }
                 }
             }

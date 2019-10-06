@@ -43,7 +43,12 @@ class PasswordDetailViewController: UIViewController, Storyboarded {
     }
     
     @IBAction func unmaskButtonHold(_ sender: UIButton) {
-        passwordField.isSecureTextEntry = false
+        guard let coordinator = coordinator else { fatalError() }
+        if coordinator.isAuthenticated() {
+            passwordField.isSecureTextEntry = false
+        } else {
+            coordinator.authenticate()
+        }
     }
     
     @IBAction func unmaskButtonRelease(_ sender: UIButton) {
