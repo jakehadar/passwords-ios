@@ -11,16 +11,16 @@ import UIKit
 class MainCoordinator: Coordinator {
     var childCoordinators = [Coordinator]()
     var navigationController: UINavigationController
-    var recordManager: PasswordRecordManager
+    var passwordService: PasswordServiceProtocol
     
     var passwordListViewController: PasswordListViewController?
     
     private var authenticated = false
     
-    init(navigationController: UINavigationController, recordManager: PasswordRecordManager) {
+    init(navigationController: UINavigationController, passwordService: PasswordServiceProtocol) {
         self.navigationController = navigationController
-        self.recordManager = recordManager
-        NotificationCenter.default.addObserver(self, selector: #selector(authenticate), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        self.passwordService = passwordService
+        NotificationCenter.default.addObserver(self, selector: #selector(showAuthentication), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         #if DEBUG
             authenticated = true
         #endif
@@ -35,20 +35,20 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        if !authenticated { authenticate() }
-        passwordList()
+        if !authenticated { showAuthentication() }
+        showPasswordList()
     }
     
-    @objc func authenticate() {
-        authenticated = false
+    @objc func showAuthentication() {
         let vc = AuthenticationViewController.instantiate()
-        vc.modalPresentationStyle = .fullScreen
         vc.coordinator = self
-        navigationController.present(vc, animated: false)
+        let navController = UINavigationController(rootViewController: vc)
+        navController.modalPresentationStyle = .fullScreen
+        navigationController.present(navController, animated: false)
     }
     
-    func showPassword(passwordRecord: PasswordRecord) {
-        if !authenticated { authenticate() }
+    func showPasswordDetail(passwordRecord: Password) {
+        if !authenticated { showAuthentication() }
         let vc = PasswordDetailViewController.instantiate()
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: vc, action: "edit")
         vc.coordinator = self
@@ -57,39 +57,38 @@ class MainCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func editPassword(passwordRecord: PasswordRecord) {
-        if !authenticated { authenticate() }
+    func showPasswordEditor(passwordRecord: Password?) {
+        if !authenticated { showAuthentication() }
         let vc = PasswordEditViewController.instantiate()
-        vc.coordinator = self
-        vc.passwordRecord = passwordRecord
-        vc.recordManager = recordManager
+        vc.configure(coordinator: self, service: passwordService, record: passwordRecord)
         vc.title = "Edit password"
         
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func addPassword() {
-        if !authenticated { authenticate() }
+    func showPasswordCreator() {
+        if !authenticated { showAuthentication() }
         let vc = PasswordEditViewController.instantiate()
-        vc.modalPresentationStyle = .fullScreen
+        vc.configure(coordinator: self, service: passwordService, record: nil)
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: vc, action: "save")
         vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: vc, action: "cancel")
         vc.coordinator = self
-        vc.recordManager = recordManager
         vc.title = "New password"
         
         let navController = UINavigationController(rootViewController: vc)
+        navController.modalPresentationStyle = .fullScreen
         navigationController.present(navController, animated: true)
     }
     
-    func passwordList() {
-        if !authenticated { authenticate() }
+    func showPasswordList() {
+        if !authenticated { showAuthentication() }
         if let vc = passwordListViewController {
             navigationController.popToViewController(vc, animated: true)
         } else {
-            let dataSource = PasswordListDataSource(coordinator: self, recordManager: recordManager)
+            let controller = PasswordListDataController(service: passwordService)
+            let dataSource = PasswordListDataSource(controller: controller)
             let vc = PasswordListViewController.instantiate()
-            vc.dataSource = dataSource
+            vc.configure(coordinator: self, controller: controller, dataSource: dataSource)
             passwordListViewController = vc
             navigationController.pushViewController(vc, animated: false)
         }

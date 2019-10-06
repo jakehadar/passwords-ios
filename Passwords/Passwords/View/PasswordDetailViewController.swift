@@ -15,7 +15,7 @@ class PasswordDetailViewController: UIViewController, Storyboarded {
     @IBOutlet weak var lastModifiedLabel: UILabel!
     
     weak var coordinator: MainCoordinator?
-    weak var passwordRecord: PasswordRecord?
+    weak var passwordRecord: Password?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,7 @@ class PasswordDetailViewController: UIViewController, Storyboarded {
     
     @objc func edit() {
         if let record = passwordRecord {
-            coordinator?.editPassword(passwordRecord: record)
+            coordinator?.showPasswordEditor(passwordRecord: record)
         }
     }
     
@@ -47,7 +47,7 @@ class PasswordDetailViewController: UIViewController, Storyboarded {
         if coordinator.isAuthenticated() {
             passwordField.isSecureTextEntry = false
         } else {
-            coordinator.authenticate()
+            coordinator.showAuthentication()
         }
     }
     

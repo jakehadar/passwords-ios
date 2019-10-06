@@ -1,5 +1,5 @@
 //
-//  PasswordRecord.swift
+//  Password.swift
 //  Passwords
 //
 //  Created by James Hadar on 4/21/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PasswordRecord: NSObject, Codable {
+class Password: NSObject, Codable {
     
     var uuid: String
     

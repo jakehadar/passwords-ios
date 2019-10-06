@@ -26,7 +26,6 @@ class AuthenticationViewController: UIViewController, Storyboarded {
     
     private func doAuthentication() {
         guard let coordinator = coordinator else { fatalError() }
-        if coordinator.isAuthenticated() { return }
         let context = LAContext()
         var error: NSError?
         

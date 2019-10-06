@@ -12,10 +12,14 @@ class PasswordListViewController: UIViewController, Storyboarded {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var dataSource: PasswordListDataSource? {
-        didSet {
-            setupTableView()
-        }
+    var coordinator: MainCoordinator!
+    var controller: PasswordListDataControllerProtocol!
+    var dataSource: UITableViewDataSource!
+    
+    func configure(coordinator: MainCoordinator, controller: PasswordListDataControllerProtocol, dataSource: UITableViewDataSource) {
+        self.coordinator = coordinator
+        self.controller = controller
+        self.dataSource = dataSource
     }
     
     override func viewDidLoad() {
@@ -23,28 +27,29 @@ class PasswordListViewController: UIViewController, Storyboarded {
         
         title = "Applications"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordRecordCell")
-        setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        dataSource?.checkAuthentication()
-        dataSource?.reloadData()
+        
+        tableView.dataSource = dataSource
+        tableView.delegate = self
+        
+        controller.reloadData()
         tableView.reloadData()
-        tableView.reloadSectionIndexTitles()
     }
     
-    func setupTableView() {
-        if let tableView = tableView {
-            if let dataSource = dataSource {
-                tableView.dataSource = dataSource
-                tableView.delegate = dataSource
-                tableView.reloadData()
-            }
+    @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
+        coordinator.showPasswordCreator()
+    }
+}
+
+extension PasswordListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let app = controller.appNames[indexPath.section]
+        if let records = controller.recordsForApp[app] {
+            let record = records[indexPath.row]
+            coordinator.showPasswordDetail(passwordRecord: record)
         }
-    }
-    
-    @IBAction func addPassword(_ sender: UIBarButtonItem) {
-        dataSource?.addPassword()
     }
 }

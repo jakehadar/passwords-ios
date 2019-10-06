@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait" appearance="dark"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
@@ -83,7 +83,7 @@
                     <navigationItem key="navigationItem" id="yQ6-Jl-oLb">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qRk-rp-zu1">
                             <connections>
-                                <action selector="addPassword:" destination="BYZ-38-t0r" id="EWh-aK-yQZ"/>
+                                <action selector="addButtonTapped:" destination="BYZ-38-t0r" id="4DL-V1-Rod"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
