@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+// TODO: Split this into new DataController class
 class PasswordListDataSource: NSObject {
     var coordinator: MainCoordinator
     var recordManager: PasswordRecordManager

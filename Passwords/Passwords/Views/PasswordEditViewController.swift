@@ -13,11 +13,11 @@ enum PasswordEditingMode {
     case modify
 }
 
-class PasswordEditViewController: UIViewController, Storyboarded {
+class PasswordEditViewController: UITableViewController, Storyboarded {
     @IBOutlet weak var appTextField: UITextField!
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var deleteButton: UIButton!
+    @IBOutlet weak var deleteButton: UIBarButtonItem!
     @IBOutlet weak var maskSwitch: UISwitch!
     
     weak var coordinator: MainCoordinator?
@@ -68,15 +68,27 @@ class PasswordEditViewController: UIViewController, Storyboarded {
             appTextField.returnKeyType = .next
             userTextField.returnKeyType = .next
             passwordTextField.returnKeyType = .done
-            deleteButton.isHidden = true
+            navigationController?.setToolbarHidden(true, animated: false)
             appTextField.becomeFirstResponder()
             
         case .modify:
             appTextField.text = passwordRecord!.app
             userTextField.text = passwordRecord!.user
             passwordTextField.text = passwordRecord!.getPassword()
-            
-            deleteButton.isHidden = false
+            navigationController?.setToolbarHidden(false, animated: false)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            appTextField.becomeFirstResponder()
+        case 1:
+            userTextField.becomeFirstResponder()
+        case 2:
+            passwordTextField.becomeFirstResponder()
+        default:
+            dismissKeyboard()
         }
     }
     
@@ -205,7 +217,7 @@ class PasswordEditViewController: UIViewController, Storyboarded {
         }
     }
     
-    @IBAction func deleteButtonTapped(_ sender: UIButton) {
+    @IBAction func deleteButtonTapped(_ sender: UIBarButtonItem) {
         deletePasswordRecord()
     }
 }
