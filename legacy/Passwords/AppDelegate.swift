@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let navController = UINavigationController()
         navController.navigationBar.prefersLargeTitles = true
+        navController.modalPresentationStyle = .fullScreen
         
         let recordManager = PasswordRecordManager.sharedInstance
         
