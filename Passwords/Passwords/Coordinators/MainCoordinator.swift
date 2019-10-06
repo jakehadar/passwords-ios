@@ -89,9 +89,9 @@ class MainCoordinator: Coordinator {
         if let vc = passwordListViewController {
             navigationController.popToViewController(vc, animated: true)
         } else {
-            let viewModel = PasswordListViewModel(coordinator: self, recordManager: recordManager)
+            let dataSource = PasswordListDataSource(coordinator: self, recordManager: recordManager)
             let vc = PasswordListViewController.instantiate()
-            vc.viewModel = viewModel
+            vc.dataSource = dataSource
             passwordListViewController = vc
             navigationController.pushViewController(vc, animated: false)
         }

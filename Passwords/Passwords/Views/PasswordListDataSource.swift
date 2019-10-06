@@ -1,5 +1,5 @@
 //
-//  PasswordListViewModel.swift
+//  PasswordListDataSource.swift
 //  Passwords
 //
 //  Created by James Hadar on 4/23/18.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class PasswordListViewModel: NSObject {
+class PasswordListDataSource: NSObject {
     var coordinator: MainCoordinator
     var recordManager: PasswordRecordManager
     
@@ -45,7 +45,7 @@ class PasswordListViewModel: NSObject {
     }
 }
 
-extension PasswordListViewModel: UITableViewDataSource {
+extension PasswordListDataSource: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         guard apps.count > 0 else { return 0 }
@@ -81,7 +81,7 @@ extension PasswordListViewModel: UITableViewDataSource {
     
 }
 
-extension PasswordListViewModel: UITableViewDelegate {
+extension PasswordListDataSource: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let app = apps[indexPath.section]
         if let records = recordManager.getPasswordRecords(forApp: app) {
