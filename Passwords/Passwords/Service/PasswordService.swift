@@ -60,30 +60,43 @@ class PasswordService {
         appRecordsMap = newAppRecordsMap
     }
     
-    private func loadPasswordRecords() {
+    func decodedPasswordRecords() -> [Password]? {
         if let savedData = defaults.object(forKey: kDefaultsKey) as? Data {
             let jsonDecoder = JSONDecoder()
             
-            do {
-                passwordRecords = try jsonDecoder.decode([Password].self, from: savedData)
-                print("Loaded \(passwordRecords.count) password records")
-            } catch {
-                print("Failed to load password records.")
+            if let decodedRecords = try? jsonDecoder.decode([Password].self, from: savedData) {
+                return decodedRecords
             }
+        }
+        return nil
+    }
+    
+    func encodedPasswordData() -> Data? {
+        let jsonEncoder = JSONEncoder()
+        
+        if let encodedData = try? jsonEncoder.encode(passwordRecords) {
+            return encodedData
+        }
+        return nil
+    }
+    
+    private func loadPasswordRecords() {
+        if let decodedRecords = decodedPasswordRecords() {
+            passwordRecords = decodedRecords
+            print("Loaded \(passwordRecords.count) password records")
+        } else {
+            print("Failed to load password records.")
         }
     }
     
     private func savePasswordRecords() {
-        let jsonEncoder = JSONEncoder()
-        
-        if let savedData = try? jsonEncoder.encode(passwordRecords) {
-            defaults.set(savedData, forKey: kDefaultsKey)
+        if let encodedData = encodedPasswordData() {
+            defaults.set(encodedData, forKey: kDefaultsKey)
             print("Saved \(passwordRecords.count) password records.")
         } else {
             print("Failed to save password records.")
         }
     }
-    
 }
 
 // MARK: - PasswordServiceProtocol

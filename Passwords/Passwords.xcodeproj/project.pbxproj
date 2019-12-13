@@ -25,6 +25,7 @@
 		2E84B830208E03010096B512 /* PasswordListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B82F208E03010096B512 /* PasswordListDataSource.swift */; };
 		2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */; };
 		2E84B834208F5C730096B512 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B833208F5C730096B512 /* AuthenticationViewController.swift */; };
+		2EBE73E223A3AE88006C48C8 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		2E84B82F208E03010096B512 /* PasswordListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordListDataSource.swift; sourceTree = "<group>"; };
 		2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDetailViewController.swift; sourceTree = "<group>"; };
 		2E84B833208F5C730096B512 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				2E84B819208B95340096B512 /* PasswordEditViewController.swift */,
 				2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */,
 				2E84B833208F5C730096B512 /* AuthenticationViewController.swift */,
+				2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -228,6 +231,7 @@
 				2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */,
 				2E08453D2349D42100E905F2 /* PasswordService.swift in Sources */,
 				2E84B7E9208B83A30096B512 /* KeychainItemAccessibility.swift in Sources */,
+				2EBE73E223A3AE88006C48C8 /* ExportViewController.swift in Sources */,
 				2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */,
 				2E84B834208F5C730096B512 /* AuthenticationViewController.swift in Sources */,
 				2E84B81E208B95A40096B512 /* Coordinator.swift in Sources */,
@@ -383,6 +387,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 974F777EET;
 				INFOPLIST_FILE = Passwords/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -402,6 +407,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 974F777EET;
 				INFOPLIST_FILE = Passwords/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

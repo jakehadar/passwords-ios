@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -54,11 +53,11 @@
                                         <rect key="frame" x="0.0" y="55.333332061767578" width="375" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FIy-4L-Abb" id="xwL-kJ-bE4">
-                                            <rect key="frame" x="0.0" y="0.0" width="348.66666666666669" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="349" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="k3S-aV-HqS">
-                                                    <rect key="frame" x="15" y="0.0" width="325.66666666666669" height="43.666667938232422"/>
+                                                    <rect key="frame" x="15" y="0.0" width="326" height="43.666667938232422"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -80,13 +79,20 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="yQ6-Jl-oLb">
+                        <barButtonItem key="leftBarButtonItem" title="Export JSON" image="gear" catalog="system" id="l4S-Ev-x80">
+                            <connections>
+                                <segue destination="xig-6i-tRM" kind="show" id="8C4-Pb-bHV"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qRk-rp-zu1">
                             <connections>
                                 <action selector="addButtonTapped:" destination="BYZ-38-t0r" id="4DL-V1-Rod"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="uRb-QQ-b8C" id="AcG-V6-IZa"/>
                     </connections>
@@ -104,21 +110,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6UH-Qi-bJc">
-                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="685"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bku-ST-LQM">
-                                        <rect key="frame" x="20" y="0.0" width="335" height="183.66666666666666"/>
+                                        <rect key="frame" x="20" y="0.0" width="335" height="171.33333333333334"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="BeZ-yb-chP">
-                                        <rect key="frame" x="20" y="183.66666666666663" width="335" height="183.33333333333337"/>
+                                        <rect key="frame" x="20" y="171.33333333333331" width="335" height="171.33333333333331"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE7-ma-xx5">
-                                        <rect key="frame" x="20" y="367" width="335" height="183.66666666666663"/>
+                                        <rect key="frame" x="20" y="342.66666666666669" width="335" height="171.00000000000006"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <state key="normal" title="Hold to unmask password">
                                             <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -135,7 +141,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last modified 0 days ago" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLF-7o-j3V">
-                                        <rect key="frame" x="20" y="550.66666666666663" width="335" height="183.33333333333337"/>
+                                        <rect key="frame" x="20" y="513.66666666666663" width="335" height="171.33333333333337"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -162,6 +168,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3iA-u2-nTb"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="lastModifiedLabel" destination="nLF-7o-j3V" id="E6e-1J-sQk"/>
                         <outlet property="passwordField" destination="BeZ-yb-chP" id="S2d-Fv-CPn"/>
@@ -171,6 +179,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BcV-bN-bgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1722" y="139"/>
+        </scene>
+        <!--JSON Export-->
+        <scene sceneID="Aiy-Dv-RX6">
+            <objects>
+                <viewController id="8Zg-6m-pNW" customClass="ExportViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oad-fH-e2C">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OL2-YI-P9J">
+                                <rect key="frame" x="20" y="108" width="335" height="601"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="OL2-YI-P9J" firstAttribute="leading" secondItem="SS5-AC-FYS" secondAttribute="leading" constant="20" id="6be-xu-jzZ"/>
+                            <constraint firstItem="SS5-AC-FYS" firstAttribute="trailing" secondItem="OL2-YI-P9J" secondAttribute="trailing" constant="20" id="HF8-Mz-Bnq"/>
+                            <constraint firstItem="SS5-AC-FYS" firstAttribute="bottom" secondItem="OL2-YI-P9J" secondAttribute="bottom" constant="20" id="gfT-tg-xdW"/>
+                            <constraint firstItem="OL2-YI-P9J" firstAttribute="top" secondItem="SS5-AC-FYS" secondAttribute="top" constant="20" id="hyg-FV-mpV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="SS5-AC-FYS"/>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem title="Save to Documents" id="rsu-7d-ADr">
+                            <connections>
+                                <action selector="saveTapped:" destination="8Zg-6m-pNW" id="pem-4t-3M6"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="JSON Export" id="W5h-be-SbJ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="MlG-Oq-IQZ">
+                            <connections>
+                                <action selector="doneTapped:" destination="8Zg-6m-pNW" id="TT5-fT-H2e"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="exportTextView" destination="OL2-YI-P9J" id="N6Z-c1-7dB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vJf-EC-LAu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1959" y="899"/>
         </scene>
         <!--Password Edit View Controller-->
         <scene sceneID="7d5-p1-yy9">
@@ -314,5 +371,32 @@
             </objects>
             <point key="canvasLocation" x="2410" y="139"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PI9-4z-wjo">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="xig-6i-tRM" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="ftG-qq-MUD"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Znr-5o-y3y">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="XXD-on-3av">
+                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="8Zg-6m-pNW" kind="relationship" relationship="rootViewController" id="NEp-Fk-wGm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B3b-N3-pqo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1017" y="868"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="gear" catalog="system" width="64" height="58"/>
+    </resources>
 </document>
