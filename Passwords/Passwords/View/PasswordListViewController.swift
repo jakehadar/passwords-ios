@@ -8,17 +8,19 @@
 
 import UIKit
 
-class PasswordListViewController: UIViewController {
+class PasswordListViewController: AuthenticableViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    let passwordService = PasswordService.sharedInstance
+    var dataSource = PasswordListDataSource.default
     var controller: PasswordListDataControllerProtocol!
-    var dataSource: UITableViewDataSource!
+    
+    var selectedRecord: Password?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        controller = dataSource.controller
         
         title = "Applications"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordRecordCell")
@@ -27,14 +29,25 @@ class PasswordListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.controller = PasswordListDataController(service: passwordService)
-        self.dataSource = PasswordListDataSource(controller: controller)
-        
         tableView.dataSource = dataSource
         tableView.delegate = self
         
-        controller.reloadData()
+        dataSource.controller.reloadData()
         tableView.reloadData()
+    }
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? PasswordDetailViewController, let record = selectedRecord {
+            vc.passwordRecord = record
+        } else if let vc = segue.destination as? PasswordEditViewController {
+            // Creating a new record
+            vc.passwordRecord = nil
+        }
     }
 }
 
@@ -42,8 +55,7 @@ extension PasswordListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let app = controller.appNames[indexPath.section]
         if let records = controller.recordsForApp[app] {
-            let record = records[indexPath.row]
-//            coordinator.showPasswordDetail(passwordRecord: record)
+            selectedRecord = records[indexPath.row]
         }
     }
 }

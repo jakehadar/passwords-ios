@@ -8,13 +8,12 @@
 
 import UIKit
 
-class PasswordDetailViewController: UIViewController {
+class PasswordDetailViewController: AuthenticableViewController {
     
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var lastModifiedLabel: UILabel!
     
-    weak var coordinator: MainCoordinator?
     weak var passwordRecord: Password?
 
     override func viewDidLoad() {
@@ -36,18 +35,22 @@ class PasswordDetailViewController: UIViewController {
         }
     }
     
-    @objc func edit() {
-        if let record = passwordRecord {
-            coordinator?.showPasswordEditor(passwordRecord: record)
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? PasswordEditViewController {
+            vc.passwordRecord = passwordRecord
         }
     }
     
     @IBAction func unmaskButtonHold(_ sender: UIButton) {
-        guard let coordinator = coordinator else { fatalError() }
-        if coordinator.isAuthenticated() {
+        if authenticated {
             passwordField.isSecureTextEntry = false
         } else {
-            coordinator.showAuthentication()
+            present(AuthenticationViewController(), animated: true)
         }
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ExportViewController: UIViewController {
+class ExportViewController: AuthenticableViewController {
 
     @IBOutlet weak var exportTextView: UITextView!
     

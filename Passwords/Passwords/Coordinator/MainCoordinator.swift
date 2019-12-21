@@ -47,7 +47,7 @@ class MainCoordinator: NSObject {
     
     @objc func showAuthentication() {
         let vc = AuthenticationViewController()
-        vc.coordinator = self
+//        vc.coordinator = self
         let navController = UINavigationController(rootViewController: vc)
         navController.modalPresentationStyle = .fullScreen
         navigationController.present(navController, animated: false)
@@ -57,7 +57,7 @@ class MainCoordinator: NSObject {
         if !authenticated { showAuthentication() }
         let vc = PasswordDetailViewController()
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: vc, action: Selector("edit"))
-        vc.coordinator = self
+//        vc.coordinator = self
         vc.passwordRecord = passwordRecord
         
         navigationController.pushViewController(vc, animated: true)

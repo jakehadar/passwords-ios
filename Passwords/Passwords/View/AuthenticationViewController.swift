@@ -17,6 +17,11 @@ class AuthenticationViewController: UIViewController {
         title = "Locked"
     }
     
+    static func instantiate() -> UIViewController {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as UIViewController
+        return vc
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         doAuthentication()
