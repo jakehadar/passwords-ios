@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -65,6 +65,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="kbV-tw-48Q" kind="show" id="8is-xo-vEj"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>
@@ -88,7 +91,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qRk-rp-zu1">
                             <connections>
-                                <action selector="addButtonTapped:" destination="BYZ-38-t0r" id="4DL-V1-Rod"/>
+                                <segue destination="11N-4I-et8" kind="presentation" id="lJN-EZ-Jtx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -169,6 +172,13 @@
                         <viewLayoutGuide key="safeArea" id="3iA-u2-nTb"/>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="uVL-9B-F2S">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Id2-ZK-7PB">
+                            <connections>
+                                <segue destination="11N-4I-et8" kind="show" id="baP-Gr-yct"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="lastModifiedLabel" destination="nLF-7o-j3V" id="E6e-1J-sQk"/>
@@ -178,7 +188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BcV-bN-bgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1722" y="139"/>
+            <point key="canvasLocation" x="1788" y="-214"/>
         </scene>
         <!--JSON Export-->
         <scene sceneID="Aiy-Dv-RX6">
@@ -322,24 +332,24 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Rg-Ag-of4">
-                                                    <rect key="frame" x="20" y="6.6666666666666679" width="51" height="31.000000000000004"/>
-                                                    <connections>
-                                                        <action selector="maskSwitchToggled:" destination="11N-4I-et8" eventType="valueChanged" id="2lb-sQ-Vs7"/>
-                                                    </connections>
-                                                </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Secure text entry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcB-ET-igj">
-                                                    <rect key="frame" x="89" y="13" width="117.66666666666669" height="18"/>
+                                                    <rect key="frame" x="20.000000000000007" y="13" width="117.66666666666669" height="18"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Rg-Ag-of4">
+                                                    <rect key="frame" x="306" y="6.6666666666666679" width="51" height="31.000000000000004"/>
+                                                    <connections>
+                                                        <action selector="maskSwitchToggled:" destination="11N-4I-et8" eventType="valueChanged" id="2lb-sQ-Vs7"/>
+                                                    </connections>
+                                                </switch>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="8Rg-Ag-of4" firstAttribute="leading" secondItem="meb-8u-7xG" secondAttribute="leading" constant="20" id="4ix-2u-ajT"/>
+                                                <constraint firstItem="gcB-ET-igj" firstAttribute="leading" secondItem="meb-8u-7xG" secondAttribute="leading" constant="20" id="DX7-4k-v3a"/>
+                                                <constraint firstAttribute="trailing" secondItem="8Rg-Ag-of4" secondAttribute="trailing" constant="20" id="Ou8-1L-vtv"/>
                                                 <constraint firstItem="gcB-ET-igj" firstAttribute="centerY" secondItem="meb-8u-7xG" secondAttribute="centerY" id="WSK-Du-mFm"/>
                                                 <constraint firstItem="8Rg-Ag-of4" firstAttribute="centerY" secondItem="meb-8u-7xG" secondAttribute="centerY" id="mw0-FX-We9"/>
-                                                <constraint firstItem="gcB-ET-igj" firstAttribute="leading" secondItem="8Rg-Ag-of4" secondAttribute="trailing" constant="20" id="tli-dA-9r1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -358,9 +368,15 @@
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
+                    <navigationItem key="navigationItem" id="THd-B7-Qev">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="zEc-eO-ZfN"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="7QI-Ao-RSK"/>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="appTextField" destination="6vi-6A-DRZ" id="WuY-KH-N2G"/>
+                        <outlet property="cancelButton" destination="zEc-eO-ZfN" id="eEK-wi-A0j"/>
+                        <outlet property="commitButton" destination="7QI-Ao-RSK" id="Ep6-46-kIR"/>
                         <outlet property="deleteButton" destination="4iw-hK-AQe" id="WET-Mu-w8Y"/>
                         <outlet property="maskSwitch" destination="8Rg-Ag-of4" id="MfU-aF-R72"/>
                         <outlet property="passwordTextField" destination="muh-D3-4S6" id="koC-tS-Wd5"/>
@@ -369,7 +385,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3MO-Gw-b1J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2410" y="139"/>
+            <point key="canvasLocation" x="2566" y="94"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PI9-4z-wjo">
@@ -399,4 +415,7 @@
     <resources>
         <image name="gear" catalog="system" width="64" height="58"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="baP-Gr-yct"/>
+    </inferredMetricsTieBreakers>
 </document>

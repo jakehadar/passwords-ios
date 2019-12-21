@@ -20,6 +20,9 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     @IBOutlet weak var maskSwitch: UISwitch!
     
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var commitButton: UIBarButtonItem!
+    
     var coordinator: MainCoordinator!
     var service: PasswordServiceProtocol!
     var passwordRecord: Password? {
@@ -43,6 +46,17 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if editingMode == .create {
+            title = "New"
+            commitButton.title = "Save"
+            commitButton.style = .done
+            
+        } else {
+            title = "Edit"
+            commitButton.title = "Done"
+            commitButton.style = .done
+        }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
@@ -176,15 +190,13 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
     }
     
     func enableSaveButton() {
-        if let saveButton = navigationItem.rightBarButtonItem {
-            saveButton.isEnabled = true
-        }
+        guard editingMode == .modify else { return }
+        commitButton.isEnabled = true
     }
     
     func disableSaveButton() {
-        if let saveButton = navigationItem.rightBarButtonItem {
-            saveButton.isEnabled = false
-        }
+        guard editingMode == .modify else { return }
+        commitButton.isEnabled = false
     }
     
     @IBAction func textFieldPrimaryActionTriggered(_ sender: UITextField) {
