@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
@@ -91,7 +91,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qRk-rp-zu1">
                             <connections>
-                                <segue destination="11N-4I-et8" kind="presentation" id="lJN-EZ-Jtx"/>
+                                <segue destination="Lp9-hu-a3F" kind="presentation" id="lJN-EZ-Jtx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -175,7 +175,7 @@
                     <navigationItem key="navigationItem" id="uVL-9B-F2S">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Id2-ZK-7PB">
                             <connections>
-                                <segue destination="11N-4I-et8" kind="show" id="baP-Gr-yct"/>
+                                <segue destination="Lp9-hu-a3F" kind="show" id="baP-Gr-yct"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -237,14 +237,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJf-EC-LAu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1959" y="899"/>
+            <point key="canvasLocation" x="1943" y="867"/>
         </scene>
         <!--Password Edit View Controller-->
         <scene sceneID="7d5-p1-yy9">
             <objects>
                 <tableViewController storyboardIdentifier="PasswordEditViewController" id="11N-4I-et8" customClass="PasswordEditViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="cCe-pk-gN0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -269,8 +269,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="6vi-6A-DRZ" secondAttribute="trailing" constant="20" id="6Ov-a6-SnA"/>
-                                                <constraint firstItem="6vi-6A-DRZ" firstAttribute="centerX" secondItem="Dja-ht-sD8" secondAttribute="centerX" id="M6v-rn-WIM"/>
-                                                <constraint firstItem="6vi-6A-DRZ" firstAttribute="centerY" secondItem="Dja-ht-sD8" secondAttribute="centerY" id="V62-b4-QG0"/>
+                                                <constraint firstItem="6vi-6A-DRZ" firstAttribute="centerY" secondItem="Dja-ht-sD8" secondAttribute="centerY" id="LWz-b4-hSt"/>
                                                 <constraint firstItem="6vi-6A-DRZ" firstAttribute="leading" secondItem="Dja-ht-sD8" secondAttribute="leading" constant="20" id="sr7-R9-h9J"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -293,10 +292,9 @@
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="h0M-5W-AJx" firstAttribute="centerY" secondItem="JYb-GP-EaN" secondAttribute="centerY" id="4CB-Dl-fAg"/>
                                                 <constraint firstAttribute="trailing" secondItem="h0M-5W-AJx" secondAttribute="trailing" constant="20" id="6j8-5s-J5r"/>
                                                 <constraint firstItem="h0M-5W-AJx" firstAttribute="leading" secondItem="JYb-GP-EaN" secondAttribute="leading" constant="20" id="Q0J-dw-r28"/>
-                                                <constraint firstItem="h0M-5W-AJx" firstAttribute="centerX" secondItem="JYb-GP-EaN" secondAttribute="centerX" id="k8a-cK-WtX"/>
+                                                <constraint firstItem="h0M-5W-AJx" firstAttribute="centerY" secondItem="JYb-GP-EaN" secondAttribute="centerY" id="pqp-yS-VIl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -319,9 +317,8 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="muh-D3-4S6" secondAttribute="trailing" constant="20" id="Hu2-IF-bxl"/>
-                                                <constraint firstItem="muh-D3-4S6" firstAttribute="centerX" secondItem="RJa-aP-mvt" secondAttribute="centerX" id="JiN-6z-0fA"/>
                                                 <constraint firstItem="muh-D3-4S6" firstAttribute="leading" secondItem="RJa-aP-mvt" secondAttribute="leading" constant="20" id="PYy-JD-KF1"/>
-                                                <constraint firstItem="muh-D3-4S6" firstAttribute="centerY" secondItem="RJa-aP-mvt" secondAttribute="centerY" id="YJL-9c-oUy"/>
+                                                <constraint firstItem="muh-D3-4S6" firstAttribute="centerY" secondItem="RJa-aP-mvt" secondAttribute="centerY" id="R5A-Gm-AJD"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -333,7 +330,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Secure text entry" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcB-ET-igj">
-                                                    <rect key="frame" x="20.000000000000007" y="13" width="117.66666666666669" height="18"/>
+                                                    <rect key="frame" x="20" y="13" width="335" height="18"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -350,6 +347,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="8Rg-Ag-of4" secondAttribute="trailing" constant="20" id="Ou8-1L-vtv"/>
                                                 <constraint firstItem="gcB-ET-igj" firstAttribute="centerY" secondItem="meb-8u-7xG" secondAttribute="centerY" id="WSK-Du-mFm"/>
                                                 <constraint firstItem="8Rg-Ag-of4" firstAttribute="centerY" secondItem="meb-8u-7xG" secondAttribute="centerY" id="mw0-FX-We9"/>
+                                                <constraint firstItem="gcB-ET-igj" firstAttribute="trailing" secondItem="8Rg-Ag-of4" secondAttribute="trailing" id="z4N-K1-kNM"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -370,7 +368,7 @@
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="THd-B7-Qev">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="zEc-eO-ZfN"/>
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="7QI-Ao-RSK"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="7QI-Ao-RSK"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -385,7 +383,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3MO-Gw-b1J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2566" y="94"/>
+            <point key="canvasLocation" x="3378" y="94"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PI9-4z-wjo">
@@ -411,11 +409,30 @@
             </objects>
             <point key="canvasLocation" x="1017" y="868"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tCX-pX-fwv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Lp9-hu-a3F" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="6ID-1M-Pcz"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2Rt-4g-bhQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="11N-4I-et8" kind="relationship" relationship="rootViewController" id="1pY-e7-a6V"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2xq-R1-Cl0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2565.5999999999999" y="93.842364532019715"/>
+        </scene>
     </scenes>
     <resources>
         <image name="gear" catalog="system" width="64" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="baP-Gr-yct"/>
+        <segue reference="lJN-EZ-Jtx"/>
     </inferredMetricsTieBreakers>
 </document>

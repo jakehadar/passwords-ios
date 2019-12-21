@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PasswordDetailViewController: UIViewController, Storyboarded {
+class PasswordDetailViewController: UIViewController {
     
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var passwordField: UITextField!

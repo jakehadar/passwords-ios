@@ -8,26 +8,13 @@
 
 import UIKit
 
+//  This is an anti pattern but whatever
+var authenticated: Bool = false
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-    var coordinator: Coordinator?
-
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        let navController = UINavigationController()
-        navController.navigationBar.prefersLargeTitles = true
-        
-        let passwordService = PasswordService.sharedInstance
-        
-        coordinator = MainCoordinator(navigationController: navController, passwordService: passwordService)
-        coordinator?.start()
-        
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = navController
-        window?.makeKeyAndVisible()
         
         return true
     }

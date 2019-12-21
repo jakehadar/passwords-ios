@@ -22,9 +22,8 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var commitButton: UIBarButtonItem!
-    
-    var coordinator: MainCoordinator!
-    var service: PasswordServiceProtocol!
+        
+    private let service = PasswordService.sharedInstance
     var passwordRecord: Password? {
         didSet {
             if passwordRecord == nil {
@@ -35,15 +34,9 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
         }
     }
     
-    var editingMode: PasswordEditingMode = .create
-    var editingCancelled = false
+    private var editingMode: PasswordEditingMode = .create
+    private var editingCancelled = false
     
-    func configure(coordinator: MainCoordinator, service: PasswordServiceProtocol, record: Password?) {
-        self.coordinator = coordinator
-        self.service = service
-        self.passwordRecord = record
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,6 +60,7 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.modalPresentationStyle = .fullScreen
         editingCancelled = false
         setupView()
     }
@@ -142,7 +136,7 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
             self.service.deletePasswordRecord(record)
             self.passwordRecord = nil
             self.editingCancelled = true
-            self.coordinator?.showPasswordList()
+            self.navigationController?.dismiss(animated: true)
         }
         ac.addAction(deleteAction)
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))

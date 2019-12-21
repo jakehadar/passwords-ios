@@ -9,9 +9,7 @@
 import UIKit
 import LocalAuthentication
 
-class AuthenticationViewController: UIViewController, Storyboarded {
-    
-    weak var coordinator: MainCoordinator?
+class AuthenticationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +23,6 @@ class AuthenticationViewController: UIViewController, Storyboarded {
     }
     
     private func doAuthentication() {
-        guard let coordinator = coordinator else { fatalError() }
         let context = LAContext()
         var error: NSError?
         
@@ -35,7 +32,7 @@ class AuthenticationViewController: UIViewController, Storyboarded {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [unowned self] (success, authenticationError) in
                 DispatchQueue.main.async {
                     if success {
-                        self.coordinator?.unlock()
+                        authenticated = true
                         self.dismiss(animated: true)
                     }
                 }

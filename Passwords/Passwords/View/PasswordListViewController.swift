@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PasswordListViewController: UIViewController, Storyboarded {
+class PasswordListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -43,7 +43,7 @@ extension PasswordListViewController: UITableViewDelegate {
         let app = controller.appNames[indexPath.section]
         if let records = controller.recordsForApp[app] {
             let record = records[indexPath.row]
-            coordinator.showPasswordDetail(passwordRecord: record)
+//            coordinator.showPasswordDetail(passwordRecord: record)
         }
     }
 }

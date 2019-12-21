@@ -1,5 +1,5 @@
 
-\//
+//
 //  MainCoordinator.swift
 //  Passwords
 //
@@ -7,10 +7,13 @@
 //  Copyright © 2018 James Hadar. All rights reserved.
 //
 
+
+// THIS IS LEGACY and being replaced with storyboards
+
 import UIKit
 
-class MainCoordinator: Coordinator {
-    var childCoordinators = [Coordinator]()
+class MainCoordinator: NSObject {
+    var childCoordinators = [MainCoordinator]()
     var navigationController: UINavigationController
     var passwordService: PasswordServiceProtocol
     
@@ -19,9 +22,11 @@ class MainCoordinator: Coordinator {
     private var authenticated = false
     
     init(navigationController: UINavigationController, passwordService: PasswordServiceProtocol) {
+        
+        fatalError("THIS CLASS IS LEGACY and being replaced with storyboards")
         self.navigationController = navigationController
         self.passwordService = passwordService
-        NotificationCenter.default.addObserver(self, selector: #selector(showAuthentication), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(showAuthentication), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         #if DEBUG
             authenticated = true
         #endif
@@ -41,7 +46,7 @@ class MainCoordinator: Coordinator {
     }
     
     @objc func showAuthentication() {
-        let vc = AuthenticationViewController.instantiate()
+        let vc = AuthenticationViewController()
         vc.coordinator = self
         let navController = UINavigationController(rootViewController: vc)
         navController.modalPresentationStyle = .fullScreen
@@ -50,8 +55,8 @@ class MainCoordinator: Coordinator {
     
     func showPasswordDetail(passwordRecord: Password) {
         if !authenticated { showAuthentication() }
-        let vc = PasswordDetailViewController.instantiate()
-        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: vc, action: "edit")
+        let vc = PasswordDetailViewController()
+        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: vc, action: Selector("edit"))
         vc.coordinator = self
         vc.passwordRecord = passwordRecord
         
@@ -60,8 +65,8 @@ class MainCoordinator: Coordinator {
     
     func showPasswordEditor(passwordRecord: Password?) {
         if !authenticated { showAuthentication() }
-        let vc = PasswordEditViewController.instantiate()
-        vc.configure(coordinator: self, service: passwordService, record: passwordRecord)
+        let vc = PasswordEditViewController()
+//        vc.configure(coordinator: self, service: passwordService, record: passwordRecord)
         vc.title = "Edit password"
         
         navigationController.pushViewController(vc, animated: true)
@@ -69,11 +74,11 @@ class MainCoordinator: Coordinator {
     
     func showPasswordCreator() {
         if !authenticated { showAuthentication() }
-        let vc = PasswordEditViewController.instantiate()
-        vc.configure(coordinator: self, service: passwordService, record: nil)
+        let vc = PasswordEditViewController()
+//        vc.configure(coordinator: self, service: passwordService, record: nil)
         vc.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: vc, action: "save")
         vc.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: vc, action: "cancel")
-        vc.coordinator = self
+//        vc.coordinator = self
         vc.title = "New password"
         
         let navController = UINavigationController(rootViewController: vc)
@@ -88,8 +93,8 @@ class MainCoordinator: Coordinator {
         } else {
             let controller = PasswordListDataController(service: passwordService)
             let dataSource = PasswordListDataSource(controller: controller)
-            let vc = PasswordListViewController.instantiate()
-            vc.configure(coordinator: self, controller: controller, dataSource: dataSource)
+            let vc = PasswordListViewController()
+//            vc.configure(coordinator: self, controller: controller, dataSource: dataSource)
             passwordListViewController = vc
             navigationController.pushViewController(vc, animated: false)
         }
