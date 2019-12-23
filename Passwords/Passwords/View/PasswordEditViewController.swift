@@ -13,7 +13,7 @@ enum PasswordEditingMode {
     case modify
 }
 
-class PasswordEditViewController: AuthenticableViewController {
+class PasswordEditViewController: UITableViewController {
     @IBOutlet weak var appTextField: UITextField!
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -93,7 +93,7 @@ class PasswordEditViewController: AuthenticableViewController {
         }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
             appTextField.becomeFirstResponder()

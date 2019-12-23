@@ -50,7 +50,7 @@ class PasswordDetailViewController: AuthenticableViewController {
         if authenticated {
             passwordField.isSecureTextEntry = false
         } else {
-            present(AuthenticationViewController(), animated: true)
+            print("Not authenticated")
         }
     }
     

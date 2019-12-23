@@ -30,7 +30,6 @@
 /* Begin PBXFileReference section */
 		2E0845392349C72200E905F2 /* PasswordListDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordListDataController.swift; sourceTree = "<group>"; };
 		2E08453C2349D42100E905F2 /* PasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordService.swift; sourceTree = "<group>"; };
-		2E40FF9223AE526E00B01DA8 /* Passwords.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Passwords.entitlements; sourceTree = "<group>"; };
 		2E40FF9623AE772900B01DA8 /* AuthenticableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticableViewController.swift; sourceTree = "<group>"; };
 		2E84B7D2208B81450096B512 /* Passwords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passwords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E84B7D5208B81450096B512 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,7 +97,6 @@
 		2E84B7D4208B81450096B512 /* Passwords */ = {
 			isa = PBXGroup;
 			children = (
-				2E40FF9223AE526E00B01DA8 /* Passwords.entitlements */,
 				2E84B7D5208B81450096B512 /* AppDelegate.swift */,
 				2E08453B2349D40E00E905F2 /* Service */,
 				2E84B826208BE5E10096B512 /* Model */,
@@ -382,11 +380,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Passwords/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 974F777EET;
 				INFOPLIST_FILE = Passwords/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -403,11 +400,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Passwords/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 974F777EET;
 				INFOPLIST_FILE = Passwords/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

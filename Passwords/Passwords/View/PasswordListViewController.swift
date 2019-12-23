@@ -44,7 +44,7 @@ class PasswordListViewController: AuthenticableViewController {
         // Pass the selected object to the new view controller.
         if let vc = segue.destination as? PasswordDetailViewController, let record = selectedRecord {
             vc.passwordRecord = record
-        } else if let vc = segue.destination as? PasswordEditViewController {
+        } else if let nc = segue.destination as? UINavigationController, let vc = nc.childViewControllers.first as? PasswordEditViewController {
             // Creating a new record
             vc.passwordRecord = nil
         }

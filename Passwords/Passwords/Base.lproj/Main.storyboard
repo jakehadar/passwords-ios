@@ -244,7 +244,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="PasswordEditViewController" id="11N-4I-et8" customClass="PasswordEditViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="cCe-pk-gN0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -383,7 +383,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3MO-Gw-b1J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4359" y="95"/>
+            <point key="canvasLocation" x="4386" y="132"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PI9-4z-wjo">
@@ -416,7 +416,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="6ID-1M-Pcz"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2Rt-4g-bhQ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -426,12 +426,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2xq-R1-Cl0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3548" y="95"/>
+            <point key="canvasLocation" x="3577" y="132"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="y0Y-Qs-P0A">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UzH-EP-fAg" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InitialViewController" automaticallyAdjustsScrollViewInsets="NO" id="UzH-EP-fAg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HAk-xO-rr9">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -444,13 +444,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rrh-pz-Nvv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1238" y="132"/>
+            <point key="canvasLocation" x="1180" y="132"/>
         </scene>
     </scenes>
     <resources>
         <image name="gear" catalog="system" width="64" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lJN-EZ-Jtx"/>
+        <segue reference="baP-Gr-yct"/>
     </inferredMetricsTieBreakers>
 </document>

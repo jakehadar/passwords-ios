@@ -6,7 +6,6 @@
 //  Copyright © 2019 James Hadar. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 /// View controllers requiring authentication will subclass this (instead of UIViewController) to get consistent behavior throughout the app. TODO: Inheritence feels awkward, do Swift decorators exist?
@@ -17,12 +16,13 @@ class AuthenticableViewController: UIViewController {
     }
     
     private func checkAuthentication(animated: Bool) {
-        #if DEBUG
-        authenticated = true
-        #endif
+        guard let navigationController = navigationController else { fatalError() }
+//        #if DEBUG
+//        authenticated = true
+//        #endif
         if !authenticated {
             let vc = AuthenticationViewController.instantiate()
-            present(vc, animated: animated)
+            navigationController.present(vc, animated: animated)
         }
         print("checkAuthentication: \(authenticated ? "Authenticated" : "Not authenticated")")
     }
