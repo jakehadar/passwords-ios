@@ -62,10 +62,6 @@ class PasswordListViewController: AuthenticableViewController {
             vc.passwordRecord = nil
         }
     }
-    
-    override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
-        print("unwind")
-    }
 }
 
 extension PasswordListViewController: UITableViewDelegate {

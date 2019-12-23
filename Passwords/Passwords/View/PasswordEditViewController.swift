@@ -126,23 +126,6 @@ class PasswordEditViewController: UITableViewController {
         }
     }
     
-    func deletePasswordRecord() {
-        guard editingMode == .modify else { return }
-        
-        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
-            guard let record = self.passwordRecord else { fatalError() }
-            
-            self.service.deletePasswordRecord(record)
-            self.passwordRecord = nil
-            self.editingCancelled = true
-            self.navigationController?.dismiss(animated: true)
-        }
-        ac.addAction(deleteAction)
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(ac, animated: true)
-    }
-    
     func validateInputs() -> Bool {
         // Check that text fields have text
         guard appTextField.text != nil else { return false }
@@ -192,12 +175,10 @@ class PasswordEditViewController: UITableViewController {
     }
     
     func enableSaveButton() {
-        guard editingMode == .modify else { return }
         commitButton.isEnabled = true
     }
     
     func disableSaveButton() {
-        guard editingMode == .modify else { return }
         commitButton.isEnabled = false
     }
     
@@ -220,12 +201,10 @@ class PasswordEditViewController: UITableViewController {
     
     
     @IBAction func textFieldValueDidChange(_ sender: UITextField) {
-        if editingMode == .create {
-            if validateInputs() {
-                enableSaveButton()
-            } else {
-                disableSaveButton()
-            }
+        if validateInputs() {
+            enableSaveButton()
+        } else {
+            disableSaveButton()
         }
     }
     
@@ -235,10 +214,6 @@ class PasswordEditViewController: UITableViewController {
         } else {
             passwordTextField.isSecureTextEntry = false
         }
-    }
-    
-    @IBAction func deleteButtonTapped(_ sender: UIBarButtonItem) {
-        deletePasswordRecord()
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {

@@ -14,6 +14,8 @@ class PasswordDetailViewController: AuthenticableViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var lastModifiedLabel: UILabel!
     
+    private let service = PasswordService.sharedInstance
+    
     weak var passwordRecord: Password?
 
     override func viewDidLoad() {
@@ -32,6 +34,9 @@ class PasswordDetailViewController: AuthenticableViewController {
             let dateModified = DateHelper.fromInt(record.modified)
             let unitsSinceLastModified = DateHelper.timeIntervalString(since: dateModified)
             lastModifiedLabel.text = "Last modified \(unitsSinceLastModified) ago"
+        } else {
+            // Only case where this code path should be entered is when passwordRecord is deleted from the Edit modal.
+            self.dismiss(animated: true)
         }
     }
     
@@ -41,9 +46,25 @@ class PasswordDetailViewController: AuthenticableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if let vc = segue.destination as? PasswordEditViewController {
+        if let nc = segue.destination as? UINavigationController, let vc = nc.childViewControllers.first as? PasswordEditViewController {
             vc.passwordRecord = passwordRecord
         }
+    }
+    
+    func deletePasswordRecord() {
+        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
+            guard let record = self.passwordRecord else { fatalError() }
+            
+            self.service.deletePasswordRecord(record)
+            self.passwordRecord = nil
+            self.dismiss(animated: true) {
+                self.dismiss(animated: true)
+            }
+        }
+        ac.addAction(deleteAction)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
     }
     
     @IBAction func unmaskButtonHold(_ sender: UIButton) {
@@ -58,4 +79,7 @@ class PasswordDetailViewController: AuthenticableViewController {
         passwordField.isSecureTextEntry = true
     }
     
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        deletePasswordRecord()
+    }
 }
