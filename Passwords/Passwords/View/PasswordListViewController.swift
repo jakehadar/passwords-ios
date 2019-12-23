@@ -15,7 +15,7 @@ class PasswordListViewController: AuthenticableViewController {
     var dataSource = PasswordListDataSource.default
     var controller: PasswordListDataControllerProtocol!
     
-    var selectedRecord: Password?
+     var selectedRecord: Password?
 
     
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class PasswordListViewController: AuthenticableViewController {
         super.viewWillAppear(animated)
         
         tableView.dataSource = dataSource
-        tableView.delegate = self
+         tableView.delegate = self
         
         dataSource.controller.reloadData()
         tableView.reloadData()
@@ -42,8 +42,14 @@ class PasswordListViewController: AuthenticableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if let nc = segue.destination as? UINavigationController, let vc = nc.childViewControllers.first as? PasswordDetailViewController, let record = selectedRecord {
-            vc.passwordRecord = record
+        
+        if let vc = segue.destination as? PasswordDetailViewController, let indexPath = tableView.indexPathForSelectedRow {
+            // Editing an existing record
+            // TODO: make a controller.passwordRecordForIndexPath to own this logic
+            let app = controller.appNames[indexPath.section]
+            if let records = controller.recordsForApp[app] {
+                vc.passwordRecord = records[indexPath.row]
+            }
         } else if let nc = segue.destination as? UINavigationController, let vc = nc.childViewControllers.first as? PasswordEditViewController {
             // Creating a new record
             vc.passwordRecord = nil
@@ -53,9 +59,6 @@ class PasswordListViewController: AuthenticableViewController {
 
 extension PasswordListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let app = controller.appNames[indexPath.section]
-        if let records = controller.recordsForApp[app] {
-            selectedRecord = records[indexPath.row]
-        }
+        performSegue(withIdentifier: "PasswordDetail", sender: nil)
     }
 }
