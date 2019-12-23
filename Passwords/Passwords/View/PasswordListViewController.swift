@@ -42,7 +42,7 @@ class PasswordListViewController: AuthenticableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-        if let vc = segue.destination as? PasswordDetailViewController, let record = selectedRecord {
+        if let nc = segue.destination as? UINavigationController, let vc = nc.childViewControllers.first as? PasswordDetailViewController, let record = selectedRecord {
             vc.passwordRecord = record
         } else if let nc = segue.destination as? UINavigationController, let vc = nc.childViewControllers.first as? PasswordEditViewController {
             // Creating a new record
