@@ -166,15 +166,23 @@ class PasswordEditViewController: UITableViewController {
         return true
     }
     
-    @objc func save() {
+    @objc func commit() {
         if validateInputs() {
-            self.dismiss(animated: true)
+            dismissAndReload()
         }
     }
     
     @objc func cancel() {
         editingCancelled = true
-        self.dismiss(animated: true)
+        dismissAndReload()
+    }
+    
+    func dismissAndReload() {
+        dismiss(animated: true) {
+            if let parent = self.parent as? PasswordListViewController {
+                parent.reloadData()
+            }
+        }
     }
     
     @objc func dismissKeyboard() {
@@ -232,6 +240,15 @@ class PasswordEditViewController: UITableViewController {
     @IBAction func deleteButtonTapped(_ sender: UIBarButtonItem) {
         deletePasswordRecord()
     }
+    
+    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        cancel()
+    }
+    
+    @IBAction func commitButtonTapped(_ sender: UIBarButtonItem) {
+        commit()
+    }
+    
 }
 
 extension PasswordEditViewController: UITextFieldDelegate {

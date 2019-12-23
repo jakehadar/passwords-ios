@@ -91,7 +91,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qRk-rp-zu1">
                             <connections>
-                                <segue destination="Lp9-hu-a3F" kind="presentation" identifier="AddPassword" id="lJN-EZ-Jtx"/>
+                                <segue destination="Lp9-hu-a3F" kind="presentation" identifier="AddPassword" modalPresentationStyle="fullScreen" id="lJN-EZ-Jtx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -175,7 +175,7 @@
                     <navigationItem key="navigationItem" id="uVL-9B-F2S">
                         <barButtonItem key="rightBarButtonItem" systemItem="edit" id="Id2-ZK-7PB">
                             <connections>
-                                <segue destination="Lp9-hu-a3F" kind="show" id="baP-Gr-yct"/>
+                                <segue destination="Lp9-hu-a3F" kind="presentation" modalPresentationStyle="fullScreen" id="baP-Gr-yct"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -244,7 +244,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="PasswordEditViewController" id="11N-4I-et8" customClass="PasswordEditViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="cCe-pk-gN0">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <sections>
@@ -367,8 +367,16 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="THd-B7-Qev">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="zEc-eO-ZfN"/>
-                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="7QI-Ao-RSK"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="zEc-eO-ZfN">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="11N-4I-et8" id="4bH-Vd-IqT"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="7QI-Ao-RSK">
+                            <connections>
+                                <action selector="commitButtonTapped:" destination="11N-4I-et8" id="O04-cX-df7"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -416,7 +424,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="6ID-1M-Pcz"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="2Rt-4g-bhQ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -451,6 +459,6 @@
         <image name="gear" catalog="system" width="64" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lJN-EZ-Jtx"/>
+        <segue reference="baP-Gr-yct"/>
     </inferredMetricsTieBreakers>
 </document>

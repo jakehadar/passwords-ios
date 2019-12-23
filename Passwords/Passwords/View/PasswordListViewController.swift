@@ -24,14 +24,21 @@ class PasswordListViewController: AuthenticableViewController {
         
         title = "Applications"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordRecordCell")
+        
+        tableView.dataSource = dataSource
+        tableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tableView.dataSource = dataSource
-         tableView.delegate = self
+        print("view will appear")
         
+        reloadData()
+    }
+    
+    func reloadData() {
+        print("reloadData")
         dataSource.controller.reloadData()
         tableView.reloadData()
     }
@@ -54,6 +61,10 @@ class PasswordListViewController: AuthenticableViewController {
             // Creating a new record
             vc.passwordRecord = nil
         }
+    }
+    
+    override func unwind(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+        print("unwind")
     }
 }
 
