@@ -54,12 +54,15 @@ class PasswordEditViewController: UITableViewController {
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
         
+        navigationController?.modalPresentationStyle = .fullScreen
+        
         disableSaveButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.modalPresentationStyle = .fullScreen
+        authController.authenticate()
+        
         editingCancelled = false
         setupView()
     }

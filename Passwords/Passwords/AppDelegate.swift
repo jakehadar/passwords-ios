@@ -8,10 +8,9 @@
 
 import UIKit
 
-//  The internet says this is anti pattern but whatever, will redesign later.
-var authenticated: Bool = false
+//  TODO: Unwind these globals in a later refactoring.
 let passwordService: PasswordService = PasswordService.default
-var authService: AuthService!
+var authController: AuthController!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InitialViewController") as UIViewController
         
-        authService = AuthService(vc)
+        authController = AuthController(vc)
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = vc
@@ -32,12 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillResignActive(_ application: UIApplication) {
         print("AppDelegate: applicationWillResignActive")
-        authService.deauthenticate()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        authController.deauthenticate()
         print("AppDelegate: applicationDidEnterBackground")
     }
 
@@ -49,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         print("AppDelegate: applicationDidBecomeActive")
-        authService.authenticate()
+        authController.authenticate()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

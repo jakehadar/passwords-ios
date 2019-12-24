@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PasswordDetailViewController: AuthenticableViewController {
+class PasswordDetailViewController: UIViewController {
     
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var passwordField: UITextField!
@@ -22,6 +22,8 @@ class PasswordDetailViewController: AuthenticableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        authController.authenticate()
+        
         if let record = passwordRecord {
             title = record.app
             userLabel.text = record.user
@@ -64,10 +66,10 @@ class PasswordDetailViewController: AuthenticableViewController {
     }
     
     @IBAction func unmaskButtonHold(_ sender: UIButton) {
-        if authenticated {
+        if authController.authenticated {
             passwordField.isSecureTextEntry = false
         } else {
-            print("Not authenticated")
+            authController.authenticate()
         }
     }
     

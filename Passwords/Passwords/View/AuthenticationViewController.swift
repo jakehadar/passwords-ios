@@ -10,7 +10,7 @@ import UIKit
 import LocalAuthentication
 
 class AuthenticationViewController: UIViewController {
-    var authService: AuthService? = nil
+    var authController: AuthController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,27 +18,18 @@ class AuthenticationViewController: UIViewController {
         title = "Locked"
     }
     
-    static func instantiate() -> UIViewController {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as UIViewController
+    static func instantiate() -> AuthenticationViewController {
+        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as? AuthenticationViewController else { fatalError() }
         return vc
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         doAuthentication()
     }
     
     private func doAuthentication() {
-        #if DEBUG
-        authService?.authResult(true)
-        dismiss(animated: true)
-        #else
-        biometricAuthentication()
-        #endif
-    }
-    
-    private func biometricAuthentication() {
         let context = LAContext()
         var error: NSError?
         
@@ -47,7 +38,7 @@ class AuthenticationViewController: UIViewController {
             
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [unowned self] (success, authenticationError) in
                 DispatchQueue.main.async {
-                    self.authService?.authResult(success)
+                    self.authController?.authResult(success)
                     if success {
                         self.dismiss(animated: true)
                     }

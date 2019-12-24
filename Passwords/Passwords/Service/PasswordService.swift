@@ -22,7 +22,7 @@ protocol PasswordServiceProtocol {
 }
 
 class PasswordService {
-    // WARNING: Not thread safe.
+    // WARNING: Not tested for thread safety.
     
     static let `default` = PasswordService()
     let kDefaultsKey = "passwordRecords"

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PasswordListViewController: AuthenticableViewController {
+class PasswordListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -20,6 +20,7 @@ class PasswordListViewController: AuthenticableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         controller = dataSource.controller
         
         title = "Applications"
@@ -31,6 +32,7 @@ class PasswordListViewController: AuthenticableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        authController.authenticate()
         
         print("view will appear")
         

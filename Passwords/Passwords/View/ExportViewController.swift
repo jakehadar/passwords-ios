@@ -8,12 +8,13 @@
 
 import UIKit
 
-class ExportViewController: AuthenticableViewController {
+class ExportViewController: UIViewController {
 
     @IBOutlet weak var exportTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        authController.authenticate()
         
         if let data = passwordService.encodedPasswordData(), let jsonString = prettyJsonString(data) {
             exportTextView.text = jsonString
