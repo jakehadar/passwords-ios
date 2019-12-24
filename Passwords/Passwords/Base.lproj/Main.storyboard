@@ -82,7 +82,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="8gZ-Nr-DKX"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" id="yQ6-Jl-oLb">
                         <barButtonItem key="leftBarButtonItem" title="Export JSON" image="gear" catalog="system" id="l4S-Ev-x80">
                             <connections>
@@ -109,25 +111,25 @@
             <objects>
                 <viewController storyboardIdentifier="PasswordDetailViewController" id="kbV-tw-48Q" customClass="PasswordDetailViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QHm-dB-uTX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6UH-Qi-bJc">
                                 <rect key="frame" x="0.0" y="88" width="375" height="641"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bku-ST-LQM">
-                                        <rect key="frame" x="20" y="0.0" width="335" height="128.33333333333334"/>
+                                        <rect key="frame" x="20" y="0.0" width="335" height="160.33333333333334"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Password" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="BeZ-yb-chP">
-                                        <rect key="frame" x="20" y="128.33333333333334" width="335" height="128.00000000000003"/>
+                                        <rect key="frame" x="20" y="160.33333333333331" width="335" height="160.33333333333331"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE7-ma-xx5">
-                                        <rect key="frame" x="20" y="256.33333333333331" width="335" height="128.33333333333331"/>
+                                        <rect key="frame" x="20" y="320.66666666666669" width="335" height="160"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                         <state key="normal" title="Hold to unmask password">
                                             <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -144,21 +146,11 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last modified 0 days ago" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLF-7o-j3V">
-                                        <rect key="frame" x="20" y="384.66666666666669" width="335" height="128.00000000000006"/>
+                                        <rect key="frame" x="20" y="480.66666666666657" width="335" height="160.33333333333331"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WP6-BH-5jy">
-                                        <rect key="frame" x="159" y="512.66666666666663" width="57" height="128.33333333333337"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
-                                        <state key="normal" title="Delete">
-                                            <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="deleteButtonTapped:" destination="kbV-tw-48Q" eventType="touchUpInside" id="Ht7-cR-f92"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="hE7-ma-xx5" secondAttribute="trailing" constant="20" symbolic="YES" id="0yX-vn-bvJ"/>
@@ -185,7 +177,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="Dxc-YI-Qjg"/>
                         <barButtonItem systemItem="trash" id="9f8-fo-TDf">
                             <connections>
-                                <action selector="deleteButtonTapped:" destination="kbV-tw-48Q" id="8K1-c8-ddG"/>
+                                <action selector="deleteButtonTapped:" destination="kbV-tw-48Q" id="Ckj-J5-8mH"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -196,6 +188,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="lastModifiedLabel" destination="nLF-7o-j3V" id="E6e-1J-sQk"/>
                         <outlet property="passwordField" destination="BeZ-yb-chP" id="S2d-Fv-CPn"/>
@@ -448,13 +441,18 @@
         <!--Navigation Controller-->
         <scene sceneID="y0Y-Qs-P0A">
             <objects>
-                <navigationController storyboardIdentifier="InitialViewController" automaticallyAdjustsScrollViewInsets="NO" id="UzH-EP-fAg" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InitialViewController" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="UzH-EP-fAg" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HAk-xO-rr9">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="E7u-2Y-wYb">
+                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="m7Q-76-6v9"/>
                     </connections>
@@ -468,6 +466,6 @@
         <image name="gear" catalog="system" width="64" height="58"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="baP-Gr-yct"/>
+        <segue reference="lJN-EZ-Jtx"/>
     </inferredMetricsTieBreakers>
 </document>

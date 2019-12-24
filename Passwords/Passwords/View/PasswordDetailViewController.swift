@@ -58,9 +58,7 @@ class PasswordDetailViewController: AuthenticableViewController {
             
             self.service.deletePasswordRecord(record)
             self.passwordRecord = nil
-            self.dismiss(animated: true) {
-                self.dismiss(animated: true)
-            }
+            self.navigationController?.popViewController(animated: true)
         }
         ac.addAction(deleteAction)
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -79,7 +77,7 @@ class PasswordDetailViewController: AuthenticableViewController {
         passwordField.isSecureTextEntry = true
     }
     
-    @IBAction func deleteButtonTapped(_ sender: Any) {
+    @IBAction func deleteButtonTapped(_ sender: UIBarButtonItem) {
         deletePasswordRecord()
     }
 }
