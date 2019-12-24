@@ -26,6 +26,7 @@ class PasswordListDataController: PasswordListDataControllerProtocol {
     }
     
     func reloadData() {
+        service.reloadData()
         appNames = service.getAppNames()
         appNames.sort()
         

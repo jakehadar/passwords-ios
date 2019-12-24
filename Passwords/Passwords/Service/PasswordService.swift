@@ -13,6 +13,7 @@ typealias AppRecordsMap = Dictionary<String, [Password]>
 
 protocol PasswordServiceProtocol {
     func getAppNames() -> [String]
+    func reloadData()
     func getPasswordRecords() -> [Password]
     func getPasswordRecords(forApp app: String) -> [Password]?
     func createPasswordRecord(app: String, user: String, password: String)
@@ -58,6 +59,7 @@ class PasswordService {
             }
         }
         appRecordsMap = newAppRecordsMap
+        print("passwordService: reloaded all data")
     }
     
     func decodedPasswordRecords() -> [Password]? {
@@ -102,6 +104,10 @@ class PasswordService {
 // MARK: - PasswordServiceProtocol
 
 extension PasswordService: PasswordServiceProtocol {
+    
+    func reloadData() {
+        reloadAllData()
+    }
     
     func getAppNames() -> [String] {
         return Array(appRecordsMap.keys)
