@@ -10,6 +10,7 @@ import UIKit
 import LocalAuthentication
 
 class AuthenticationViewController: UIViewController {
+    var authService: AuthService? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,17 +23,22 @@ class AuthenticationViewController: UIViewController {
         return vc
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        #if DEBUG
-        authenticated = true
-        return
-        #endif
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         doAuthentication()
     }
     
     private func doAuthentication() {
+        #if DEBUG
+        authService?.authResult(true)
+        dismiss(animated: true)
+        #else
+        biometricAuthentication()
+        #endif
+    }
+    
+    private func biometricAuthentication() {
         let context = LAContext()
         var error: NSError?
         
@@ -41,8 +47,8 @@ class AuthenticationViewController: UIViewController {
             
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [unowned self] (success, authenticationError) in
                 DispatchQueue.main.async {
+                    self.authService?.authResult(success)
                     if success {
-                        authenticated = true
                         self.dismiss(animated: true)
                     }
                 }
@@ -58,4 +64,3 @@ class AuthenticationViewController: UIViewController {
         doAuthentication()
     }
 }
-

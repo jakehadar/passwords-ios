@@ -24,7 +24,7 @@ protocol PasswordServiceProtocol {
 class PasswordService {
     // WARNING: Not thread safe.
     
-    static let sharedInstance = PasswordService()
+    static let `default` = PasswordService()
     let kDefaultsKey = "passwordRecords"
     
     private init() {

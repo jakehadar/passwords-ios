@@ -9,8 +9,9 @@
 import UIKit
 
 //  The internet says this is anti pattern but whatever, will redesign later.
-
 var authenticated: Bool = false
+let passwordService: PasswordService = PasswordService.default
+var authService: AuthService!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InitialViewController") as UIViewController
+        
+        authService = AuthService(vc)
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = vc
@@ -29,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillResignActive(_ application: UIApplication) {
         print("AppDelegate: applicationWillResignActive")
-        authenticated = true
+        authService.deauthenticate()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -46,13 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         print("AppDelegate: applicationDidBecomeActive")
+        authService.authenticate()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         print("AppDelegate: applicationWillTerminate")
     }
-
-
 }
-

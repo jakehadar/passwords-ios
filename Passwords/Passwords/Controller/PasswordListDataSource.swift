@@ -12,7 +12,7 @@ import UIKit
 class PasswordListDataSource: NSObject, UITableViewDataSource {
     var controller: PasswordListDataControllerProtocol!
     
-    static let `default` = PasswordListDataSource(controller: PasswordListDataController(service: PasswordService.sharedInstance))
+    static let `default` = PasswordListDataSource(controller: PasswordListDataController(service: passwordService))
     
     init(controller: PasswordListDataControllerProtocol) {
         self.controller = controller

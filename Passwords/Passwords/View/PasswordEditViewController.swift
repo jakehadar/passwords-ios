@@ -22,8 +22,7 @@ class PasswordEditViewController: UITableViewController {
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var commitButton: UIBarButtonItem!
-        
-    private let service = PasswordService.sharedInstance
+    
     var passwordRecord: Password? {
         didSet {
             if passwordRecord == nil {
@@ -114,14 +113,14 @@ class PasswordEditViewController: UITableViewController {
             
             switch editingMode {
             case .create:
-                service.createPasswordRecord(app: app, user: user, password: password)
+                passwordService.createPasswordRecord(app: app, user: user, password: password)
                 
             case .modify:
                 guard let record = passwordRecord else { fatalError() }
                 record.app = app
                 record.user = user
                 record.setPassword(password)
-                service.updatePasswordRecord(record)
+                passwordService.updatePasswordRecord(record)
             }
         }
     }

@@ -14,8 +14,6 @@ class PasswordDetailViewController: AuthenticableViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var lastModifiedLabel: UILabel!
     
-    private let service = PasswordService.sharedInstance
-    
     weak var passwordRecord: Password?
 
     override func viewDidLoad() {
@@ -56,7 +54,7 @@ class PasswordDetailViewController: AuthenticableViewController {
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
             guard let record = self.passwordRecord else { fatalError() }
             
-            self.service.deletePasswordRecord(record)
+            passwordService.deletePasswordRecord(record)
             self.passwordRecord = nil
             self.navigationController?.popViewController(animated: true)
         }

@@ -15,9 +15,7 @@ class ExportViewController: AuthenticableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let service = PasswordService.sharedInstance
-        
-        if let data = service.encodedPasswordData(), let jsonString = prettyJsonString(data) {
+        if let data = passwordService.encodedPasswordData(), let jsonString = prettyJsonString(data) {
             exportTextView.text = jsonString
         } else {
             exportTextView.text = "Failed to export password records."

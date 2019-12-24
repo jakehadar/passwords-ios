@@ -24,6 +24,7 @@
 		2E84B830208E03010096B512 /* PasswordListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B82F208E03010096B512 /* PasswordListDataSource.swift */; };
 		2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */; };
 		2E84B834208F5C730096B512 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B833208F5C730096B512 /* AuthenticationViewController.swift */; };
+		2EB39EB323B2951500E6047B /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB39EB223B2951500E6047B /* AuthService.swift */; };
 		2EBE73E223A3AE88006C48C8 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		2E84B82F208E03010096B512 /* PasswordListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordListDataSource.swift; sourceTree = "<group>"; };
 		2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDetailViewController.swift; sourceTree = "<group>"; };
 		2E84B833208F5C730096B512 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		2EB39EB223B2951500E6047B /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				2E08453C2349D42100E905F2 /* PasswordService.swift */,
+				2EB39EB223B2951500E6047B /* AuthService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				2E84B825208BE5DA0096B512 /* Password.swift in Sources */,
 				2E84B823208B98560096B512 /* MainCoordinator.swift in Sources */,
 				2E08453A2349C72200E905F2 /* PasswordListDataController.swift in Sources */,
+				2EB39EB323B2951500E6047B /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

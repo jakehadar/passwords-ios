@@ -16,13 +16,8 @@ class AuthenticableViewController: UIViewController {
     }
     
     private func checkAuthentication(animated: Bool) {
-        guard let navigationController = navigationController else { fatalError() }
-//        #if DEBUG
-//        authenticated = true
-//        #endif
-        if !authenticated {
-            let vc = AuthenticationViewController.instantiate()
-            navigationController.present(vc, animated: animated)
+        if !authService.authenticated {
+            authService.authenticate()
         }
         print("checkAuthentication: \(authenticated ? "Authenticated" : "Not authenticated")")
     }
