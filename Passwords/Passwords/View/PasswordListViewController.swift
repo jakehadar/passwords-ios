@@ -11,11 +11,17 @@ import UIKit
 class PasswordListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    
-    let controller = PasswordListDataController.default
-    
+        
     var selectedRecord: Password?
-
+    
+    var appNames: [String] {
+        return passwordService.getAppNames().sorted()
+    }
+    
+    var recordsForApp: Dictionary<String, [Password]> {
+        let result = Dictionary(grouping: passwordService.getPasswordRecords(), by: { $0.app })
+        return result
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +41,7 @@ class PasswordListViewController: UIViewController {
     }
     
     func reloadData() {
-        controller.reloadData()
+        passwordService.reloadData()
         tableView.reloadData()
     }
     
@@ -49,8 +55,8 @@ class PasswordListViewController: UIViewController {
         if let vc = segue.destination as? PasswordDetailViewController, let indexPath = tableView.indexPathForSelectedRow {
             // Editing an existing record
             // TODO: make a controller.passwordRecordForIndexPath to own this logic
-            let app = controller.appNames[indexPath.section]
-            if let records = controller.recordsForApp[app] {
+            let app = appNames[indexPath.section]
+            if let records = recordsForApp[app] {
                 vc.passwordRecord = records[indexPath.row]
             }
         } else if let nc = segue.destination as? UINavigationController, let vc = nc.childViewControllers.first as? PasswordEditViewController {
@@ -62,20 +68,19 @@ class PasswordListViewController: UIViewController {
 
 extension PasswordListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return controller.appNames.count
+        return appNames.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let appName = controller.appNames[section]
-        return controller.recordsForApp[appName]!.count
+        let appName = appNames[section]
+        return recordsForApp[appName]!.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
-        let apps = controller.appNames
-        if apps.count > 0 {
-            let app = apps[indexPath.section]
-            if let records = controller.recordsForApp[app] {
+        if appNames.count > 0 {
+            let app = appNames[indexPath.section]
+            if let records = recordsForApp[app] {
                 let record = records[indexPath.row]
                 if let passwordRecordCell = tableView.dequeueReusableCell(withIdentifier: "PasswordRecordCell") {
                     passwordRecordCell.textLabel?.text = record.user
@@ -87,7 +92,7 @@ extension PasswordListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return controller.appNames[section]
+        return appNames[section]
     }
 }
 
