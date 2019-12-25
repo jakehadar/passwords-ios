@@ -3,6 +3,8 @@ Features
 * Search bar
 * Wait N minutes before requiring re-auth.
 * Allow copy on username and pw text on PasswordDetail view
+* String localization
+* UIStateRestoration
 
 Design
 ------
