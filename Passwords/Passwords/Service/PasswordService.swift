@@ -43,6 +43,8 @@ class PasswordService {
     }
     
     private func reloadAllData() {
+        debugPrint("PasswordService invoked method: \(#function).")
+        
         var newAppRecordsMap = AppRecordsMap()
         var newApps = [String]()
         for record in passwordRecords {
@@ -59,7 +61,6 @@ class PasswordService {
             }
         }
         appRecordsMap = newAppRecordsMap
-        print("passwordService: reloaded all data")
     }
     
     func decodedPasswordRecords() -> [Password]? {
@@ -85,18 +86,18 @@ class PasswordService {
     private func loadPasswordRecords() {
         if let decodedRecords = decodedPasswordRecords() {
             passwordRecords = decodedRecords
-            print("Loaded \(passwordRecords.count) password records")
+            debugPrint("PasswordService loaded \(passwordRecords.count) password records")
         } else {
-            print("Failed to load password records.")
+            debugPrint("PasswordService failed to load password records.")
         }
     }
     
     private func savePasswordRecords() {
         if let encodedData = encodedPasswordData() {
             defaults.set(encodedData, forKey: kDefaultsKey)
-            print("Saved \(passwordRecords.count) password records.")
+            debugPrint("PasswordService saved \(passwordRecords.count) password records.")
         } else {
-            print("Failed to save password records.")
+            debugPrint("PasswordService failed to save password records.")
         }
     }
 }
@@ -126,7 +127,7 @@ extension PasswordService: PasswordServiceProtocol {
         passwordRecord.setPassword(password)
         passwordRecords.append(passwordRecord)
         savePasswordRecords()
-        print("Added password record for \(app) \(user)")
+        debugPrint("PasswordService added password record for \(app) \(user)")
     }
     
     //  TODO: These last two are O(N), but they could be O(1) if passwordRecords were cached against their uuid.
@@ -137,7 +138,7 @@ extension PasswordService: PasswordServiceProtocol {
             if record.uuid == uuidToDelete {
                 passwordRecords.remove(at: index)
                 savePasswordRecords()
-                print("Deleted password record \(uuidToDelete)")
+                debugPrint("PasswordService deleted password record \(uuidToDelete)")
                 break
             }
         }
@@ -153,7 +154,7 @@ extension PasswordService: PasswordServiceProtocol {
                     selected.setPassword(newPassword)
                 }
                 savePasswordRecords()
-                print("Updated password record \(uuidToUpdate)")
+                debugPrint("PasswordService updated password record \(uuidToUpdate)")
                 break
             }
         }

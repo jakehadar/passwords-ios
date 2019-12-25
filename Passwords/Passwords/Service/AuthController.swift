@@ -14,7 +14,7 @@ class AuthController {
     private var rootViewController: UIViewController
     
     public private(set) var authenticated: Bool = false {
-        didSet { print(authenticated ? "Authenticated" : "Not authenticated") }
+        didSet { debugPrint("AuthController: \(authenticated ? "Authenticated" : "Not authenticated")") }
     }
     
     init(_ rootViewController: UIViewController) {
@@ -27,7 +27,7 @@ class AuthController {
     }
     
     func authenticate() {
-        print("Authenticating...")
+        debugPrint("AuthController: authenticating...")
         #if DEBUG
         self.authenticated = true
         #else

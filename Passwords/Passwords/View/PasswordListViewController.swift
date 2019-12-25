@@ -34,13 +34,10 @@ class PasswordListViewController: UIViewController {
         super.viewWillAppear(animated)
         authController.authenticate()
         
-        print("view will appear")
-        
         reloadData()
     }
     
     func reloadData() {
-        print("reloadData")
         dataSource.controller.reloadData()
         tableView.reloadData()
     }

@@ -48,13 +48,13 @@ class Password: NSObject, Codable {
             return password
         }
         
-        print("No value in keychain matching \(uuid)")
+        debugPrint("Password: no value in keychain matching \(uuid)")
         return nil
     }
     
     func setPassword(_ password: String) {
         if KeychainWrapper.standard.set(password, forKey: uuid) {
-            print("Set password for \(app) \(user)")
+            debugPrint("Password: set password for \(app) \(user)")
             touch()
         }
     }
@@ -63,7 +63,7 @@ class Password: NSObject, Codable {
     
     func touch() {
         modified = DateHelper.toInt(Date())
-        print("Modified \(app) \(user)")
+        debugPrint("Password: modified \(app) \(user)")
     }
     
 }
