@@ -12,21 +12,18 @@ class PasswordListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var dataSource = PasswordListDataSource.default
-    var controller: PasswordListDataControllerProtocol!
+    let controller = PasswordListDataController.default
     
-     var selectedRecord: Password?
+    var selectedRecord: Password?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        controller = dataSource.controller
-        
         title = "Applications"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordRecordCell")
         
-        tableView.dataSource = dataSource
+        tableView.dataSource = self
         tableView.delegate = self
     }
     
@@ -38,7 +35,7 @@ class PasswordListViewController: UIViewController {
     }
     
     func reloadData() {
-        dataSource.controller.reloadData()
+        controller.reloadData()
         tableView.reloadData()
     }
     
@@ -60,6 +57,37 @@ class PasswordListViewController: UIViewController {
             // Creating a new record
             vc.passwordRecord = nil
         }
+    }
+}
+
+extension PasswordListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return controller.appNames.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let appName = controller.appNames[section]
+        return controller.recordsForApp[appName]!.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = UITableViewCell()
+        let apps = controller.appNames
+        if apps.count > 0 {
+            let app = apps[indexPath.section]
+            if let records = controller.recordsForApp[app] {
+                let record = records[indexPath.row]
+                if let passwordRecordCell = tableView.dequeueReusableCell(withIdentifier: "PasswordRecordCell") {
+                    passwordRecordCell.textLabel?.text = record.user
+                    cell = passwordRecordCell
+                }
+            }
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return controller.appNames[section]
     }
 }
 

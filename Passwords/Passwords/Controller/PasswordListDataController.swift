@@ -20,6 +20,8 @@ class PasswordListDataController: PasswordListDataControllerProtocol {
     public private(set) var appNames = [String]()
     public private(set) var recordsForApp = Dictionary<String, [Password]>()
     
+    static let `default` = PasswordListDataController(service: passwordService)
+    
     init(service: PasswordServiceProtocol) {
         self.service = service
         reloadData()
