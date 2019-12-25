@@ -17,8 +17,14 @@ protocol PasswordListDataControllerProtocol {
 class PasswordListDataController: PasswordListDataControllerProtocol {
     private var service: PasswordServiceProtocol
     
-    public private(set) var appNames = [String]()
-    public private(set) var recordsForApp = Dictionary<String, [Password]>()
+    var appNames: [String] {
+        return service.getAppNames().sorted()
+    }
+    
+    var recordsForApp: Dictionary<String, [Password]> {
+        let result = Dictionary(grouping: service.getPasswordRecords(), by: { $0.app })
+        return result
+    }
     
     static let `default` = PasswordListDataController(service: passwordService)
     
@@ -29,11 +35,5 @@ class PasswordListDataController: PasswordListDataControllerProtocol {
     
     func reloadData() {
         service.reloadData()
-        appNames = service.getAppNames()
-        appNames.sort()
-        
-        for app in appNames {
-            recordsForApp[app] = service.getPasswordRecords(forApp: app)
-        }
     }
 }
