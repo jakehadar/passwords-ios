@@ -1,3 +1,5 @@
+# Backlog
+
 Features
 --------
 * Search bar
@@ -9,6 +11,7 @@ Features
 Design
 ------
 * Grouping on app name (currently string matching) should be made fuzzier. Possibly make App its own entity.
+* Base UI/UX patterns off of Apple TODO's app, which is done quite nicely.
 
 Refactoring
 -----------
