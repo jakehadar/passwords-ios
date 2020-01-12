@@ -35,33 +35,11 @@ class PasswordService {
     
     private let defaults = UserDefaults.standard
     
-    private var appRecordsMap = AppRecordsMap()
-    private var passwordRecords = [Password]() {
-        didSet {
-            reloadAllData()
-        }
+    private var appRecordsMap: AppRecordsMap {
+        return Dictionary(grouping: passwordRecords, by: { $0.app })
     }
     
-    private func reloadAllData() {
-        debugPrint("PasswordService invoked method: \(#function).")
-        
-        var newAppRecordsMap = AppRecordsMap()
-        var newApps = [String]()
-        for record in passwordRecords {
-            let app = record.app
-            
-            if newAppRecordsMap[app] == nil {
-                newAppRecordsMap[app] = [record]
-            } else {
-                newAppRecordsMap[app]!.append(record)
-            }
-            
-            if !newApps.contains(app) {
-                newApps.append(app)
-            }
-        }
-        appRecordsMap = newAppRecordsMap
-    }
+    private var passwordRecords = [Password]()
     
     func decodedPasswordRecords() -> [Password]? {
         if let savedData = defaults.object(forKey: kDefaultsKey) as? Data {
@@ -103,11 +81,10 @@ class PasswordService {
 }
 
 // MARK: - PasswordServiceProtocol
-
 extension PasswordService: PasswordServiceProtocol {
     
     func reloadData() {
-        reloadAllData()
+        loadPasswordRecords()
     }
     
     func getAppNames() -> [String] {
