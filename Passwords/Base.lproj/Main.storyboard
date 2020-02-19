@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UzH-EP-fAg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UzH-EP-fAg">
     <device id="retina5_9" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -35,7 +35,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0iw-al-4qF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1180" y="865"/>
+            <point key="canvasLocation" x="1959" y="-567"/>
         </scene>
         <!--Password List View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -86,11 +86,6 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="8gZ-Nr-DKX"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="yQ6-Jl-oLb">
-                        <barButtonItem key="leftBarButtonItem" title="Export JSON" image="gear" catalog="system" id="l4S-Ev-x80">
-                            <connections>
-                                <segue destination="xig-6i-tRM" kind="show" id="8C4-Pb-bHV"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qRk-rp-zu1">
                             <connections>
                                 <segue destination="Lp9-hu-a3F" kind="presentation" identifier="AddPassword" modalPresentationStyle="fullScreen" id="lJN-EZ-Jtx"/>
@@ -198,55 +193,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BcV-bN-bgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2770" y="-213"/>
-        </scene>
-        <!--JSON Export-->
-        <scene sceneID="Aiy-Dv-RX6">
-            <objects>
-                <viewController id="8Zg-6m-pNW" customClass="ExportViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="oad-fH-e2C">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OL2-YI-P9J">
-                                <rect key="frame" x="20" y="108" width="335" height="601"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="OL2-YI-P9J" firstAttribute="leading" secondItem="SS5-AC-FYS" secondAttribute="leading" constant="20" id="6be-xu-jzZ"/>
-                            <constraint firstItem="SS5-AC-FYS" firstAttribute="trailing" secondItem="OL2-YI-P9J" secondAttribute="trailing" constant="20" id="HF8-Mz-Bnq"/>
-                            <constraint firstItem="SS5-AC-FYS" firstAttribute="bottom" secondItem="OL2-YI-P9J" secondAttribute="bottom" constant="20" id="gfT-tg-xdW"/>
-                            <constraint firstItem="OL2-YI-P9J" firstAttribute="top" secondItem="SS5-AC-FYS" secondAttribute="top" constant="20" id="hyg-FV-mpV"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="SS5-AC-FYS"/>
-                    </view>
-                    <toolbarItems>
-                        <barButtonItem title="Save to Documents" id="rsu-7d-ADr">
-                            <connections>
-                                <action selector="saveTapped:" destination="8Zg-6m-pNW" id="pem-4t-3M6"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="JSON Export" id="W5h-be-SbJ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="MlG-Oq-IQZ">
-                            <connections>
-                                <action selector="doneTapped:" destination="8Zg-6m-pNW" id="TT5-fT-H2e"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="exportTextView" destination="OL2-YI-P9J" id="N6Z-c1-7dB"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vJf-EC-LAu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2769" y="865"/>
         </scene>
         <!--Password Edit View Controller-->
         <scene sceneID="7d5-p1-yy9">
@@ -396,30 +342,6 @@
             <point key="canvasLocation" x="4386" y="132"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="PI9-4z-wjo">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="xig-6i-tRM" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="ftG-qq-MUD"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Znr-5o-y3y">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="XXD-on-3av">
-                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="8Zg-6m-pNW" kind="relationship" relationship="rootViewController" id="NEp-Fk-wGm"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="B3b-N3-pqo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1959" y="865"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="tCX-pX-fwv">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Lp9-hu-a3F" sceneMemberID="viewController">
@@ -462,9 +384,6 @@
             <point key="canvasLocation" x="1180" y="132"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="gear" catalog="system" width="64" height="58"/>
-    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="lJN-EZ-Jtx"/>
     </inferredMetricsTieBreakers>

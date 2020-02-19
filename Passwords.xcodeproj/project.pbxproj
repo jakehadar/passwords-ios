@@ -21,7 +21,6 @@
 		2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */; };
 		2E84B834208F5C730096B512 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B833208F5C730096B512 /* AuthenticationViewController.swift */; };
 		2EB39EB323B2951500E6047B /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB39EB223B2951500E6047B /* AuthController.swift */; };
-		2EBE73E223A3AE88006C48C8 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +40,6 @@
 		2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDetailViewController.swift; sourceTree = "<group>"; };
 		2E84B833208F5C730096B512 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		2EB39EB223B2951500E6047B /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
-		2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,7 +101,6 @@
 				2E84B819208B95340096B512 /* PasswordEditViewController.swift */,
 				2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */,
 				2E84B833208F5C730096B512 /* AuthenticationViewController.swift */,
-				2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -203,7 +200,6 @@
 				2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */,
 				2E08453D2349D42100E905F2 /* PasswordService.swift in Sources */,
 				2E84B7E9208B83A30096B512 /* KeychainItemAccessibility.swift in Sources */,
-				2EBE73E223A3AE88006C48C8 /* ExportViewController.swift in Sources */,
 				2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */,
 				2E84B834208F5C730096B512 /* AuthenticationViewController.swift in Sources */,
 				2E84B82D208BF0AE0096B512 /* DateHelper.swift in Sources */,
