@@ -9,9 +9,8 @@
 import UIKit
 import LocalAuthentication
 
-class AuthenticationViewController: UIViewController, Storyboarded {
-    
-    weak var coordinator: MainCoordinator?
+class AuthenticationViewController: UIViewController {
+    var authController: AuthController? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,13 +18,18 @@ class AuthenticationViewController: UIViewController, Storyboarded {
         title = "Locked"
     }
     
+    static func instantiate() -> AuthenticationViewController {
+        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as? AuthenticationViewController else { fatalError() }
+        return vc
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         doAuthentication()
     }
     
     private func doAuthentication() {
-        guard let coordinator = coordinator else { fatalError() }
         let context = LAContext()
         var error: NSError?
         
@@ -34,8 +38,8 @@ class AuthenticationViewController: UIViewController, Storyboarded {
             
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [unowned self] (success, authenticationError) in
                 DispatchQueue.main.async {
+                    self.authController?.authResult(success)
                     if success {
-                        self.coordinator?.unlock()
                         self.dismiss(animated: true)
                     }
                 }
@@ -51,4 +55,3 @@ class AuthenticationViewController: UIViewController, Storyboarded {
         doAuthentication()
     }
 }
-

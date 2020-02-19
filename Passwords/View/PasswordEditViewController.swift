@@ -13,15 +13,16 @@ enum PasswordEditingMode {
     case modify
 }
 
-class PasswordEditViewController: UITableViewController, Storyboarded {
+class PasswordEditViewController: UITableViewController {
     @IBOutlet weak var appTextField: UITextField!
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var deleteButton: UIBarButtonItem!
     @IBOutlet weak var maskSwitch: UISwitch!
     
-    var coordinator: MainCoordinator!
-    var service: PasswordServiceProtocol!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var commitButton: UIBarButtonItem!
+    
     var passwordRecord: Password? {
         didSet {
             if passwordRecord == nil {
@@ -32,27 +33,36 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
         }
     }
     
-    var editingMode: PasswordEditingMode = .create
-    var editingCancelled = false
+    private var editingMode: PasswordEditingMode = .create
+    private var editingCancelled = false
     
-    func configure(coordinator: MainCoordinator, service: PasswordServiceProtocol, record: Password?) {
-        self.coordinator = coordinator
-        self.service = service
-        self.passwordRecord = record
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if editingMode == .create {
+            title = "New"
+            commitButton.title = "Save"
+            commitButton.style = .done
+            
+        } else {
+            title = "Edit"
+            commitButton.title = "Done"
+            commitButton.style = .done
+        }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
+        
+        navigationController?.modalPresentationStyle = .fullScreen
         
         disableSaveButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        authController.authenticate()
+        
         editingCancelled = false
         setupView()
     }
@@ -106,33 +116,16 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
             
             switch editingMode {
             case .create:
-                service.createPasswordRecord(app: app, user: user, password: password)
+                passwordService.createPasswordRecord(app: app, user: user, password: password)
                 
             case .modify:
                 guard let record = passwordRecord else { fatalError() }
                 record.app = app
                 record.user = user
                 record.setPassword(password)
-                service.updatePasswordRecord(record)
+                passwordService.updatePasswordRecord(record)
             }
         }
-    }
-    
-    func deletePasswordRecord() {
-        guard editingMode == .modify else { return }
-        
-        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
-            guard let record = self.passwordRecord else { fatalError() }
-            
-            self.service.deletePasswordRecord(record)
-            self.passwordRecord = nil
-            self.editingCancelled = true
-            self.coordinator?.showPasswordList()
-        }
-        ac.addAction(deleteAction)
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        present(ac, animated: true)
     }
     
     func validateInputs() -> Bool {
@@ -158,15 +151,23 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
         return true
     }
     
-    @objc func save() {
+    @objc func commit() {
         if validateInputs() {
-            self.dismiss(animated: true)
+            dismissAndReload()
         }
     }
     
     @objc func cancel() {
         editingCancelled = true
-        self.dismiss(animated: true)
+        dismissAndReload()
+    }
+    
+    func dismissAndReload() {
+        dismiss(animated: true) {
+            if let parent = self.parent as? PasswordListViewController {
+                parent.reloadData()
+            }
+        }
     }
     
     @objc func dismissKeyboard() {
@@ -176,15 +177,11 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
     }
     
     func enableSaveButton() {
-        if let saveButton = navigationItem.rightBarButtonItem {
-            saveButton.isEnabled = true
-        }
+        commitButton.isEnabled = true
     }
     
     func disableSaveButton() {
-        if let saveButton = navigationItem.rightBarButtonItem {
-            saveButton.isEnabled = false
-        }
+        commitButton.isEnabled = false
     }
     
     @IBAction func textFieldPrimaryActionTriggered(_ sender: UITextField) {
@@ -206,12 +203,10 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
     
     
     @IBAction func textFieldValueDidChange(_ sender: UITextField) {
-        if editingMode == .create {
-            if validateInputs() {
-                enableSaveButton()
-            } else {
-                disableSaveButton()
-            }
+        if validateInputs() {
+            enableSaveButton()
+        } else {
+            disableSaveButton()
         }
     }
     
@@ -223,9 +218,14 @@ class PasswordEditViewController: UITableViewController, Storyboarded {
         }
     }
     
-    @IBAction func deleteButtonTapped(_ sender: UIBarButtonItem) {
-        deletePasswordRecord()
+    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        cancel()
     }
+    
+    @IBAction func commitButtonTapped(_ sender: UIBarButtonItem) {
+        commit()
+    }
+    
 }
 
 extension PasswordEditViewController: UITextFieldDelegate {
