@@ -15,11 +15,11 @@ class PasswordListViewController: UIViewController {
     var selectedRecord: Password?
     
     var appNames: [String] {
-        return passwordService.getAppNames().sorted()
+        return passwordService.getAppNames().map { $0.uppercased() }.sorted()
     }
     
     var recordsForApp: Dictionary<String, [Password]> {
-        let result = Dictionary(grouping: passwordService.getPasswordRecords(), by: { $0.app })
+        let result = Dictionary(grouping: passwordService.getPasswordRecords(), by: { $0.app.uppercased() })
         return result
     }
     
