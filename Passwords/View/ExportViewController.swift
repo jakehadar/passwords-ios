@@ -61,7 +61,13 @@ class ExportViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func copyTapped(_ sender: UIBarButtonItem) {
+        UIPasteboard.general.string = exportTextView.text
+        let alert = UIAlertController(title: "Copied to clipboard", message: "", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func saveTapped(_ sender: UIBarButtonItem) {
         let filename = getDocumentsDirectory().appendingPathComponent("passwords_export.json")
         do {
