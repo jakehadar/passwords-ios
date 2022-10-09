@@ -16,11 +16,25 @@ class ExportViewController: UIViewController {
         super.viewDidLoad()
         authController.authenticate()
         
-        if let data = passwordService.encodedPasswordData(), let jsonString = prettyJsonString(data) {
-            exportTextView.text = jsonString
-        } else {
-            exportTextView.text = "Failed to export password records."
+        
+        let passwords = passwordService.getPasswordRecords()
+        var keychainEntries = [PasswordKeychainEntry]()
+        for password in passwords {
+            let keychainEntry = PasswordKeychainEntry(uuid: password.uuid, text: password.getPassword() ?? "")
+            keychainEntries.append(keychainEntry)
         }
+        
+        let jsonExportContainer = JSONExportContainer(passwords: passwords, keychainEntries: keychainEntries)
+        
+        let jsonEncoder = JSONEncoder()
+        let jsonExportString = prettyJsonString(try! jsonEncoder.encode(jsonExportContainer))
+        exportTextView.text = jsonExportString
+        
+//        if let data = passwordService.encodedPasswordData(), let jsonString = prettyJsonString(data) {
+//            exportTextView.text = jsonString
+//        } else {
+//            exportTextView.text = "Failed to export password records."
+//        }
     }
     
     func prettyJsonString(_ data: Data) -> String? {

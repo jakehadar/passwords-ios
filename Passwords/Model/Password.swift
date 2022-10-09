@@ -8,6 +8,26 @@
 
 import Foundation
 
+class JSONExportContainer: NSObject, Codable {
+    var passwords: [Password]
+    var keychainEntries: [PasswordKeychainEntry]
+    
+    init(passwords: [Password], keychainEntries: [PasswordKeychainEntry]) {
+        self.passwords = passwords
+        self.keychainEntries = keychainEntries
+    }
+}
+
+class PasswordKeychainEntry: NSObject, Codable {
+    var uuid: String
+    var text: String
+    
+    init(uuid: String, text: String) {
+        self.uuid = uuid
+        self.text = text
+    }
+}
+
 class Password: NSObject, Codable {
     
     var uuid: String
