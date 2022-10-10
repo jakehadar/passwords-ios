@@ -56,9 +56,15 @@ class PasswordDetailViewController: UIViewController {
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
             guard let record = self.passwordRecord else { fatalError() }
             
-            passwordService.deletePasswordRecord(record)
-            self.passwordRecord = nil
-            self.navigationController?.popViewController(animated: true)
+            do {
+                try passwordService.deletePasswordRecord(record)
+                self.passwordRecord = nil
+                self.navigationController?.popViewController(animated: true)
+            } catch {
+                let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
         ac.addAction(deleteAction)
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))

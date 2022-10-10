@@ -8,6 +8,19 @@
 
 import Foundation
 
+enum PasswordError: Error {
+    case keychainWrapperSetError
+}
+
+extension PasswordError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .keychainWrapperSetError:
+            return NSLocalizedString("KeychainWrapper unsuccessful update.", comment: "")
+        }
+    }
+}
+
 class JSONExportContainer: NSObject, Codable {
     var passwords: [Password]
     var keychainEntries: [PasswordKeychainEntry]
@@ -64,18 +77,15 @@ class Password: NSObject, Codable {
     // MARK: - Keychain
     
     func getPassword() -> String? {
-        if let password = KeychainWrapper.standard.string(forKey: uuid) {
-            return password
-        }
-        
-        debugPrint("Password: no value in keychain matching \(uuid)")
-        return nil
+        return KeychainWrapper.standard.string(forKey: uuid)
     }
     
-    func setPassword(_ password: String) {
+    func setPassword(_ password: String) throws {
         if KeychainWrapper.standard.set(password, forKey: uuid) {
             debugPrint("Password: set password for \(app) \(user)")
             touch()
+        } else {
+            throw PasswordError.keychainWrapperSetError
         }
     }
     

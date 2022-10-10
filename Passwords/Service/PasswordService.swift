@@ -11,14 +11,30 @@ import UIKit
 
 typealias AppRecordsMap = Dictionary<String, [Password]>
 
+enum PasswordServiceError: Error {
+    case deleteReferenceError(uuid: String)
+    case updateReferenceError(uuid: String)
+}
+
+extension PasswordServiceError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .deleteReferenceError(let uuid):
+            return NSLocalizedString("The record to delete with UUID \(uuid) does not exist.", comment: "")
+        case .updateReferenceError(let uuid):
+            return NSLocalizedString("The record to update with UUID \(uuid) does not exist.", comment: "")
+        }
+    }
+}
+
 protocol PasswordServiceProtocol {
     func getAppNames() -> [String]
-    func reloadData()
+    func reloadData() throws
     func getPasswordRecords() -> [Password]
     func getPasswordRecords(forApp app: String) -> [Password]?
-    func createPasswordRecord(app: String, user: String, password: String)
-    func deletePasswordRecord(_ record: Password)
-    func updatePasswordRecord(_ record: Password)
+    func createPasswordRecord(app: String, user: String, password: String) throws
+    func deletePasswordRecord(_ record: Password) throws
+    func updatePasswordRecord(_ record: Password) throws
 }
 
 class PasswordService {
@@ -28,7 +44,7 @@ class PasswordService {
     let kDefaultsKey = "passwordRecords"
     
     private init() {
-        loadPasswordRecords()
+        try! loadPasswordRecords()
     }
     
     // MARK: - Private
@@ -41,50 +57,32 @@ class PasswordService {
     
     private var passwordRecords = [Password]()
     
-    func decodedPasswordRecords() -> [Password]? {
-        if let savedData = defaults.object(forKey: kDefaultsKey) as? Data {
-            let jsonDecoder = JSONDecoder()
-            
-            if let decodedRecords = try? jsonDecoder.decode([Password].self, from: savedData) {
-                return decodedRecords
-            }
-        }
-        return nil
+    func decodedPasswordRecords() throws -> [Password] {
+        let savedData = defaults.object(forKey: kDefaultsKey) as! Data
+        return try JSONDecoder().decode([Password].self, from: savedData)
     }
     
-    func encodedPasswordData() -> Data? {
-        let jsonEncoder = JSONEncoder()
-        
-        if let encodedData = try? jsonEncoder.encode(passwordRecords) {
-            return encodedData
-        }
-        return nil
+    func encodedPasswordData() throws -> Data {
+        return try JSONEncoder().encode(passwordRecords)
     }
     
-    private func loadPasswordRecords() {
-        if let decodedRecords = decodedPasswordRecords() {
-            passwordRecords = decodedRecords
-            debugPrint("PasswordService loaded \(passwordRecords.count) password records")
-        } else {
-            debugPrint("PasswordService failed to load password records.")
-        }
+    private func loadPasswordRecords() throws {
+        passwordRecords = try decodedPasswordRecords()
+        debugPrint("PasswordService loaded \(passwordRecords.count) password records.")
     }
     
-    private func savePasswordRecords() {
-        if let encodedData = encodedPasswordData() {
-            defaults.set(encodedData, forKey: kDefaultsKey)
-            debugPrint("PasswordService saved \(passwordRecords.count) password records.")
-        } else {
-            debugPrint("PasswordService failed to save password records.")
-        }
+    private func savePasswordRecords() throws {
+        let encodedData = try encodedPasswordData()
+        defaults.set(encodedData, forKey: kDefaultsKey)
+        debugPrint("PasswordService saved \(passwordRecords.count) password records.")
     }
 }
 
 // MARK: - PasswordServiceProtocol
 extension PasswordService: PasswordServiceProtocol {
     
-    func reloadData() {
-        loadPasswordRecords()
+    func reloadData() throws {
+        try loadPasswordRecords()
     }
     
     func getAppNames() -> [String] {
@@ -99,41 +97,41 @@ extension PasswordService: PasswordServiceProtocol {
         return appRecordsMap[app]
     }
     
-    func createPasswordRecord(app: String, user: String, password: String) {
+    func createPasswordRecord(app: String, user: String, password: String) throws {
         let passwordRecord = Password(app: app, user: user)
-        passwordRecord.setPassword(password)
+        try passwordRecord.setPassword(password)
         passwordRecords.append(passwordRecord)
-        savePasswordRecords()
+        try savePasswordRecords()
         debugPrint("PasswordService added password record for \(app) \(user)")
     }
     
     //  TODO: These last two are O(N), but they could be O(1) if passwordRecords were cached against their uuid.
     
-    func deletePasswordRecord(_ record: Password) {
-        let uuidToDelete = record.uuid
-        for (index, record) in passwordRecords.enumerated() {
-            if record.uuid == uuidToDelete {
+    func deletePasswordRecord(_ record: Password) throws {
+        for (index, cur) in passwordRecords.enumerated() {
+            if cur.uuid == record.uuid {
                 passwordRecords.remove(at: index)
-                savePasswordRecords()
-                debugPrint("PasswordService deleted password record \(uuidToDelete)")
-                break
+                try savePasswordRecords()
+                debugPrint("PasswordService deleted password record \(record.uuid)")
+                return
             }
         }
+        throw PasswordServiceError.deleteReferenceError(uuid: record.uuid)
     }
     
-    func updatePasswordRecord(_ record: Password) {
-        let uuidToUpdate = record.uuid
-        for selected in passwordRecords {
-            if selected.uuid == uuidToUpdate {
-                selected.app = record.app
-                selected.user = record.user
+    func updatePasswordRecord(_ record: Password) throws {
+        for cur in passwordRecords {
+            if cur.uuid == record.uuid {
+                cur.app = record.app
+                cur.user = record.user
                 if let newPassword = record.getPassword() {
-                    selected.setPassword(newPassword)
+                    try cur.setPassword(newPassword)
                 }
-                savePasswordRecords()
-                debugPrint("PasswordService updated password record \(uuidToUpdate)")
-                break
+                try savePasswordRecords()
+                debugPrint("PasswordService updated password record \(record.uuid)")
+                return
             }
         }
+        throw PasswordServiceError.updateReferenceError(uuid: record.uuid)
     }
 }

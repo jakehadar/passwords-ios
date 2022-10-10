@@ -70,7 +70,13 @@ class PasswordEditViewController: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if !editingCancelled {
-            savePasswordRecord()
+            do {
+                try savePasswordRecord()
+            } catch {
+                let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
     }
     
@@ -108,7 +114,7 @@ class PasswordEditViewController: UITableViewController {
         }
     }
     
-    func savePasswordRecord() {
+    func savePasswordRecord() throws {
         if validateInputs() {
             let app = appTextField.text!
             let user = userTextField.text!
@@ -116,14 +122,14 @@ class PasswordEditViewController: UITableViewController {
             
             switch editingMode {
             case .create:
-                passwordService.createPasswordRecord(app: app, user: user, password: password)
+                try passwordService.createPasswordRecord(app: app, user: user, password: password)
                 
             case .modify:
                 guard let record = passwordRecord else { fatalError() }
                 record.app = app
                 record.user = user
-                record.setPassword(password)
-                passwordService.updatePasswordRecord(record)
+                try record.setPassword(password)
+                try passwordService.updatePasswordRecord(record)
             }
         }
     }

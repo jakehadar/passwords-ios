@@ -28,25 +28,41 @@ class ImportViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    @IBAction func pasteTapped(_ sender: UIBarButtonItem) {
+        jsonTextView.text = UIPasteboard.general.string
+    }
     @IBAction func parseTapped(_ sender: UIBarButtonItem) {
-        let decoder = JSONDecoder()
-        let encoder = JSONEncoder()
-        if let jsonData = try? encoder.encode(self.jsonTextView.text), let jsonContainer: JSONExportContainer = try? decoder.decode(JSONExportContainer.self, from: jsonData) {
-            // continue doing stuff
+        do {
+            let jsonData = Data(self.jsonTextView.text.utf8)
+            let jsonContainer: JSONExportContainer = try JSONDecoder().decode(JSONExportContainer.self, from: jsonData)
             let passwordEntities = jsonContainer.passwords
             let keychainEntities = jsonContainer.keychainEntries
-            
-            let alert = UIAlertController(title: "Import", message: "Import \(passwordEntities.count) password entries?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Import", style: .destructive, handler: nil))
+            let alert = UIAlertController(title: "Import", message: "Import \(passwordEntities.count) password entries? This may result in duplicates.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Import", style: .destructive, handler: { [passwordEntities, keychainEntities] _ in
+                let uuidKeychainDict = keychainEntities.reduce(into: Dictionary<String, String>()) { $0[$1.uuid] = $1.text }
+                var savedEntitiesCount = 0
+                do {
+                    try passwordEntities.forEach {
+                        try passwordService.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "")
+                        savedEntitiesCount += 1
+                    }
+                } catch {
+                    let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+                let alert = UIAlertController(title: "Done", message: "Imported \(savedEntitiesCount)/\(passwordEntities.count) records successfully.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
-            
-        } else {
-            let alert = UIAlertController(title: "Error", message: "Could not parse JSON input. Please double check syntax and try again.", preferredStyle: .alert)
+        } catch {
+            let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-            return
         }
+        
     }
     
 }

@@ -264,25 +264,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Paste JSON data here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VpO-zU-0Pd">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Oos-9L-deP">
                                 <rect key="frame" x="0.0" y="91" width="375" height="638"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                            </textView>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VpO-zU-0Pd">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="638"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                    </textView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mGG-7c-opL"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="VpO-zU-0Pd" firstAttribute="top" secondItem="mGG-7c-opL" secondAttribute="top" id="C9P-Nz-vqR"/>
-                            <constraint firstItem="VpO-zU-0Pd" firstAttribute="leading" secondItem="mGG-7c-opL" secondAttribute="leading" id="YDb-IG-Ycb"/>
-                            <constraint firstItem="mGG-7c-opL" firstAttribute="trailing" secondItem="VpO-zU-0Pd" secondAttribute="trailing" id="Yao-2T-GA7"/>
-                            <constraint firstItem="mGG-7c-opL" firstAttribute="bottom" secondItem="VpO-zU-0Pd" secondAttribute="bottom" id="emx-2F-Rht"/>
+                            <constraint firstItem="Oos-9L-deP" firstAttribute="top" secondItem="mGG-7c-opL" secondAttribute="top" id="I44-Vb-54P"/>
+                            <constraint firstItem="Oos-9L-deP" firstAttribute="bottom" secondItem="mGG-7c-opL" secondAttribute="bottom" id="J4S-8K-pyA"/>
+                            <constraint firstItem="mGG-7c-opL" firstAttribute="trailing" secondItem="Oos-9L-deP" secondAttribute="trailing" id="huJ-Po-Dr5"/>
+                            <constraint firstItem="Oos-9L-deP" firstAttribute="leading" secondItem="mGG-7c-opL" secondAttribute="leading" id="ya7-RA-djO"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="JSON Import" id="HVS-K3-qDG">
+                        <barButtonItem key="leftBarButtonItem" title="Paste" id="aWi-ll-Sj9">
+                            <connections>
+                                <action selector="pasteTapped:" destination="WpB-tb-ixS" id="Egv-dx-ksn"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Parse" id="UQQ-rT-oYO">
                             <connections>
                                 <action selector="parseTapped:" destination="WpB-tb-ixS" id="jAx-o3-tj6"/>

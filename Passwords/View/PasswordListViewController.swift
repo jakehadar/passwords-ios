@@ -41,8 +41,14 @@ class PasswordListViewController: UIViewController {
     }
     
     func reloadData() {
-        passwordService.reloadData()
-        tableView.reloadData()
+        do {
+            try passwordService.reloadData()
+            tableView.reloadData()
+        } catch {
+            let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Navigation
