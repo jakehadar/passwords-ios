@@ -288,16 +288,18 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="JSON Import" id="HVS-K3-qDG">
-                        <barButtonItem key="leftBarButtonItem" title="Paste" id="aWi-ll-Sj9">
-                            <connections>
-                                <action selector="pasteTapped:" destination="WpB-tb-ixS" id="Egv-dx-ksn"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Parse" id="UQQ-rT-oYO">
-                            <connections>
-                                <action selector="parseTapped:" destination="WpB-tb-ixS" id="jAx-o3-tj6"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Parse" id="UQQ-rT-oYO">
+                                <connections>
+                                    <action selector="parseTapped:" destination="WpB-tb-ixS" id="jAx-o3-tj6"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Paste" id="aWi-ll-Sj9">
+                                <connections>
+                                    <action selector="pasteTapped:" destination="WpB-tb-ixS" id="Egv-dx-ksn"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
