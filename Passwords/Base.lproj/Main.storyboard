@@ -37,7 +37,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0iw-al-4qF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1180" y="865"/>
+            <point key="canvasLocation" x="1180" y="935"/>
         </scene>
         <!--Password List View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -90,7 +90,7 @@
                     <navigationItem key="navigationItem" id="yQ6-Jl-oLb">
                         <barButtonItem key="leftBarButtonItem" title="Export JSON" image="gear" catalog="system" id="l4S-Ev-x80">
                             <connections>
-                                <segue destination="xig-6i-tRM" kind="show" id="8C4-Pb-bHV"/>
+                                <segue destination="oET-YU-1AG" kind="show" id="EGP-QP-2Xy"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qRk-rp-zu1">
@@ -210,9 +210,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OL2-YI-P9J">
-                                <rect key="frame" x="20" y="111" width="335" height="598"/>
+                                <rect key="frame" x="0.0" y="91" width="375" height="638"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -221,10 +221,10 @@
                         <viewLayoutGuide key="safeArea" id="SS5-AC-FYS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="OL2-YI-P9J" firstAttribute="leading" secondItem="SS5-AC-FYS" secondAttribute="leading" constant="20" id="6be-xu-jzZ"/>
-                            <constraint firstItem="SS5-AC-FYS" firstAttribute="trailing" secondItem="OL2-YI-P9J" secondAttribute="trailing" constant="20" id="HF8-Mz-Bnq"/>
-                            <constraint firstItem="SS5-AC-FYS" firstAttribute="bottom" secondItem="OL2-YI-P9J" secondAttribute="bottom" constant="20" id="gfT-tg-xdW"/>
-                            <constraint firstItem="OL2-YI-P9J" firstAttribute="top" secondItem="SS5-AC-FYS" secondAttribute="top" constant="20" id="hyg-FV-mpV"/>
+                            <constraint firstItem="OL2-YI-P9J" firstAttribute="leading" secondItem="SS5-AC-FYS" secondAttribute="leading" id="6be-xu-jzZ"/>
+                            <constraint firstItem="SS5-AC-FYS" firstAttribute="trailing" secondItem="OL2-YI-P9J" secondAttribute="trailing" id="HF8-Mz-Bnq"/>
+                            <constraint firstItem="SS5-AC-FYS" firstAttribute="bottom" secondItem="OL2-YI-P9J" secondAttribute="bottom" id="gfT-tg-xdW"/>
+                            <constraint firstItem="OL2-YI-P9J" firstAttribute="top" secondItem="SS5-AC-FYS" secondAttribute="top" id="hyg-FV-mpV"/>
                         </constraints>
                     </view>
                     <toolbarItems>
@@ -234,16 +234,16 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="JRM-kk-UiS"/>
-                        <barButtonItem title="Copy" id="S3v-OI-tGi">
+                        <barButtonItem systemItem="done" id="MlG-Oq-IQZ">
                             <connections>
-                                <action selector="copyTapped:" destination="8Zg-6m-pNW" id="zBc-oB-FmT"/>
+                                <action selector="doneTapped:" destination="8Zg-6m-pNW" id="TT5-fT-H2e"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="JSON Export" id="W5h-be-SbJ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="MlG-Oq-IQZ">
+                        <barButtonItem key="rightBarButtonItem" title="Copy" id="S3v-OI-tGi">
                             <connections>
-                                <action selector="doneTapped:" destination="8Zg-6m-pNW" id="TT5-fT-H2e"/>
+                                <action selector="copyTapped:" destination="8Zg-6m-pNW" id="zBc-oB-FmT"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -254,7 +254,49 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJf-EC-LAu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2769" y="865"/>
+            <point key="canvasLocation" x="3566" y="935"/>
+        </scene>
+        <!--JSON Import-->
+        <scene sceneID="KVM-R3-ggW">
+            <objects>
+                <viewController title="JSON Import" id="WpB-tb-ixS" customClass="ImportViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="c2f-Bs-sUk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Paste JSON data here" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VpO-zU-0Pd">
+                                <rect key="frame" x="0.0" y="91" width="375" height="638"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="alphabet" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mGG-7c-opL"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="VpO-zU-0Pd" firstAttribute="top" secondItem="mGG-7c-opL" secondAttribute="top" id="C9P-Nz-vqR"/>
+                            <constraint firstItem="VpO-zU-0Pd" firstAttribute="leading" secondItem="mGG-7c-opL" secondAttribute="leading" id="YDb-IG-Ycb"/>
+                            <constraint firstItem="mGG-7c-opL" firstAttribute="trailing" secondItem="VpO-zU-0Pd" secondAttribute="trailing" id="Yao-2T-GA7"/>
+                            <constraint firstItem="mGG-7c-opL" firstAttribute="bottom" secondItem="VpO-zU-0Pd" secondAttribute="bottom" id="emx-2F-Rht"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="JSON Import" id="HVS-K3-qDG">
+                        <barButtonItem key="rightBarButtonItem" title="Parse" id="UQQ-rT-oYO">
+                            <connections>
+                                <action selector="parseTapped:" destination="WpB-tb-ixS" id="jAx-o3-tj6"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="jsonTextView" destination="VpO-zU-0Pd" id="gV3-Km-ca5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vTx-LV-6BZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3566" y="1677"/>
         </scene>
         <!--Password Edit View Controller-->
         <scene sceneID="7d5-p1-yy9">
@@ -404,30 +446,6 @@
             <point key="canvasLocation" x="4386" y="132"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="PI9-4z-wjo">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="xig-6i-tRM" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="ftG-qq-MUD"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Znr-5o-y3y">
-                        <rect key="frame" x="0.0" y="47" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="XXD-on-3av">
-                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
-                    <connections>
-                        <segue destination="8Zg-6m-pNW" kind="relationship" relationship="rootViewController" id="NEp-Fk-wGm"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="B3b-N3-pqo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1959" y="865"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="tCX-pX-fwv">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Lp9-hu-a3F" sceneMemberID="viewController">
@@ -464,6 +482,90 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rrh-pz-Nvv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1180" y="132"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="mxC-1g-rfX">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oET-YU-1AG" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="043-kM-kaO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y1W-t7-e9W">
+                        <rect key="frame" x="0.0" y="47" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="46H-lR-wnb" kind="relationship" relationship="rootViewController" id="RZ1-bU-OG8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="spG-IF-dpf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1959" y="936"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="yeL-qP-0JT">
+            <objects>
+                <tableViewController id="46H-lR-wnb" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="b9g-xM-A1b">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <sections>
+                            <tableViewSection id="rVa-hD-h12">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="bUV-J2-YV5" style="IBUITableViewCellStyleDefault" id="qXc-hc-knY">
+                                        <rect key="frame" x="0.0" y="50" width="375" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qXc-hc-knY" id="M4a-Lf-da8">
+                                            <rect key="frame" x="0.0" y="0.0" width="344.66666666666669" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Import JSON" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bUV-J2-YV5">
+                                                    <rect key="frame" x="20" y="0.0" width="316.66666666666669" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="WpB-tb-ixS" kind="show" id="dtZ-LI-vKR"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="NKt-5n-quK" style="IBUITableViewCellStyleDefault" id="4TY-Pt-Lyj">
+                                        <rect key="frame" x="0.0" y="93.666667938232422" width="375" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4TY-Pt-Lyj" id="hjY-HR-0Nc">
+                                            <rect key="frame" x="0.0" y="0.0" width="344.66666666666669" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Export JSON" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NKt-5n-quK">
+                                                    <rect key="frame" x="20" y="0.0" width="316.66666666666669" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="8Zg-6m-pNW" kind="show" id="oSG-A9-1pU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="46H-lR-wnb" id="b9U-dt-kmc"/>
+                            <outlet property="delegate" destination="46H-lR-wnb" id="p6i-Az-LFT"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Settings" id="b0R-yg-mrf"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PEh-7B-7ea" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2714" y="935"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
