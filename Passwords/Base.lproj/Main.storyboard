@@ -227,20 +227,19 @@
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="JRM-kk-UiS"/>
                         <barButtonItem title="Save to Documents" id="rsu-7d-ADr">
                             <connections>
                                 <action selector="saveTapped:" destination="8Zg-6m-pNW" id="pem-4t-3M6"/>
                             </connections>
                         </barButtonItem>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="JSON Export" id="W5h-be-SbJ">
-                        <barButtonItem key="rightBarButtonItem" title="Copy" id="S3v-OI-tGi">
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="JRM-kk-UiS"/>
+                        <barButtonItem title="Copy" id="S3v-OI-tGi">
                             <connections>
                                 <action selector="copyTapped:" destination="8Zg-6m-pNW" id="zBc-oB-FmT"/>
                             </connections>
                         </barButtonItem>
-                    </navigationItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="JSON Export" id="W5h-be-SbJ"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="exportTextView" destination="OL2-YI-P9J" id="N6Z-c1-7dB"/>
@@ -261,7 +260,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Oos-9L-deP">
                                 <rect key="frame" x="0.0" y="91" width="375" height="638"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VpO-zU-0Pd">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VpO-zU-0Pd">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="638"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" systemColor="labelColor"/>
@@ -282,16 +281,16 @@
                     </view>
                     <toolbarItems>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="egn-36-WGV"/>
-                        <barButtonItem title="Parse" id="UQQ-rT-oYO">
+                        <barButtonItem title="Paste" id="aWi-ll-Sj9">
                             <connections>
-                                <action selector="parseTapped:" destination="WpB-tb-ixS" id="jAx-o3-tj6"/>
+                                <action selector="pasteTapped:" destination="WpB-tb-ixS" id="Egv-dx-ksn"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="JSON Import" id="HVS-K3-qDG">
-                        <barButtonItem key="rightBarButtonItem" title="Paste" id="aWi-ll-Sj9">
+                        <barButtonItem key="rightBarButtonItem" title="Parse" id="UQQ-rT-oYO">
                             <connections>
-                                <action selector="pasteTapped:" destination="WpB-tb-ixS" id="Egv-dx-ksn"/>
+                                <action selector="parseTapped:" destination="WpB-tb-ixS" id="jAx-o3-tj6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
