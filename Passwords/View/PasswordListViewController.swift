@@ -35,9 +35,15 @@ class PasswordListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.toolbar.isHidden = true
         authController.authenticate()
         
         reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.toolbar.isHidden = false
     }
     
     func reloadData() {

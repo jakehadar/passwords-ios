@@ -99,14 +99,13 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="tableView" destination="uRb-QQ-b8C" id="AcG-V6-IZa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1959.2" y="132.26600985221674"/>
+            <point key="canvasLocation" x="1958" y="132"/>
         </scene>
         <!--Password Detail View Controller-->
         <scene sceneID="cyb-9Q-QJQ">
@@ -228,15 +227,10 @@
                         </constraints>
                     </view>
                     <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="JRM-kk-UiS"/>
                         <barButtonItem title="Save to Documents" id="rsu-7d-ADr">
                             <connections>
                                 <action selector="saveTapped:" destination="8Zg-6m-pNW" id="pem-4t-3M6"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="JRM-kk-UiS"/>
-                        <barButtonItem systemItem="done" id="MlG-Oq-IQZ">
-                            <connections>
-                                <action selector="doneTapped:" destination="8Zg-6m-pNW" id="TT5-fT-H2e"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -286,20 +280,20 @@
                             <constraint firstItem="Oos-9L-deP" firstAttribute="leading" secondItem="mGG-7c-opL" secondAttribute="leading" id="ya7-RA-djO"/>
                         </constraints>
                     </view>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="egn-36-WGV"/>
+                        <barButtonItem title="Parse" id="UQQ-rT-oYO">
+                            <connections>
+                                <action selector="parseTapped:" destination="WpB-tb-ixS" id="jAx-o3-tj6"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="JSON Import" id="HVS-K3-qDG">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Parse" id="UQQ-rT-oYO">
-                                <connections>
-                                    <action selector="parseTapped:" destination="WpB-tb-ixS" id="jAx-o3-tj6"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Paste" id="aWi-ll-Sj9">
-                                <connections>
-                                    <action selector="pasteTapped:" destination="WpB-tb-ixS" id="Egv-dx-ksn"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Paste" id="aWi-ll-Sj9">
+                            <connections>
+                                <action selector="pasteTapped:" destination="WpB-tb-ixS" id="Egv-dx-ksn"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -479,7 +473,7 @@
         <!--Navigation Controller-->
         <scene sceneID="y0Y-Qs-P0A">
             <objects>
-                <navigationController storyboardIdentifier="InitialViewController" automaticallyAdjustsScrollViewInsets="NO" id="UzH-EP-fAg" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InitialViewController" automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="UzH-EP-fAg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="HAk-xO-rr9">
@@ -487,18 +481,29 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Y3r-l2-vig">
+                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="m7Q-76-6v9"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rrh-pz-Nvv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="oXY-kW-wYy">
+                    <rect key="frame" x="0.0" y="0.0" width="390" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <items>
+                        <barButtonItem title="Item" id="e3Q-Fm-KTf"/>
+                    </items>
+                </toolbar>
             </objects>
             <point key="canvasLocation" x="1180" y="132"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mxC-1g-rfX">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oET-YU-1AG" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" toolbarHidden="NO" id="oET-YU-1AG" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="043-kM-kaO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Y1W-t7-e9W">
@@ -506,6 +511,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9OT-A5-zvL">
+                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="46H-lR-wnb" kind="relationship" relationship="rootViewController" id="RZ1-bU-OG8"/>
                     </connections>
