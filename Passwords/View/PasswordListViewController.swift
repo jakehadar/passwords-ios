@@ -9,9 +9,9 @@
 import UIKit
 
 class PasswordListViewController: UIViewController {
-    let searchController = UISearchController(searchResultsController: nil)
-    
     @IBOutlet weak var tableView: UITableView!
+    
+    let searchController = UISearchController(searchResultsController: nil)
         
     var selectedRecord: Password?
     
@@ -74,9 +74,7 @@ class PasswordListViewController: UIViewController {
             try passwordService.reloadData()
             tableView.reloadData()
         } catch {
-            let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            presentAlert(explaning: error, toViewController: self)
         }
     }
     
@@ -116,6 +114,7 @@ extension PasswordListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
+        // TODO: clean up this mostly repeated logic
         if searchController.isActive {
             if filteredAppNames.count > 0 {
                 let app = filteredAppNames[indexPath.section]

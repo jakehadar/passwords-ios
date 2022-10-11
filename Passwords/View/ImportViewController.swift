@@ -11,11 +11,11 @@ import UIKit
 class ImportViewController: UIViewController {
 
     @IBOutlet weak var jsonTextView: UITextView!
+    @IBOutlet weak var importButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        importButton.isEnabled = false
     }
     
 
@@ -30,15 +30,24 @@ class ImportViewController: UIViewController {
     */
     @IBAction func pasteTapped(_ sender: UIBarButtonItem) {
         jsonTextView.text = UIPasteboard.general.string
+        importButton.isEnabled = jsonTextView.text.count > 0 ? true : false
     }
-    @IBAction func parseTapped(_ sender: UIBarButtonItem) {
+    
+    @IBAction func clearTapped(_ sender: UIBarButtonItem) {
+        jsonTextView.text = ""
+        importButton.isEnabled = false
+    }
+    
+    
+    
+    @IBAction func importTapped(_ sender: UIBarButtonItem) {
         do {
             let jsonData = Data(self.jsonTextView.text.utf8)
             let jsonContainer: JSONExportContainer = try JSONDecoder().decode(JSONExportContainer.self, from: jsonData)
             let passwordEntities = jsonContainer.passwords
             let keychainEntities = jsonContainer.keychainEntries
-            let alert = UIAlertController(title: "Import", message: "Import \(passwordEntities.count) password entries? This may result in duplicates.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Import", style: .destructive, handler: { [passwordEntities, keychainEntities] _ in
+            let ac = UIAlertController(title: "Import", message: "Import \(passwordEntities.count) password entries? This may result in duplicates.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Import", style: .destructive, handler: { [passwordEntities, keychainEntities, unowned self] _ in
                 let uuidKeychainDict = keychainEntities.reduce(into: Dictionary<String, String>()) { $0[$1.uuid] = $1.text }
                 var savedEntitiesCount = 0
                 do {
@@ -47,22 +56,23 @@ class ImportViewController: UIViewController {
                         savedEntitiesCount += 1
                     }
                 } catch {
-                    let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    presentAlert(explaning: error, toViewController: self)
                 }
-                let alert = UIAlertController(title: "Done", message: "Imported \(savedEntitiesCount)/\(passwordEntities.count) records successfully.", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                self.importButton.isEnabled = false
+                let ac = UIAlertController(title: "Done", message: "Imported \(savedEntitiesCount)/\(passwordEntities.count) records successfully.", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(ac, animated: true, completion: nil)
             }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            self.present(ac, animated: true, completion: nil)
         } catch {
-            let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+            presentAlert(explaning: error, toViewController: self)
         }
-        
     }
-    
+}
+
+extension ImportViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        importButton.isEnabled = textView.text.count > 0 ? true : false
+    }
 }

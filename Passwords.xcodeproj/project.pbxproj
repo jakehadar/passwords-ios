@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2E08453D2349D42100E905F2 /* PasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E08453C2349D42100E905F2 /* PasswordService.swift */; };
+		2E0AF0C628F5E0B900A02859 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0AF0C528F5E0B900A02859 /* SettingsTableViewController.swift */; };
+		2E0AF0C828F5F59F00A02859 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0AF0C728F5F59F00A02859 /* Common.swift */; };
 		2E10A36728F3939E00FE4954 /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E10A36628F3939E00FE4954 /* ImportViewController.swift */; };
 		2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B7D5208B81450096B512 /* AppDelegate.swift */; };
 		2E84B7DB208B81450096B512 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E84B7D9208B81450096B512 /* Main.storyboard */; };
@@ -27,6 +29,8 @@
 
 /* Begin PBXFileReference section */
 		2E08453C2349D42100E905F2 /* PasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordService.swift; sourceTree = "<group>"; };
+		2E0AF0C528F5E0B900A02859 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = Passwords/SettingsTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		2E0AF0C728F5F59F00A02859 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		2E10A36628F3939E00FE4954 /* ImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewController.swift; sourceTree = "<group>"; };
 		2E84B7D2208B81450096B512 /* Passwords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passwords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E84B7D5208B81450096B512 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 		2E84B81C208B95810096B512 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2E0AF0C528F5E0B900A02859 /* SettingsTableViewController.swift */,
 				2E10A36628F3939E00FE4954 /* ImportViewController.swift */,
 				2E84B815208B94C20096B512 /* PasswordListViewController.swift */,
 				2E84B819208B95340096B512 /* PasswordEditViewController.swift */,
@@ -124,6 +129,7 @@
 			children = (
 				2E84B7E7208B83A30096B512 /* KeychainItemAccessibility.swift */,
 				2E84B7E8208B83A30096B512 /* KeychainWrapper.swift */,
+				2E0AF0C728F5F59F00A02859 /* Common.swift */,
 				2E84B82C208BF0AE0096B512 /* DateHelper.swift */,
 			);
 			path = Helpers;
@@ -206,12 +212,14 @@
 				2E10A36728F3939E00FE4954 /* ImportViewController.swift in Sources */,
 				2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */,
 				2E08453D2349D42100E905F2 /* PasswordService.swift in Sources */,
+				2E0AF0C628F5E0B900A02859 /* SettingsTableViewController.swift in Sources */,
 				2E84B7E9208B83A30096B512 /* KeychainItemAccessibility.swift in Sources */,
 				2EBE73E223A3AE88006C48C8 /* ExportViewController.swift in Sources */,
 				2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */,
 				2E84B834208F5C730096B512 /* AuthenticationViewController.swift in Sources */,
 				2E84B82D208BF0AE0096B512 /* DateHelper.swift in Sources */,
 				2E84B825208BE5DA0096B512 /* Password.swift in Sources */,
+				2E0AF0C828F5F59F00A02859 /* Common.swift in Sources */,
 				2EB39EB323B2951500E6047B /* AuthController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,31 +10,32 @@ import UIKit
 
 class ExportViewController: UIViewController {
 
+    @IBOutlet weak var exportButton: UIBarButtonItem!
     @IBOutlet weak var exportTextView: UITextView!
+    @IBOutlet weak var copyButton: UIBarButtonItem!
+    @IBOutlet weak var saveToDocumentsButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         authController.authenticate()
-        
-        
+        copyButton.isEnabled = false
+        saveToDocumentsButton.isEnabled = false
+    }
+    
+    func exportJson() throws {
         let passwords = passwordService.getPasswordRecords()
-        var keychainEntries = [PasswordKeychainEntry]()
-        for password in passwords {
-            let keychainEntry = PasswordKeychainEntry(uuid: password.uuid, text: password.getPassword() ?? "")
-            keychainEntries.append(keychainEntry)
-        }
-        
-        let jsonExportContainer = JSONExportContainer(passwords: passwords, keychainEntries: keychainEntries)
-        
-        let jsonEncoder = JSONEncoder()
-        let jsonExportString = prettyJsonString(try! jsonEncoder.encode(jsonExportContainer))
-        exportTextView.text = jsonExportString
-        
-//        if let data = passwordService.encodedPasswordData(), let jsonString = prettyJsonString(data) {
-//            exportTextView.text = jsonString
-//        } else {
-//            exportTextView.text = "Failed to export password records."
+//        var keychainEntries = [PasswordKeychainEntry]()
+//        for password in passwords {
+//            let keychainEntry = PasswordKeychainEntry(uuid: password.uuid, text: password.getPassword() ?? "")
+//            keychainEntries.append(keychainEntry)
 //        }
+        let keychainEntries = passwords.reduce(into: [PasswordKeychainEntry]()) { $0.append(PasswordKeychainEntry(uuid: $1.uuid, text: $1.getPassword() ?? "")) }
+        let jsonExportContainer = JSONExportContainer(passwords: passwords, keychainEntries: keychainEntries)
+        let jsonExportString = prettyJsonString(try JSONEncoder().encode(jsonExportContainer))
+        exportTextView.text = jsonExportString
+        copyButton.isEnabled = true
+        saveToDocumentsButton.isEnabled = true
+        exportButton.isEnabled = false
     }
     
     func prettyJsonString(_ data: Data) -> String? {
@@ -82,7 +83,19 @@ class ExportViewController: UIViewController {
         }
     }
     
-    @IBAction func doneTapped(_ sender: UIBarButtonItem) {
-        self.navigationController?.dismiss(animated: true)
+    @IBAction func exportTapped(_ sender: UIBarButtonItem) {
+        let ac = UIAlertController(title: "Warning", message: "This action will show all passwords in plain text.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        ac.addAction(UIAlertAction(title: "Continue", style: .default) { [unowned self] _ in
+            do {
+                try self.exportJson()
+            } catch {
+                let ac = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(ac, animated: true, completion: nil)
+            }
+        })
+        self.present(ac, animated: true, completion: nil)
     }
+
 }
