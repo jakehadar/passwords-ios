@@ -47,14 +47,10 @@ class PasswordListViewController: UIViewController {
             refreshData()
             tableView.reloadData()
         }
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedIndexPath, animated: animated)
+        }
     }
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        if let selected = tableView.indexPathForSelectedRow {
-//            tableView.deselectRow(at: selected, animated: true)
-//        }
-//    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
