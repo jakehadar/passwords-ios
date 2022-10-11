@@ -9,6 +9,7 @@
 import UIKit
 
 class PasswordListViewController: UIViewController {
+    let searchController = UISearchController(searchResultsController: nil)
     
     @IBOutlet weak var tableView: UITableView!
         
@@ -23,8 +24,17 @@ class PasswordListViewController: UIViewController {
         return result
     }
     
+    // For searching
+    var filteredAppNames = [String]()
+    var filteredRecordsForApp = Dictionary<String, [Password]>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchController.searchResultsUpdater = self
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.searchBar.sizeToFit()
+        self.tableView.tableHeaderView = searchController.searchBar
         
         title = "Applications"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordRecordCell")
@@ -35,15 +45,28 @@ class PasswordListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.toolbar.isHidden = true
         authController.authenticate()
         
+        navigationController?.toolbar.isHidden = true
+        searchController.searchBar.isHidden = false
+        // TODO: only reload data if the password service indicates the data has changed
         reloadData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
         navigationController?.toolbar.isHidden = false
+        searchController.searchBar.isHidden = true
+        searchController.searchBar.endEditing(true)
+        super.viewWillDisappear(animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
     }
     
     func reloadData() {
@@ -80,31 +103,65 @@ class PasswordListViewController: UIViewController {
 
 extension PasswordListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return appNames.count
+        return searchController.isActive ? filteredAppNames.count : appNames.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let appName = appNames[section]
-        return recordsForApp[appName]!.count
+        if searchController.isActive {
+            return filteredRecordsForApp[filteredAppNames[section]]!.count
+        } else {
+            return recordsForApp[appNames[section]]!.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
-        if appNames.count > 0 {
-            let app = appNames[indexPath.section]
-            if let records = recordsForApp[app] {
-                let record = records[indexPath.row]
-                if let passwordRecordCell = tableView.dequeueReusableCell(withIdentifier: "PasswordRecordCell") {
-                    passwordRecordCell.textLabel?.text = record.user
-                    cell = passwordRecordCell
+        if searchController.isActive {
+            if filteredAppNames.count > 0 {
+                let app = filteredAppNames[indexPath.section]
+                if let records = filteredRecordsForApp[app] {
+                    let record = records[indexPath.row]
+                    if let passwordRecordCell = tableView.dequeueReusableCell(withIdentifier: "PasswordRecordCell") {
+                        passwordRecordCell.textLabel?.text = record.user
+                        cell = passwordRecordCell
+                    }
+                }
+            }
+        } else {
+            if appNames.count > 0 {
+                let app = appNames[indexPath.section]
+                if let records = recordsForApp[app] {
+                    let record = records[indexPath.row]
+                    if let passwordRecordCell = tableView.dequeueReusableCell(withIdentifier: "PasswordRecordCell") {
+                        passwordRecordCell.textLabel?.text = record.user
+                        cell = passwordRecordCell
+                    }
                 }
             }
         }
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return appNames[section]
+        return searchController.isActive ? filteredAppNames[section] : appNames[section]
+    }
+}
+
+extension PasswordListViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        if searchController.searchBar.text != "" {
+            filteredAppNames = appNames.filter {
+                $0.lowercased().range(of: searchController.searchBar.text?.lowercased() ?? "") != nil
+                
+            }
+        } else {
+            // If there's no text in the search bar, show all results
+            filteredAppNames = appNames
+        }
+        
+        filteredRecordsForApp = recordsForApp
+        tableView.reloadData()
     }
 }
 
