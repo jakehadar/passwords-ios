@@ -12,17 +12,9 @@ class PasswordListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     let searchController = UISearchController(searchResultsController: nil)
-        
-    var selectedRecord: Password?
     
-    var appNames: [String] {
-        return passwordService.getAppNames().map { $0.uppercased() }.sorted()
-    }
-    
-    var recordsForApp: Dictionary<String, [Password]> {
-        let result = Dictionary(grouping: passwordService.getPasswordRecords(), by: { $0.app.uppercased() })
-        return result
-    }
+    var appNames = [String]()
+    var recordsForApp = Dictionary<String, [Password]>()
     
     // For searching
     var filteredAppNames = [String]()
@@ -47,34 +39,31 @@ class PasswordListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        authController.authenticate()
-        
         navigationController?.toolbar.isHidden = true
-        // TODO: only reload data if the password service indicates the data has changed
-        reloadData()
+        authController.authenticate()
+        if passwordService.hasUpdates() {
+            debugPrint("PasswordService has updates, reloading table data")
+            passwordService.acknowledgeUpdates()
+            refreshData()
+            tableView.reloadData()
+        }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        if let selected = tableView.indexPathForSelectedRow {
+//            tableView.deselectRow(at: selected, animated: true)
+//        }
+//    }
     
     override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.toolbar.isHidden = false
         super.viewWillDisappear(animated)
+        navigationController?.toolbar.isHidden = false
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-    
-    func reloadData() {
-        do {
-            try passwordService.reloadData()
-            tableView.reloadData()
-        } catch {
-            presentAlert(explaning: error, toViewController: self)
-        }
+    func refreshData() {
+        appNames = passwordService.getAppNames().map { $0.uppercased() }.sorted()
+        recordsForApp = Dictionary(grouping: passwordService.getPasswordRecords(), by: { $0.app.uppercased() })
     }
     
     // MARK: - Navigation
@@ -86,7 +75,6 @@ class PasswordListViewController: UIViewController {
         
         if let vc = segue.destination as? PasswordDetailViewController, let indexPath = tableView.indexPathForSelectedRow {
             // Editing an existing record
-            // TODO: make a controller.passwordRecordForIndexPath to own this logic
             if searchController.isActive {
                 vc.passwordRecord = filteredRecordsForApp[filteredAppNames[indexPath.section]]?[indexPath.row]
             } else {
@@ -114,8 +102,7 @@ extension PasswordListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "PasswordRecordCell") ?? UITableViewCell()
-        // TODO: clean up this mostly repeated logic
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PasswordRecordCell")!
         if searchController.isActive {
             let app = filteredAppNames[indexPath.section]
             let records = filteredRecordsForApp[app]

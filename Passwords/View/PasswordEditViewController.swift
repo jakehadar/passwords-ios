@@ -8,6 +8,19 @@
 
 import UIKit
 
+enum PasswordEditError: Error {
+    case inputValidationAbortedCommitError
+}
+
+extension PasswordEditError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .inputValidationAbortedCommitError:
+            return NSLocalizedString("Could not commit changes due to input validation error(s).", comment: "")
+        }
+    }
+}
+
 enum PasswordEditingMode {
     case create
     case modify
@@ -67,19 +80,6 @@ class PasswordEditViewController: UITableViewController {
         setupView()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if !editingCancelled {
-            do {
-                try savePasswordRecord()
-            } catch {
-                let ac = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(ac, animated: true, completion: nil)
-            }
-        }
-    }
-    
     fileprivate func setupView() {
         appTextField.tag = 1
         userTextField.tag = 2
@@ -114,23 +114,22 @@ class PasswordEditViewController: UITableViewController {
         }
     }
     
-    func savePasswordRecord() throws {
-        if validateInputs() {
-            let app = appTextField.text!
-            let user = userTextField.text!
-            let password = "\(passwordTextField.text!)"
+    func validateAndCommitChanges() throws {
+        guard validateInputs() else { throw PasswordEditError.inputValidationAbortedCommitError }
+        let app = appTextField.text!
+        let user = userTextField.text!
+        let password = "\(passwordTextField.text!)"
+        
+        switch editingMode {
+        case .create:
+            try passwordService.createPasswordRecord(app: app, user: user, password: password)
             
-            switch editingMode {
-            case .create:
-                try passwordService.createPasswordRecord(app: app, user: user, password: password)
-                
-            case .modify:
-                guard let record = passwordRecord else { fatalError() }
-                record.app = app
-                record.user = user
-                try record.setPassword(password)
-                try passwordService.updatePasswordRecord(record)
-            }
+        case .modify:
+            guard let record = passwordRecord else { fatalError() }
+            record.app = app
+            record.user = user
+            try record.setPassword(password)
+            try passwordService.updatePasswordRecord(record)
         }
     }
     
@@ -155,25 +154,6 @@ class PasswordEditViewController: UITableViewController {
         }
         
         return true
-    }
-    
-    @objc func commit() {
-        if validateInputs() {
-            dismissAndReload()
-        }
-    }
-    
-    @objc func cancel() {
-        editingCancelled = true
-        dismissAndReload()
-    }
-    
-    func dismissAndReload() {
-        dismiss(animated: true) {
-            if let parent = self.parent as? PasswordListViewController {
-                parent.reloadData()
-            }
-        }
     }
     
     @objc func dismissKeyboard() {
@@ -225,11 +205,16 @@ class PasswordEditViewController: UITableViewController {
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
-        cancel()
+        dismiss(animated: true)
     }
     
     @IBAction func commitButtonTapped(_ sender: UIBarButtonItem) {
-        commit()
+        do {
+            try validateAndCommitChanges()
+            dismiss(animated: true)
+        } catch {
+            presentAlert(explaning: error, toViewController: self)
+        }
     }
     
 }

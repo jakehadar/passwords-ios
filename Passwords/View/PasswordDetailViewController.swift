@@ -52,18 +52,15 @@ class PasswordDetailViewController: UIViewController {
     }
     
     func deletePasswordRecord() {
+        guard let passwordToDelete = self.passwordRecord else { return }
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
-            guard let record = self.passwordRecord else { fatalError() }
-            
             do {
-                try passwordService.deletePasswordRecord(record)
+                try passwordService.deletePasswordRecord(passwordToDelete)
                 self.passwordRecord = nil
                 self.navigationController?.popViewController(animated: true)
             } catch {
-                let alert = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+                presentAlert(explaning: error, toViewController: self)
             }
         }
         ac.addAction(deleteAction)

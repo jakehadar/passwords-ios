@@ -35,6 +35,8 @@ protocol PasswordServiceProtocol {
     func createPasswordRecord(app: String, user: String, password: String) throws
     func deletePasswordRecord(_ record: Password) throws
     func updatePasswordRecord(_ record: Password) throws
+    func hasUpdates() -> Bool
+    func acknowledgeUpdates() -> Void
 }
 
 class PasswordService {
@@ -57,25 +59,22 @@ class PasswordService {
     
     private var passwordRecords = [Password]()
     
-    func decodedPasswordRecords() throws -> [Password] {
-        let savedData = defaults.object(forKey: kDefaultsKey) as! Data
-        return try JSONDecoder().decode([Password].self, from: savedData)
-    }
-    
-    func encodedPasswordData() throws -> Data {
-        return try JSONEncoder().encode(passwordRecords)
-    }
+    private var hasUpdatesFlag = true
     
     private func loadPasswordRecords() throws {
-        passwordRecords = try decodedPasswordRecords()
+        let savedData = defaults.object(forKey: kDefaultsKey) as! Data
+        passwordRecords = try JSONDecoder().decode([Password].self, from: savedData)
+        hasUpdatesFlag = true
         debugPrint("PasswordService loaded \(passwordRecords.count) password records.")
     }
     
     private func savePasswordRecords() throws {
-        let encodedData = try encodedPasswordData()
+        let encodedData = try JSONEncoder().encode(passwordRecords)
         defaults.set(encodedData, forKey: kDefaultsKey)
+        hasUpdatesFlag = true
         debugPrint("PasswordService saved \(passwordRecords.count) password records.")
     }
+    
 }
 
 // MARK: - PasswordServiceProtocol
@@ -133,5 +132,13 @@ extension PasswordService: PasswordServiceProtocol {
             }
         }
         throw PasswordServiceError.updateReferenceError(uuid: record.uuid)
+    }
+    
+    func hasUpdates() -> Bool {
+        return hasUpdatesFlag
+    }
+    
+    func acknowledgeUpdates() {
+        hasUpdatesFlag = false
     }
 }
