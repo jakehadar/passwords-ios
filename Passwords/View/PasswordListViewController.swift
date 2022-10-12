@@ -23,30 +23,31 @@ class PasswordListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Applications"
+        definesPresentationContext = true
+        
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.placeholder = "Search Applications"
         searchController.searchBar.sizeToFit()
         navigationItem.searchController = searchController
-        definesPresentationContext = true
         
-        title = "Applications"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordRecordCell")
-        
         tableView.dataSource = self
         tableView.delegate = self
+        
+        passwordService.updatesDelegate = self
+        do {
+            try passwordService.initialize()
+        } catch {
+            presentAlert(explaning: error, toViewController: self)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.toolbar.isHidden = true
         authController.authenticate()
-        if passwordService.hasUpdates() {
-            debugPrint("PasswordService has updates, reloading table data")
-            passwordService.acknowledgeUpdates()
-            refreshData()
-            tableView.reloadData()
-        }
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedIndexPath, animated: animated)
         }
@@ -81,6 +82,14 @@ class PasswordListViewController: UIViewController {
             // Creating a new record
             vc.passwordRecord = nil
         }
+    }
+}
+
+extension PasswordListViewController: PasswordServiceUpdatesDelegate {
+    func dataHasChanged() {
+        debugPrint("PasswordService has updates, reloading table data")
+        refreshData()
+        tableView.reloadData()
     }
 }
 

@@ -20,22 +20,19 @@ class ExportViewController: UIViewController {
         authController.authenticate()
         copyButton.isEnabled = false
         saveToDocumentsButton.isEnabled = false
+        exportTapped(exportButton)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     func exportJson() throws {
         let passwords = passwordService.getPasswordRecords()
-//        var keychainEntries = [PasswordKeychainEntry]()
-//        for password in passwords {
-//            let keychainEntry = PasswordKeychainEntry(uuid: password.uuid, text: password.getPassword() ?? "")
-//            keychainEntries.append(keychainEntry)
-//        }
         let keychainEntries = passwords.reduce(into: [PasswordKeychainEntry]()) { $0.append(PasswordKeychainEntry(uuid: $1.uuid, text: $1.getPassword() ?? "")) }
         let jsonExportContainer = JSONExportContainer(passwords: passwords, keychainEntries: keychainEntries)
         let jsonExportString = prettyJsonString(try JSONEncoder().encode(jsonExportContainer))
         exportTextView.text = jsonExportString
-        copyButton.isEnabled = true
-        saveToDocumentsButton.isEnabled = true
-        exportButton.isEnabled = false
     }
     
     func prettyJsonString(_ data: Data) -> String? {
@@ -64,7 +61,7 @@ class ExportViewController: UIViewController {
     */
     @IBAction func copyTapped(_ sender: UIBarButtonItem) {
         UIPasteboard.general.string = exportTextView.text
-        let alert = UIAlertController(title: "Copied to clipboard", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Copied", message: "Copied exported data to clipboard.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
@@ -77,22 +74,24 @@ class ExportViewController: UIViewController {
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
         } catch {
-            let ac = UIAlertController(title: "Failure", message: "Failed to export json to: \n\(filename)", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
+            presentAlert(explaning: error, toViewController: self)
         }
     }
     
     @IBAction func exportTapped(_ sender: UIBarButtonItem) {
+        self.exportButton.isEnabled = false
         let ac = UIAlertController(title: "Warning", message: "This action will show all passwords in plain text.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel) { [unowned self] _ in
+            self.exportButton.isEnabled = true
+        })
         ac.addAction(UIAlertAction(title: "Continue", style: .default) { [unowned self] _ in
             do {
                 try self.exportJson()
+                self.copyButton.isEnabled = true
+                self.saveToDocumentsButton.isEnabled = true
+                self.exportButton.isEnabled = false
             } catch {
-                let ac = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
-                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(ac, animated: true, completion: nil)
+                presentAlert(explaning: error, toViewController: self)
             }
         })
         self.present(ac, animated: true, completion: nil)

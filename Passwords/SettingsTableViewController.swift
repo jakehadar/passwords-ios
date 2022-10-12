@@ -19,6 +19,67 @@ class SettingsTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selection = tableView.cellForRow(at: indexPath)
+        switch selection?.reuseIdentifier {
+        case "DeleteAllRecords":
+            deleteAllRecords()
+        case "InsertExampleRecords":
+            insertExampleRecords()
+        default:
+            return
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func deleteAllRecords() {
+        let ac = UIAlertController(title: "Warning", message: "This action will erase all passwords. This action cannot be undone.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        ac.addAction(UIAlertAction(title: "Erase", style: .destructive) { [unowned self] _ in
+            var deletedRecordCount = 0
+            do {
+                try passwordService.getPasswordRecords().forEach {
+                    try passwordService.deletePasswordRecord($0)
+                    deletedRecordCount += 1
+                }
+            } catch {
+                presentAlert(explaning: error, toViewController: self)
+            }
+            let ac = UIAlertController(title: "Done", message: "Erased all \(deletedRecordCount) records.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(ac, animated: true, completion: nil)
+        })
+        self.present(ac, animated: true, completion: nil)
+    }
+    
+    func insertExampleRecords() {
+        let ac = UIAlertController(title: "Warning", message: "This action will insert dummy records for development testing.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        ac.addAction(UIAlertAction(title: "Continue", style: .destructive) { [unowned self] _ in
+            let dummyRecords = [
+                ["Google", "account1@gmail.com", "password1"],
+                ["Google", "account2@gmail.com", "password2"],
+                ["Google", "account3@gmail.com", "password3"],
+                ["Amazon", "user1", "password"],
+                ["Facebook", "user1", "password"],
+                ["Instagram", "user1@gmail.com", "password"],
+                ["Instagram", "user2@gmail.com", "password"],
+                ["Netflix", "user1@gmail.com", "password"],
+                ["Github", "user1@gmail.com", "password"],
+                ["Apple", "user1@icloud.com", "pass"]
+            ]
+            do {
+                try dummyRecords.forEach { try passwordService.createPasswordRecord(app: $0[0], user: $0[1], password: $0[2]) }
+            } catch {
+                presentAlert(explaning: error, toViewController: self)
+            }
+            let ac = UIAlertController(title: "Done", message: "Inserted \(dummyRecords.count) dummy records.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(ac, animated: true, completion: nil)
+        })
+        self.present(ac, animated: true, completion: nil)
+    }
 
     // MARK: - Table view data source
     

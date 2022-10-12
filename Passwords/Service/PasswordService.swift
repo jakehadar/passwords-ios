@@ -14,6 +14,7 @@ typealias AppRecordsMap = Dictionary<String, [Password]>
 enum PasswordServiceError: Error {
     case deleteReferenceError(uuid: String)
     case updateReferenceError(uuid: String)
+    case serviceUninitializedError
 }
 
 extension PasswordServiceError: LocalizedError {
@@ -23,20 +24,23 @@ extension PasswordServiceError: LocalizedError {
             return NSLocalizedString("The record to delete with UUID \(uuid) does not exist.", comment: "")
         case .updateReferenceError(let uuid):
             return NSLocalizedString("The record to update with UUID \(uuid) does not exist.", comment: "")
+        case .serviceUninitializedError:
+            return NSLocalizedString("The password service was called prior to initialization.", comment: "")
         }
     }
 }
 
 protocol PasswordServiceProtocol {
+    func initialize() throws
     func getAppNames() -> [String]
-    func reloadData() throws
     func getPasswordRecords() -> [Password]
     func getPasswordRecords(forApp app: String) -> [Password]?
     func createPasswordRecord(app: String, user: String, password: String) throws
     func deletePasswordRecord(_ record: Password) throws
-    func updatePasswordRecord(_ record: Password) throws
-    func hasUpdates() -> Bool
-    func acknowledgeUpdates() -> Void
+}
+
+protocol PasswordServiceUpdatesDelegate {
+    func dataHasChanged() -> Void
 }
 
 class PasswordService {
@@ -44,34 +48,29 @@ class PasswordService {
     
     static let `default` = PasswordService()
     let kDefaultsKey = "passwordRecords"
-    
-    private init() {
-        try! loadPasswordRecords()
-    }
+    var updatesDelegate: PasswordServiceUpdatesDelegate?
     
     // MARK: - Private
     
     private let defaults = UserDefaults.standard
-    
-    private var appRecordsMap: AppRecordsMap {
-        return Dictionary(grouping: passwordRecords, by: { $0.app })
-    }
+    private var initialized = false
     
     private var passwordRecords = [Password]()
-    
-    private var hasUpdatesFlag = true
+    private var appRecordsMap: AppRecordsMap { return Dictionary(grouping: passwordRecords, by: { $0.app }) }
     
     private func loadPasswordRecords() throws {
         let savedData = defaults.object(forKey: kDefaultsKey) as! Data
         passwordRecords = try JSONDecoder().decode([Password].self, from: savedData)
-        hasUpdatesFlag = true
+        initialized = true
+        updatesDelegate?.dataHasChanged()
         debugPrint("PasswordService loaded \(passwordRecords.count) password records.")
     }
     
     private func savePasswordRecords() throws {
+        guard initialized else { throw PasswordServiceError.serviceUninitializedError }
         let encodedData = try JSONEncoder().encode(passwordRecords)
         defaults.set(encodedData, forKey: kDefaultsKey)
-        hasUpdatesFlag = true
+        updatesDelegate?.dataHasChanged()
         debugPrint("PasswordService saved \(passwordRecords.count) password records.")
     }
     
@@ -80,7 +79,7 @@ class PasswordService {
 // MARK: - PasswordServiceProtocol
 extension PasswordService: PasswordServiceProtocol {
     
-    func reloadData() throws {
+    func initialize() throws {
         try loadPasswordRecords()
     }
     
@@ -132,13 +131,5 @@ extension PasswordService: PasswordServiceProtocol {
             }
         }
         throw PasswordServiceError.updateReferenceError(uuid: record.uuid)
-    }
-    
-    func hasUpdates() -> Bool {
-        return hasUpdatesFlag
-    }
-    
-    func acknowledgeUpdates() {
-        hasUpdatesFlag = false
     }
 }

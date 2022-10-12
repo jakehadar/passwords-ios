@@ -49,17 +49,13 @@ class ImportViewController: UIViewController {
             let ac = UIAlertController(title: "Import", message: "Import \(passwordEntities.count) password entries? This may result in duplicates.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Import", style: .destructive, handler: { [passwordEntities, keychainEntities, unowned self] _ in
                 let uuidKeychainDict = keychainEntities.reduce(into: Dictionary<String, String>()) { $0[$1.uuid] = $1.text }
-                var savedEntitiesCount = 0
                 do {
-                    try passwordEntities.forEach {
-                        try passwordService.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "")
-                        savedEntitiesCount += 1
-                    }
+                    try passwordEntities.forEach { try passwordService.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "") }
                 } catch {
                     presentAlert(explaning: error, toViewController: self)
                 }
                 self.importButton.isEnabled = false
-                let ac = UIAlertController(title: "Done", message: "Imported \(savedEntitiesCount)/\(passwordEntities.count) records successfully.", preferredStyle: .alert)
+                let ac = UIAlertController(title: "Done", message: "Successfully imported \(passwordEntities.count) records.", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(ac, animated: true, completion: nil)
             }))
