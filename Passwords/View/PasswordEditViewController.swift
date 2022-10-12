@@ -30,7 +30,6 @@ class PasswordEditViewController: UITableViewController {
     @IBOutlet weak var appTextField: UITextField!
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var deleteButton: UIBarButtonItem!
     @IBOutlet weak var maskSwitch: UISwitch!
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
@@ -69,6 +68,7 @@ class PasswordEditViewController: UITableViewController {
         navigationController?.modalPresentationStyle = .fullScreen
         
         commitButton.isEnabled = false
+        setupView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,7 +76,6 @@ class PasswordEditViewController: UITableViewController {
         authController.authenticate()
         
         editingCancelled = false
-        setupView()
     }
     
     fileprivate func setupView() {
@@ -100,6 +99,19 @@ class PasswordEditViewController: UITableViewController {
         }
     }
     
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? ApplicationListTableViewController {
+            vc.selectionDelegate = self
+            vc.dismissOnSelection = true
+            vc.initialSelection = appTextField.text?.trimmingCharacters(in: .whitespaces) != "" ? appTextField.text : nil
+        }
+    }
+    
+    // MARK: - TableView
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
@@ -112,6 +124,8 @@ class PasswordEditViewController: UITableViewController {
             dismissKeyboard()
         }
     }
+    
+    // MARK: - Validation and Persistence
     
     func validateAndCommitChanges() throws {
         guard validateInputs() else { throw PasswordEditError.inputValidationAbortedCommitError }
@@ -161,6 +175,8 @@ class PasswordEditViewController: UITableViewController {
         passwordTextField.resignFirstResponder()
     }
     
+    // MARK: - Actions
+    
     @IBAction func textFieldPrimaryActionTriggered(_ sender: UITextField) {
         if editingMode == .create {
             switch sender.tag {
@@ -183,11 +199,7 @@ class PasswordEditViewController: UITableViewController {
     }
     
     @IBAction func maskSwitchToggled(_ sender: UISwitch) {
-        if sender.isOn {
-            passwordTextField.isSecureTextEntry = true
-        } else {
-            passwordTextField.isSecureTextEntry = false
-        }
+        passwordTextField.isSecureTextEntry = sender.isOn
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
@@ -207,5 +219,14 @@ class PasswordEditViewController: UITableViewController {
 extension PasswordEditViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.resignFirstResponder()
+    }
+}
+
+extension PasswordEditViewController: ApplicationListSelectionDelegate {
+    func applicationWasSelected(withName name: String?) {
+        if let name = name {
+            appTextField.text = name
+            textFieldValueDidChange(appTextField)
+        }
     }
 }
