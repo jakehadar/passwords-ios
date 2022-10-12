@@ -56,7 +56,6 @@ class PasswordEditViewController: UITableViewController {
             title = "New"
             commitButton.title = "Save"
             commitButton.style = .done
-            
         } else {
             title = "Edit"
             commitButton.title = "Done"
@@ -69,7 +68,7 @@ class PasswordEditViewController: UITableViewController {
         
         navigationController?.modalPresentationStyle = .fullScreen
         
-        disableSaveButton()
+        commitButton.isEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -162,14 +161,6 @@ class PasswordEditViewController: UITableViewController {
         passwordTextField.resignFirstResponder()
     }
     
-    func enableSaveButton() {
-        commitButton.isEnabled = true
-    }
-    
-    func disableSaveButton() {
-        commitButton.isEnabled = false
-    }
-    
     @IBAction func textFieldPrimaryActionTriggered(_ sender: UITextField) {
         if editingMode == .create {
             switch sender.tag {
@@ -187,13 +178,8 @@ class PasswordEditViewController: UITableViewController {
         }
     }
     
-    
     @IBAction func textFieldValueDidChange(_ sender: UITextField) {
-        if validateInputs() {
-            enableSaveButton()
-        } else {
-            disableSaveButton()
-        }
+        commitButton.isEnabled = validateInputs()
     }
     
     @IBAction func maskSwitchToggled(_ sender: UISwitch) {
@@ -216,7 +202,6 @@ class PasswordEditViewController: UITableViewController {
             presentAlert(explaning: error, toViewController: self)
         }
     }
-    
 }
 
 extension PasswordEditViewController: UITextFieldDelegate {
