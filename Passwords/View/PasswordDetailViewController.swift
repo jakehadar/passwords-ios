@@ -51,10 +51,30 @@ class PasswordDetailViewController: UIViewController {
         }
     }
     
-    func deletePasswordRecord() {
+    @IBAction func unmaskButtonHold(_ sender: UIButton) {
+        passwordField.isSecureTextEntry = false
+    }
+    
+    @IBAction func unmaskButtonRelease(_ sender: UIButton) {
+        passwordField.isSecureTextEntry = true
+    }
+    
+    @IBAction func copyButtonTapped(_ sender: UIBarButtonItem) {
+        let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Copy Username", style: .default) { _ in
+            UIPasteboard.general.string = self.userLabel.text
+        })
+        ac.addAction(UIAlertAction(title: "Copy Password", style: .default) { _ in
+            UIPasteboard.general.string = self.passwordField.text
+        })
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        present(ac, animated: true)
+    }
+    
+    @IBAction func deleteButtonTapped(_ sender: UIBarButtonItem) {
         guard let passwordToDelete = self.passwordRecord else { return }
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
+        ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
             do {
                 try passwordService.deletePasswordRecord(passwordToDelete)
                 self.passwordRecord = nil
@@ -62,25 +82,8 @@ class PasswordDetailViewController: UIViewController {
             } catch {
                 presentAlert(explaning: error, toViewController: self)
             }
-        }
-        ac.addAction(deleteAction)
+        })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
-    }
-    
-    @IBAction func unmaskButtonHold(_ sender: UIButton) {
-        if authController.authenticated {
-            passwordField.isSecureTextEntry = false
-        } else {
-            authController.authenticate()
-        }
-    }
-    
-    @IBAction func unmaskButtonRelease(_ sender: UIButton) {
-        passwordField.isSecureTextEntry = true
-    }
-    
-    @IBAction func deleteButtonTapped(_ sender: UIBarButtonItem) {
-        deletePasswordRecord()
     }
 }

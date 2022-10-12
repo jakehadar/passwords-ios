@@ -175,10 +175,15 @@
                         </constraints>
                     </view>
                     <toolbarItems>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Dxc-YI-Qjg"/>
                         <barButtonItem systemItem="trash" id="9f8-fo-TDf">
                             <connections>
                                 <action selector="deleteButtonTapped:" destination="kbV-tw-48Q" id="Ckj-J5-8mH"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="wmq-8W-c6d"/>
+                        <barButtonItem title="Copy to Clipboard" id="dsp-4U-606">
+                            <connections>
+                                <action selector="copyButtonTapped:" destination="kbV-tw-48Q" id="tA5-K8-Z7m"/>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
