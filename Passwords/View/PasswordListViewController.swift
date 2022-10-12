@@ -59,8 +59,8 @@ class PasswordListViewController: UIViewController {
     }
     
     func refreshData() {
-        appNames = passwordService.getAppNames().map { $0.uppercased() }.sorted()
-        recordsForApp = Dictionary(grouping: passwordService.getPasswordRecords(), by: { $0.app.uppercased() })
+        appNames = passwordService.getAppNames().map { $0.trimmingCharacters(in: .whitespaces).uppercased() }.sorted()
+        recordsForApp = Dictionary(grouping: passwordService.getPasswordRecords(), by: { $0.app.trimmingCharacters(in: .whitespaces).uppercased() })
     }
     
     // MARK: - Navigation
