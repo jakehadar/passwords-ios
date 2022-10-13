@@ -28,15 +28,15 @@ class AuthController {
     
     func authenticate() {
         debugPrint("AuthController: authenticating...")
-        #if DEBUG
-        self.authenticated = true
-        #else
-        if !authenticated {
-            let vc = AuthenticationViewController.instantiate()
-            vc.authController = self
-            rootViewController.present(vc, animated: true)
+        if UIDevice.isSimulator {
+            self.authenticated = true
+        } else {
+            if !authenticated {
+                let vc = AuthenticationViewController.instantiate()
+                vc.authController = self
+                rootViewController.present(vc, animated: true)
+            }
         }
-        #endif
     }
     
     func deauthenticate() {
