@@ -36,7 +36,7 @@ class ApplicationListTableViewController: UITableViewController {
         definesPresentationContext = true
         
         searchController.searchResultsUpdater = self
-        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.placeholder = "Search Applications"
         searchController.searchBar.sizeToFit()
         navigationItem.searchController = searchController
@@ -51,19 +51,37 @@ class ApplicationListTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        searchController.isActive = true
         
         if let initialSelection = initialSelection {
             if !appNames.contains(where: { $0.trimmingCharacters(in: .whitespaces).range(of: initialSelection, options: .caseInsensitive) != nil }) {
                 appNames.insert(initialSelection, at: 0)
-                tableView.reloadData()
+                if searchController.isActive {
+                    updateSearchResults(for: searchController)
+                } else {
+                    tableView.reloadData()
+                }
             }
-            let indexPath = IndexPath(row: appNames.firstIndex(of: initialSelection)!, section: 0)
-            let originalDismissOnSelectionValue = dismissOnSelection
-            dismissOnSelection = false
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .none)
-            tableView.delegate?.tableView?(tableView, didSelectRowAt: indexPath)
-            dismissOnSelection = originalDismissOnSelectionValue
+            
+            if let selectionIndex = searchController.isActive ? filteredAppNames.firstIndex(of: initialSelection) : appNames.firstIndex(of: initialSelection) {
+                let indexPath = IndexPath(row: selectionIndex, section: 0)
+                let originalDismissOnSelectionValue = dismissOnSelection
+                dismissOnSelection = false
+                tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+                tableView.delegate?.tableView?(tableView, didSelectRowAt: indexPath)
+                dismissOnSelection = originalDismissOnSelectionValue
+            }
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+        scrollToSelection()
+    }
+    
+    func scrollToSelection() {
+        if let selection = selection, let selectionIndex = searchController.isActive ? filteredAppNames.firstIndex(of: selection) : appNames.firstIndex(of: selection) {
+            tableView.scrollToRow(at: IndexPath(row: selectionIndex, section: 0), at: .middle, animated: true)
         }
     }
     
@@ -156,6 +174,10 @@ class ApplicationListTableViewController: UITableViewController {
     
     // MARK: - Actions
 
+    @IBAction func cancelTapped(_ sender: UIBarButtonItem) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func addTapped(_ sender: UIBarButtonItem) {
         let ac = UIAlertController(title: "New Application", message: "Enter application name", preferredStyle: .alert)
         ac.addTextField { textField in
@@ -185,6 +207,9 @@ class ApplicationListTableViewController: UITableViewController {
         createNewApplicationAlertAddAction = addAction
         addAction.isEnabled = false
         present(ac, animated: true)
+    }
+    @IBAction func showSelectionTapped(_ sender: UIBarButtonItem) {
+        scrollToSelection()
     }
 }
 

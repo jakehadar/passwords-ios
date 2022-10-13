@@ -528,13 +528,27 @@
                             <outlet property="delegate" destination="vp3-8G-bmg" id="MTu-EA-QbB"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="L6s-JB-Xch">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9yC-F8-itP">
+                    <toolbarItems>
+                        <barButtonItem title="Show Selection" id="qpk-39-Ek5">
+                            <connections>
+                                <action selector="showSelectionTapped:" destination="vp3-8G-bmg" id="NLb-Mn-2rx"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="FLJ-8e-n7j"/>
+                        <barButtonItem systemItem="add" id="9yC-F8-itP">
                             <connections>
                                 <action selector="addTapped:" destination="vp3-8G-bmg" id="zgD-GP-k4F"/>
                             </connections>
                         </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="L6s-JB-Xch">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="Vx2-HZ-DPo">
+                            <connections>
+                                <action selector="cancelTapped:" destination="vp3-8G-bmg" id="z6P-a5-RuA"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Gz-FL-Eim" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
