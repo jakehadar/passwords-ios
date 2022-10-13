@@ -150,11 +150,5 @@ class SettingsTableViewController: UITableViewController {
     }
     */
     
-    
-    // MARK: - Actions
-    
-    @IBAction func doneTapped(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
-    }
-    
+
 }

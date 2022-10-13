@@ -31,10 +31,12 @@ class PasswordListViewController: UIViewController {
         searchController.searchBar.placeholder = "Search Applications"
         searchController.searchBar.sizeToFit()
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PasswordRecordCell")
         tableView.dataSource = self
         tableView.delegate = self
+        
         
         passwordService.updatesDelegate = self
         do {
@@ -61,6 +63,10 @@ class PasswordListViewController: UIViewController {
     func refreshData() {
         appNames = passwordService.getAppNames().map { $0.trimmingCharacters(in: .whitespaces).uppercased() }.sorted()
         recordsForApp = Dictionary(grouping: passwordService.getPasswordRecords(), by: { $0.app.trimmingCharacters(in: .whitespaces).uppercased() })
+    }
+    
+    @objc func dismissKeyboard() {
+        searchController.searchBar.resignFirstResponder()
     }
     
     // MARK: - Navigation
@@ -149,4 +155,9 @@ extension PasswordListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "PasswordDetail", sender: nil)
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchController.searchBar.resignFirstResponder()
+    }
+
 }

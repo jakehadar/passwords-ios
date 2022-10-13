@@ -54,6 +54,7 @@ class ApplicationListTableViewController: UITableViewController {
         title = "Applications"
         definesPresentationContext = true
         
+        searchController.delegate = self
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.placeholder = "Search Applications"
@@ -130,15 +131,15 @@ class ApplicationListTableViewController: UITableViewController {
     // MARK: - Table wiew
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // "Uncheck" the previously selected cell.
+        if let prevSelection = selection, let prevSelectionIndex = contextualApplicationNames(firstIndexOf: prevSelection), let prevSelectedCell = tableView.cellForRow(at: IndexPath(row: prevSelectionIndex, section: 0)) {
+            prevSelectedCell.accessoryType = .none
+        }
+        
         // "Check" the newly selected cell.
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) {
             cell.accessoryType = .checkmark
-        }
-        
-        // "Uncheck" the previously selected cell.
-        if let prevSelection = selection, let prevSelectionIndex = contextualApplicationNames(firstIndexOf: prevSelection), let prevSelectedCell = tableView.cellForRow(at: IndexPath(row: prevSelectionIndex, section: 0)) {
-            prevSelectedCell.accessoryType = .none
         }
         
         // Update selection state and notify delegate.
@@ -222,7 +223,7 @@ class ApplicationListTableViewController: UITableViewController {
                 self.tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
                 self.tableView.delegate?.tableView?(self.tableView, didSelectRowAt: indexPath)
             } else {
-                let ac = UIAlertController(title: "New Application", message: "Nothing to create", preferredStyle: .alert)
+                let ac = UIAlertController(title: "New Application", message: "Nothing was created", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(ac, animated: true)
             }
@@ -263,5 +264,14 @@ extension ApplicationListTableViewController: UISearchResultsUpdating {
             filteredAppNames = appNames
         }
         tableView.reloadData()
+    }
+}
+
+extension ApplicationListTableViewController: UISearchControllerDelegate {
+    func didDismissSearchController(_ searchController: UISearchController) {
+        // If a selection was made from the filtered list view, scroll to selection automatically when the search is cancelled.
+        if let selection = selection, collection(filteredAppNames, doesContain: selection) {
+            scrollToSelection()
+        }
     }
 }
