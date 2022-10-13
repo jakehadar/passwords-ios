@@ -9,7 +9,8 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
-
+    @IBOutlet weak var infoCell1: UITableViewCell!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,10 +19,26 @@ class SettingsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        var config = infoCell1.defaultContentConfiguration()
+        config.text = "Running on simulator"
+        config.secondaryText = UIDevice.isSimulator ? "Yes" : "No"
+        infoCell1.contentConfiguration = config
+        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let selection = tableView.cellForRow(at: indexPath)
+        
+        // Block destructive development features from running on real devices.
+        // Arbitrary tag 99 used on storyboard to flag dangerous cells.
+        if selection?.tag == 99 && !UIDevice.isSimulator {
+            let ac = UIAlertController(title: "Disabled", message: "This action is only enabled on simulators to protect integrity of data on real devices during development.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+            return
+        }
+        
         switch selection?.reuseIdentifier {
         case "DeleteAllRecords":
             deleteAllRecords()
@@ -30,7 +47,6 @@ class SettingsTableViewController: UITableViewController {
         default:
             return
         }
-        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func deleteAllRecords() {
