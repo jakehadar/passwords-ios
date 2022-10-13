@@ -51,6 +51,8 @@ class PasswordDetailViewController: UIViewController {
         }
     }
     
+    // MARK: - Actions
+    
     @IBAction func unmaskButtonHold(_ sender: UIButton) {
         passwordField.isSecureTextEntry = false
     }
@@ -61,11 +63,13 @@ class PasswordDetailViewController: UIViewController {
     
     @IBAction func copyButtonTapped(_ sender: UIBarButtonItem) {
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "Copy Username", style: .default) { _ in
+        ac.addAction(UIAlertAction(title: "Copy Username", style: .default) { [unowned self] _ in
             UIPasteboard.general.string = self.userLabel.text
+            presentInfo("Copied Username", toViewController: self)
         })
-        ac.addAction(UIAlertAction(title: "Copy Password", style: .default) { _ in
+        ac.addAction(UIAlertAction(title: "Copy Password", style: .default) { [unowned self] _ in
             UIPasteboard.general.string = self.passwordField.text
+            presentInfo("Copied Password", toViewController: self)
         })
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(ac, animated: true)
