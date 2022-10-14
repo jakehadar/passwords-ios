@@ -12,10 +12,6 @@ protocol ApplicationListSelectionDelegate {
     func applicationWasSelected(withName name: String?)
 }
 
-enum TextFieldTags: Int {
-    case addNewApplicationNameField = 0
-}
-
 class ApplicationListTableViewController: UITableViewController {
     private let searchController = UISearchController(searchResultsController: nil)
     

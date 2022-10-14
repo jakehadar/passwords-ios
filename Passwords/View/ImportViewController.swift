@@ -13,6 +13,14 @@ class ImportViewController: UIViewController {
     @IBOutlet weak var jsonTextView: UITextView!
     @IBOutlet weak var importButton: UIBarButtonItem!
     
+    private var selectedDocument: URL? {
+        didSet {
+            if let selectedDocument = selectedDocument {
+                loadText(fromUrl: selectedDocument)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         importButton.isEnabled = false
@@ -22,16 +30,28 @@ class ImportViewController: UIViewController {
         super.viewWillAppear(animated)
         authController.authenticate()
     }
+    
+    func loadText(fromUrl url: URL) {
+        do {
+            jsonTextView.text = try String(contentsOfFile: url.path, encoding: .utf8)
+            importButton.isEnabled = true
+        } catch {
+            presentAlert(explaning: error, toViewController: self)
+        }
+    }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? DocumentsTableViewController {
+            vc.selectionDelegate = self
+        }
     }
-    */
+    
+    // MARK: - Actions
+    
     @IBAction func pasteTapped(_ sender: UIBarButtonItem) {
         jsonTextView.text = UIPasteboard.general.string
         importButton.isEnabled = jsonTextView.text.count > 0 ? true : false
@@ -41,8 +61,6 @@ class ImportViewController: UIViewController {
         jsonTextView.text = ""
         importButton.isEnabled = false
     }
-    
-    
     
     @IBAction func importTapped(_ sender: UIBarButtonItem) {
         do {
@@ -74,5 +92,11 @@ class ImportViewController: UIViewController {
 extension ImportViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         importButton.isEnabled = textView.text.count > 0 ? true : false
+    }
+}
+
+extension ImportViewController: DocumentsListSelectionProtocol {
+    func documentWasSelected(withUrl url: URL) {
+        selectedDocument = url
     }
 }

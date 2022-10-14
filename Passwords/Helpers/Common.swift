@@ -9,9 +9,14 @@
 import Foundation
 import UIKit
 
-func presentAlert(explaning error: Error, toViewController vc: UIViewController) {
+enum TextFieldTags: Int {
+    case addNewApplicationNameField = 0
+    case saveJsonExportToDocumentsFilenameField = 1
+}
+
+func presentAlert(explaning error: Error, toViewController vc: UIViewController, handler: ((UIAlertAction) -> Void)? = nil) {
     let ac = UIAlertController(title: "Error", message: "\(error.localizedDescription)", preferredStyle: .alert)
-    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    ac.addAction(UIAlertAction(title: "OK", style: .default, handler: handler))
     vc.present(ac, animated: true, completion: nil)
 }
 
@@ -43,6 +48,10 @@ func formatAuthTimeoutText(_ seconds: Int) -> String {
     }
 }
 
+func getDocumentsDirectory() -> URL {
+    return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+}
+
 extension UIDevice {
     static var isSimulator: Bool = {
         #if targetEnvironment(simulator)
@@ -51,4 +60,22 @@ extension UIDevice {
         return false
         #endif
     }()
+}
+
+extension String {
+    static let invalidFileNameCharactersRegex = "[^a-zA-Z0-9_\\.]+"
+    
+    func convertToValidFileName() -> String {
+        let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
+        let fullRange = trimmed.startIndex..<trimmed.endIndex
+        let validName = trimmed.replacingOccurrences(of: String.invalidFileNameCharactersRegex,
+                                           with: "-",
+                                        options: .regularExpression,
+                                          range: fullRange)
+        return validName
+    }
+    
+    func isValidFilename() -> Bool {
+        return self == convertToValidFileName()
+    }
 }

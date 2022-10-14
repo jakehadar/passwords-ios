@@ -15,11 +15,30 @@ class ExportViewController: UIViewController {
     @IBOutlet weak var copyButton: UIBarButtonItem!
     @IBOutlet weak var saveToDocumentsButton: UIBarButtonItem!
     
+    private weak var saveToDocumentsFilenameTextField: UITextField?
+    private weak var saveToDocumentsFilenameSaveAction: UIAlertAction?
+    private weak var saveToDocumentsFilenameController: UIAlertController?
+    private let kSaveToDocumentsFilenameControllerDefaultMessage = "Filename"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         authController.authenticate()
         copyButton.isEnabled = false
         saveToDocumentsButton.isEnabled = false
+        
+        // TEsting
+        let a = "path_to_thing.json"
+        let b = "path/this/whatever.json"
+        let c = ":/asdf"
+        let d = "file name with spaces.json"
+        let e = "   filename with whitespaces.json   "
+        
+        debugPrint("\(a) - \(a.isValidFilename()) - \(a.convertToValidFileName())")
+        debugPrint("\(b) - \(b.isValidFilename()) - \(b.convertToValidFileName())")
+        debugPrint("\(c) - \(c.isValidFilename()) - \(c.convertToValidFileName())")
+        debugPrint("\(d) - \(d.isValidFilename()) - \(d.convertToValidFileName())")
+        debugPrint("\(e) - \(e.isValidFilename()) - \(e.convertToValidFileName())")
+        
         exportTapped(exportButton)
     }
     
@@ -45,11 +64,6 @@ class ExportViewController: UIViewController {
         return nil
     }
     
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
-    }
-    
 
     /*
     // MARK: - Navigation
@@ -62,21 +76,43 @@ class ExportViewController: UIViewController {
     */
     @IBAction func copyTapped(_ sender: UIBarButtonItem) {
         UIPasteboard.general.string = exportTextView.text
-        let alert = UIAlertController(title: "Copied", message: "Copied exported data to clipboard.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        presentInfo("Copied to Clipboard", toViewController: self)
     }
     
     @IBAction func saveTapped(_ sender: UIBarButtonItem) {
-        let filename = getDocumentsDirectory().appendingPathComponent("passwords_export.json")
-        do {
-            try exportTextView.text.write(to: filename, atomically: true, encoding: String.Encoding.utf8)
-            let ac = UIAlertController(title: "Success", message: "Saved json export to: \n\(filename)", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            present(ac, animated: true)
-        } catch {
-            presentAlert(explaning: error, toViewController: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let defaultFileName = "passwords_export_\(dateFormatter.string(from: Date())).json"
+        
+        let ac = UIAlertController(title: "Save to Documents", message: kSaveToDocumentsFilenameControllerDefaultMessage, preferredStyle: .alert)
+        ac.addTextField { [unowned self] textField in
+            textField.tag = TextFieldTags.saveJsonExportToDocumentsFilenameField.rawValue
+            textField.delegate = self
+            textField.text = defaultFileName
+            self.saveToDocumentsFilenameTextField = textField
         }
+        let saveAction = UIAlertAction(title: "Save", style: .default) { [unowned self] _ in
+            if let fileName = self.saveToDocumentsFilenameTextField?.text?.trimmingCharacters(in: .whitespaces), fileName.isValidFilename() {
+                let fileURL = getDocumentsDirectory().appendingPathComponent(fileName)
+                do {
+                    try exportTextView.text.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8)
+                    let ac = UIAlertController(title: "Success", message: "Saved \(fileName) to Documents", preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "OK", style: .default))
+                    present(ac, animated: true)
+                } catch {
+                    presentAlert(explaning: error, toViewController: self)
+                }
+            } else {
+                let ac = UIAlertController(title: "Error", message: "Did not save. Filename '\(self.saveToDocumentsFilenameTextField?.text ?? "")' is invalid.", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                present(ac, animated: true)
+            }
+        }
+        saveToDocumentsFilenameController = ac
+        saveToDocumentsFilenameSaveAction = saveAction
+        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        ac.addAction(saveAction)
+        present(ac, animated: true)
     }
     
     @IBAction func exportTapped(_ sender: UIBarButtonItem) {
@@ -97,5 +133,18 @@ class ExportViewController: UIViewController {
         })
         self.present(ac, animated: true, completion: nil)
     }
+}
 
+extension ExportViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if TextFieldTags(rawValue: textField.tag) == .saveJsonExportToDocumentsFilenameField, let oldText = textField.text, let newRange = Range(range, in: oldText) {
+            let newText = oldText.replacingCharacters(in: newRange, with: string)
+            let endsWithJsonExtension = newText.lowercased().hasSuffix(".json")
+            let isValidFilename = newText.isValidFilename()
+            let textIsValid = endsWithJsonExtension && isValidFilename
+            saveToDocumentsFilenameSaveAction?.isEnabled = textIsValid
+            saveToDocumentsFilenameController?.message = textIsValid ? kSaveToDocumentsFilenameControllerDefaultMessage : "'\(newText)' is an invalid filename"
+        }
+        return true
+    }
 }
