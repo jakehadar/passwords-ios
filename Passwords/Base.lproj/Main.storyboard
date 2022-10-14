@@ -260,7 +260,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJf-EC-LAu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2802" y="1731"/>
+            <point key="canvasLocation" x="2305" y="1731"/>
         </scene>
         <!--JSON Import-->
         <scene sceneID="KVM-R3-ggW">
@@ -330,7 +330,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vTx-LV-6BZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1958" y="1731"/>
+            <point key="canvasLocation" x="1559" y="1731"/>
         </scene>
         <!--Password Edit View Controller-->
         <scene sceneID="7d5-p1-yy9">
@@ -773,8 +773,28 @@
                                             <segue destination="vp3-8G-bmg" kind="show" id="0Tt-BD-uS1"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" tag="99" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InsertExampleRecords" textLabel="h6K-cb-njr" style="IBUITableViewCellStyleDefault" id="bLf-86-9GI">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShowApplications" textLabel="SSs-0E-gvv" style="IBUITableViewCellStyleDefault" id="8rb-EJ-IFI" userLabel="Documents">
                                         <rect key="frame" x="20" y="385.66666984558105" width="335" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8rb-EJ-IFI" id="HC9-Mc-oag">
+                                            <rect key="frame" x="0.0" y="0.0" width="304.66666666666669" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Documents" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SSs-0E-gvv">
+                                                    <rect key="frame" x="20" y="0.0" width="276.66666666666669" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Afx-vg-iKn" kind="show" id="kH7-q4-Cry"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" tag="99" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InsertExampleRecords" textLabel="h6K-cb-njr" style="IBUITableViewCellStyleDefault" id="bLf-86-9GI">
+                                        <rect key="frame" x="20" y="429.33333778381348" width="335" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bLf-86-9GI" id="BpJ-kq-rOY">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
@@ -791,7 +811,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" tag="99" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeleteAllRecords" textLabel="Xrr-Al-uuB" style="IBUITableViewCellStyleDefault" id="7Zj-kc-qZ0">
-                                        <rect key="frame" x="20" y="429.33333778381348" width="335" height="43.666667938232422"/>
+                                        <rect key="frame" x="20" y="473.0000057220459" width="335" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Zj-kc-qZ0" id="UOs-Ev-cFb">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
@@ -812,7 +832,7 @@
                             <tableViewSection headerTitle="Information" id="ypK-Vl-DXe">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Jmr-VQ-vS1" detailTextLabel="xaf-56-IQy" style="IBUITableViewCellStyleValue1" id="WDH-oH-bIs">
-                                        <rect key="frame" x="20" y="529.0000057220459" width="335" height="43.666667938232422"/>
+                                        <rect key="frame" x="20" y="572.66667366027832" width="335" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WDH-oH-bIs" id="FAc-gj-odd">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
@@ -898,7 +918,7 @@
             <objects>
                 <tableViewController id="Afx-vg-iKn" customClass="DocumentsTableViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="vS7-WJ-Jdx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="755"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -917,9 +937,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ry4-Ys-mpU">
-                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="UPZ-23-RK1">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="5Aw-ZU-N5a">
                             <connections>
-                                <action selector="cancelTapped:" destination="Afx-vg-iKn" id="WUE-XK-veu"/>
+                                <action selector="cancelTapped:" destination="Afx-vg-iKn" id="2Lm-vJ-pdC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -949,9 +969,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="kH7-q4-Cry"/>
         <segue reference="yCm-QP-uHi"/>
         <segue reference="lJN-EZ-Jtx"/>
-        <segue reference="LgB-1q-Voi"/>
+        <segue reference="0Tt-BD-uS1"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gear" catalog="system" width="128" height="122"/>

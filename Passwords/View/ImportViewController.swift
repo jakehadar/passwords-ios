@@ -47,8 +47,10 @@ class ImportViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? DocumentsTableViewController {
             vc.selectionDelegate = self
+            vc.dismissOnSelection = true
         } else if let nc = segue.destination as? UINavigationController, let vc = nc.topViewController as? DocumentsTableViewController {
             vc.selectionDelegate = self
+            vc.dismissOnSelection = true
         }
     }
     
