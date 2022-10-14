@@ -18,6 +18,10 @@ class ImportViewController: UIViewController {
         importButton.isEnabled = false
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        authController.authenticate()
+    }
 
     /*
     // MARK: - Navigation

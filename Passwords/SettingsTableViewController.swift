@@ -9,6 +9,9 @@
 import UIKit
 
 class SettingsTableViewController: UITableViewController {
+    @IBOutlet weak var authEnabledSwitch: UISwitch!
+    @IBOutlet weak var authTimeoutLabel: UILabel!
+    @IBOutlet weak var authTimeoutCell: UITableViewCell!
     @IBOutlet weak var infoCell1: UITableViewCell!
     
     override func viewDidLoad() {
@@ -19,11 +22,19 @@ class SettingsTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        authController.authenticate()
+        
         var config = infoCell1.defaultContentConfiguration()
         config.text = "Running on simulator"
         config.secondaryText = UIDevice.isSimulator ? "Yes" : "No"
         infoCell1.contentConfiguration = config
         
+        authEnabledSwitch.isOn = UserDefaults.standard.bool(forKey: authController.kAuthEnabled)
+        authTimeoutLabel.text = formatAuthTimeoutText(UserDefaults.standard.integer(forKey: authController.kAuthTimeout))
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -120,51 +131,38 @@ class SettingsTableViewController: UITableViewController {
         return cell
     }
     */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? AuthTimeoutSelectionTableViewController {
+            vc.selectionDelegate = self
+            vc.selection = UserDefaults.standard.integer(forKey: authController.kAuthTimeout)
+            vc.dismissOnSelection = true
+        }
     }
-    */
     
+    // MARK: - Actions
 
+    @IBAction func authEnabledSwitchToggled(_ sender: UISwitch) {
+        UserDefaults.standard.set(sender.isOn, forKey: authController.kAuthEnabled)
+        if sender.isOn {
+            authTimeoutCell.isUserInteractionEnabled = true
+            authTimeoutCell.accessoryType = .disclosureIndicator
+            authTimeoutLabel.text = formatAuthTimeoutText(UserDefaults.standard.integer(forKey: authController.kAuthTimeout))
+        } else {
+            authTimeoutCell.isUserInteractionEnabled = false
+            authTimeoutCell.accessoryType = .none
+            authTimeoutLabel.text = "Not Applicable"
+        }
+    }
+}
+
+extension SettingsTableViewController: AuthTimeoutSelectionDelegate {
+    func timeoutWasSelected(withSeconds seconds: Int?) {
+        let seconds = seconds ?? 0
+        UserDefaults.standard.set(seconds, forKey: authController.kAuthTimeout)
+        authTimeoutLabel.text = formatAuthTimeoutText(seconds)
+    }
 }

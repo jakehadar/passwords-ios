@@ -12,34 +12,55 @@ import UIKit
 /// Responsible for holding authentication state, and displaying the authentication modal.
 class AuthController {
     private var rootViewController: UIViewController
+    private var lastStartOfInactivityTime: Date?
     
-    public private(set) var authenticated: Bool = false {
-        didSet { debugPrint("AuthController: \(authenticated ? "Authenticated" : "Not authenticated")") }
+    // User Defaults persistence keys
+    public let kAuthEnabled = "authenticationEnabled"
+    public let kAuthTimeout = "authenticationTimeout"
+    
+    var authenticated: Bool = false {
+        didSet {
+            if authenticated {
+                applicationIsActive = true
+            }
+        }
+    }
+    
+    var applicationIsActive: Bool = false {
+        didSet {
+            if !applicationIsActive {
+                lastStartOfInactivityTime = Date()
+            }
+        }
     }
     
     init(_ rootViewController: UIViewController) {
         self.rootViewController = rootViewController
     }
     
-    // TODO: figure out access control best practices
-    func authResult(_ result: Bool) {
-        authenticated = result
+    var secondsSinceLastStartOfInactivity: TimeInterval? {
+        return lastStartOfInactivityTime?.timeIntervalSinceNow
+    }
+    
+    func shouldAuthenticate() -> Bool {
+        guard !UIDevice.isSimulator else { return false }
+        
+        let authEnabled = UserDefaults.standard.bool(forKey: kAuthEnabled)
+        guard authEnabled else { return false }
+        
+        let timeout = UserDefaults.standard.integer(forKey: kAuthTimeout)
+        if let timeElapsed = secondsSinceLastStartOfInactivity, Int(-1 * timeElapsed) >= timeout && !applicationIsActive {
+            debugPrint("secondsSinceLastStartOfInactivity: \(Int(-1 * timeElapsed)), timeout: \(timeout)")
+            authenticated = false
+        }
+        return !authenticated
     }
     
     func authenticate() {
-        debugPrint("AuthController: authenticating...")
-        if UIDevice.isSimulator {
-            self.authenticated = true
-        } else {
-            if !authenticated {
-                let vc = AuthenticationViewController.instantiate()
-                vc.authController = self
-                rootViewController.present(vc, animated: true)
-            }
+        if shouldAuthenticate() {
+            let vc = AuthenticationViewController.instantiate()
+            vc.authController = self
+            rootViewController.present(vc, animated: false)
         }
-    }
-    
-    func deauthenticate() {
-        authenticated = false
     }
 }

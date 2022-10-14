@@ -29,6 +29,20 @@ func presentInfo(_ message: String, toViewController vc: UIViewController, forSe
     }
 }
 
+func formatAuthTimeoutText(_ seconds: Int) -> String {
+    if seconds < 1 {
+        return "Instantly"
+    } else if seconds < 60 {
+        return "\(seconds) sec"
+    } else {
+        let minutes = Int(seconds / 60)
+        let seconds = seconds % 60
+        let mm = "\(minutes) min"
+        let ss = "\(seconds) sec"
+        return seconds == 0 ? "\(mm)" : "\(mm) \(ss)"
+    }
+}
+
 extension UIDevice {
     static var isSimulator: Bool = {
         #if targetEnvironment(simulator)

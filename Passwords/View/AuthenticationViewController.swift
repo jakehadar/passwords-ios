@@ -38,9 +38,9 @@ class AuthenticationViewController: UIViewController {
             
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [unowned self] (success, authenticationError) in
                 DispatchQueue.main.async {
-                    self.authController?.authResult(success)
+                    self.authController?.authenticated = success
                     if success {
-                        self.dismiss(animated: true)
+                        self.dismiss(animated: false)
                     }
                 }
             }

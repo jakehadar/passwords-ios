@@ -48,8 +48,8 @@ class PasswordListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.toolbar.isHidden = true
         authController.authenticate()
+        navigationController?.toolbar.isHidden = true
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedIndexPath, animated: animated)
         }

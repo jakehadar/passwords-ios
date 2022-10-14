@@ -24,6 +24,7 @@
 		2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */; };
 		2E84B834208F5C730096B512 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B833208F5C730096B512 /* AuthenticationViewController.swift */; };
 		2E950D5128F71E80005C2039 /* ApplicationListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E950D5028F71E80005C2039 /* ApplicationListTableViewController.swift */; };
+		2E950D5328F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E950D5228F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift */; };
 		2EB39EB323B2951500E6047B /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB39EB223B2951500E6047B /* AuthController.swift */; };
 		2EBE73E223A3AE88006C48C8 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */; };
 /* End PBXBuildFile section */
@@ -48,6 +49,7 @@
 		2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDetailViewController.swift; sourceTree = "<group>"; };
 		2E84B833208F5C730096B512 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		2E950D5028F71E80005C2039 /* ApplicationListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationListTableViewController.swift; sourceTree = "<group>"; };
+		2E950D5228F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthTimeoutSelectionTableViewController.swift; path = Passwords/AuthTimeoutSelectionTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		2EB39EB223B2951500E6047B /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 		2E84B81C208B95810096B512 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2E950D5228F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift */,
 				2E950D5028F71E80005C2039 /* ApplicationListTableViewController.swift */,
 				2E0AF0C528F5E0B900A02859 /* SettingsTableViewController.swift */,
 				2E10A36628F3939E00FE4954 /* ImportViewController.swift */,
@@ -213,6 +216,7 @@
 				2E84B816208B94C20096B512 /* PasswordListViewController.swift in Sources */,
 				2E84B81A208B95340096B512 /* PasswordEditViewController.swift in Sources */,
 				2E10A36728F3939E00FE4954 /* ImportViewController.swift in Sources */,
+				2E950D5328F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift in Sources */,
 				2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */,
 				2E08453D2349D42100E905F2 /* PasswordService.swift in Sources */,
 				2E0AF0C628F5E0B900A02859 /* SettingsTableViewController.swift in Sources */,

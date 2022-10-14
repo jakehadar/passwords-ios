@@ -71,6 +71,7 @@ class ApplicationListTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        authController.authenticate()
         
         if let initialSelection = initialSelection {
             // When the initial selection is a new item, add it to the top of the list view and select it.
