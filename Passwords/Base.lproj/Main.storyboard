@@ -260,7 +260,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vJf-EC-LAu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2769" y="1731"/>
+            <point key="canvasLocation" x="2802" y="1731"/>
         </scene>
         <!--JSON Import-->
         <scene sceneID="KVM-R3-ggW">
@@ -309,7 +309,9 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="egn-36-WGV"/>
                         <barButtonItem systemItem="organize" id="rnR-bX-rj4">
                             <connections>
-                                <segue destination="Afx-vg-iKn" kind="show" id="S60-11-jsQ"/>
+                                <segue destination="KD3-Ze-LEI" kind="popoverPresentation" popoverAnchorBarButtonItem="rnR-bX-rj4" id="dSx-Yr-qYp">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                     </toolbarItems>
@@ -896,7 +898,7 @@
             <objects>
                 <tableViewController id="Afx-vg-iKn" customClass="DocumentsTableViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="vS7-WJ-Jdx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="755"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -914,11 +916,36 @@
                             <outlet property="delegate" destination="Afx-vg-iKn" id="Lx3-IL-aJq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ry4-Ys-mpU"/>
+                    <navigationItem key="navigationItem" id="ry4-Ys-mpU">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="UPZ-23-RK1">
+                            <connections>
+                                <action selector="cancelTapped:" destination="Afx-vg-iKn" id="WUE-XK-veu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8mi-Cg-MDO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1958" y="2451"/>
+            <point key="canvasLocation" x="2900" y="2450.9852216748768"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tIV-RK-LEE">
+            <objects>
+                <navigationController storyboardIdentifier="DocumentListNavigationController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KD3-Ze-LEI" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="4DT-gO-n5B"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="l07-qR-m3T">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Afx-vg-iKn" kind="relationship" relationship="rootViewController" id="oiv-59-H3J"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Id-nk-LSQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1957.5999999999999" y="2450.9852216748768"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

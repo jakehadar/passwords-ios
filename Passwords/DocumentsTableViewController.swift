@@ -40,10 +40,18 @@ class DocumentsTableViewController: UITableViewController {
         }
     }
     
+    func contextualDismiss() {
+        if navigationController?.restorationIdentifier == "DocumentListNavigationController" {
+            dismiss(animated: true)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         selectionDelegate?.documentWasSelected(withUrl: documents[indexPath.row])
-        navigationController?.popViewController(animated: true)
+        contextualDismiss()
     }
 
     // MARK: - Table view data source
@@ -110,5 +118,11 @@ class DocumentsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    // MARK: - Actions
+    
+    @IBAction func cancelTapped(_ sender: UIBarButtonItem) {
+        contextualDismiss()
+    }
+    
 }
