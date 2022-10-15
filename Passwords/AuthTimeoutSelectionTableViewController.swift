@@ -18,7 +18,7 @@ class AuthTimeoutSelectionTableViewController: UITableViewController {
     var selection: Int?
     var dismissOnSelection = false
     
-    let selections = [0, 15, 30, 60, 60*2, 60*3, 60*5, 60*10, 60*30, 60*60]
+    let selections = [0, 30, 60, 60*2, 60*3, 60*4, 60*5, 60*30, 60*60]
 
     override func viewDidLoad() {
         super.viewDidLoad()
