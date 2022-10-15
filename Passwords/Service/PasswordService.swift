@@ -59,6 +59,7 @@ class PasswordService {
     static let kDefaultsKey = "passwordRecords"
     static let kStorageFilename = "data.json"
     static let kMigratedToJson = "migratedFromUserDefaultsToJson"
+    static let kFirstLaunchSetupComplete = "firstLaunchSetupComplete"
     
     var updatesDelegate: PasswordServiceUpdatesDelegate?
     
@@ -76,8 +77,9 @@ class PasswordService {
     
     func migrate() throws {
         // Migrate passwords from UserDefaults to json document
-        let savedData = UserDefaults.standard.object(forKey: PasswordService.kDefaultsKey) as! Data
-        passwordRecords = try JSONDecoder().decode([Password].self, from: savedData)
+        if let savedData = UserDefaults.standard.object(forKey: PasswordService.kDefaultsKey) as? Data {
+            passwordRecords = try JSONDecoder().decode([Password].self, from: savedData)
+        }
         initialized = true
         try savePasswordRecords()
         guard FileManager.default.fileExists(atPath: dataUrl.path) else { throw PasswordServiceError.migrationJsonDataFileNotFoundError }
@@ -86,22 +88,20 @@ class PasswordService {
     }
     
     private func loadPasswordRecords() throws {
-        if !UserDefaults.standard.bool(forKey: PasswordService.kMigratedToJson) { try migrate() }
-        let dataUrl = getDocumentsDirectory().appendingPathComponent(PasswordService.kStorageFilename)
         do {
             passwordRecords = try JSONDecoder().decode([Password].self, from: Data(contentsOf: dataUrl))
         } catch {
             throw PasswordServiceError.readDataFromDocumentsError(error: error)
         }
-        initialized = true
         updatesDelegate?.dataHasChanged()
         debugPrint("PasswordService loaded \(passwordRecords.count) password records.")
     }
     
     private func savePasswordRecords() throws {
+        // Failsafe to prevent passwords from being over-written with an empty list
         guard initialized else { throw PasswordServiceError.serviceUninitializedError }
+        
         let encodedData = try JSONEncoder().encode(passwordRecords)
-        let dataUrl = getDocumentsDirectory().appendingPathComponent(PasswordService.kStorageFilename)
         do {
             try encodedData.write(to: dataUrl)
         } catch {
@@ -117,7 +117,28 @@ class PasswordService {
 extension PasswordService: PasswordServiceProtocol {
     
     func initialize() throws {
+        if UserDefaults.standard.bool(forKey: PasswordService.kFirstLaunchSetupComplete) {
+            // App has already launched before and purportedly has data...
+            
+            // Check if UserDefaults migration needs to happen
+            if !UserDefaults.standard.bool(forKey: PasswordService.kMigratedToJson) {
+                try migrate()
+            }
+            
+        } else {
+            // App is running for the first time...
+            
+            // Create data.json file used to persist objects
+            try JSONEncoder().encode(passwordRecords).write(to: dataUrl)
+            
+            // Flag that UserDefaults migration does not need to happen
+            UserDefaults.standard.set(true, forKey: PasswordService.kMigratedToJson)
+            
+            // Flag that the app's first time launch setup has finished
+            UserDefaults.standard.set(true, forKey: PasswordService.kFirstLaunchSetupComplete)
+        }
         try loadPasswordRecords()
+        initialized = true
     }
     
     func getAppNames() -> [String] {

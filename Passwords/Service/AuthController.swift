@@ -15,8 +15,8 @@ class AuthController {
     private var lastStartOfInactivityTime: Date?
     
     // User Defaults persistence keys
-    public let kAuthEnabled = "authenticationEnabled"
-    public let kAuthTimeout = "authenticationTimeout"
+    static let kAuthEnabled = "authenticationEnabled"
+    static let kAuthTimeout = "authenticationTimeout"
     
     var authenticated: Bool = false {
         didSet {
@@ -45,10 +45,10 @@ class AuthController {
     func shouldAuthenticate() -> Bool {
         guard !UIDevice.isSimulator else { return false }
         
-        let authEnabled = UserDefaults.standard.bool(forKey: kAuthEnabled)
+        let authEnabled = UserDefaults.standard.bool(forKey: AuthController.kAuthEnabled)
         guard authEnabled else { return false }
         
-        let timeout = UserDefaults.standard.integer(forKey: kAuthTimeout)
+        let timeout = UserDefaults.standard.integer(forKey: AuthController.kAuthTimeout)
         if let timeElapsed = secondsSinceLastStartOfInactivity, Int(-1 * timeElapsed) >= timeout && !applicationIsActive {
             debugPrint("secondsSinceLastStartOfInactivity: \(Int(-1 * timeElapsed)), timeout: \(timeout)")
             authenticated = false

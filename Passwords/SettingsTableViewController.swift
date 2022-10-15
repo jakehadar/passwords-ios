@@ -39,8 +39,8 @@ class SettingsTableViewController: UITableViewController {
         config.secondaryText = UserDefaults.standard.bool(forKey: PasswordService.kMigratedToJson) ? PasswordService.kStorageFilename : "UserDefaults"
         infoCell2.contentConfiguration = config
         
-        authEnabledSwitch.isOn = UserDefaults.standard.bool(forKey: authController.kAuthEnabled)
-        authTimeoutLabel.text = formatAuthTimeoutText(UserDefaults.standard.integer(forKey: authController.kAuthTimeout))
+        authEnabledSwitch.isOn = UserDefaults.standard.bool(forKey: AuthController.kAuthEnabled)
+        authTimeoutLabel.text = formatAuthTimeoutText(UserDefaults.standard.integer(forKey: AuthController.kAuthTimeout))
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -144,7 +144,7 @@ class SettingsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? AuthTimeoutSelectionTableViewController {
             vc.selectionDelegate = self
-            vc.selection = UserDefaults.standard.integer(forKey: authController.kAuthTimeout)
+            vc.selection = UserDefaults.standard.integer(forKey: AuthController.kAuthTimeout)
             vc.dismissOnSelection = true
         }
     }
@@ -152,11 +152,11 @@ class SettingsTableViewController: UITableViewController {
     // MARK: - Actions
 
     @IBAction func authEnabledSwitchToggled(_ sender: UISwitch) {
-        UserDefaults.standard.set(sender.isOn, forKey: authController.kAuthEnabled)
+        UserDefaults.standard.set(sender.isOn, forKey: AuthController.kAuthEnabled)
         if sender.isOn {
             authTimeoutCell.isUserInteractionEnabled = true
             authTimeoutCell.accessoryType = .disclosureIndicator
-            authTimeoutLabel.text = formatAuthTimeoutText(UserDefaults.standard.integer(forKey: authController.kAuthTimeout))
+            authTimeoutLabel.text = formatAuthTimeoutText(UserDefaults.standard.integer(forKey: AuthController.kAuthTimeout))
         } else {
             authTimeoutCell.isUserInteractionEnabled = false
             authTimeoutCell.accessoryType = .none
@@ -168,7 +168,7 @@ class SettingsTableViewController: UITableViewController {
 extension SettingsTableViewController: AuthTimeoutSelectionDelegate {
     func timeoutWasSelected(withSeconds seconds: Int?) {
         let seconds = seconds ?? 0
-        UserDefaults.standard.set(seconds, forKey: authController.kAuthTimeout)
+        UserDefaults.standard.set(seconds, forKey: AuthController.kAuthTimeout)
         authTimeoutLabel.text = formatAuthTimeoutText(seconds)
     }
 }
