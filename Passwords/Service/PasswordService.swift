@@ -14,6 +14,9 @@ typealias AppRecordsMap = Dictionary<String, [Password]>
 enum PasswordServiceError: Error {
     case deleteReferenceError(uuid: String)
     case updateReferenceError(uuid: String)
+    case writeDataToDocumentsError(error: Error)
+    case readDataFromDocumentsError(error: Error)
+    case migrationJsonDataFileNotFoundError
     case serviceUninitializedError
 }
 
@@ -26,6 +29,12 @@ extension PasswordServiceError: LocalizedError {
             return NSLocalizedString("The record to update with UUID \(uuid) does not exist.", comment: "")
         case .serviceUninitializedError:
             return NSLocalizedString("The password service was called prior to initialization.", comment: "")
+        case .writeDataToDocumentsError(error: let error):
+            return NSLocalizedString("Error presisting data: \(error.localizedDescription)", comment: "")
+        case .readDataFromDocumentsError(error: let error):
+            return NSLocalizedString("Error reading data: \(error.localizedDescription)", comment: "")
+        case .migrationJsonDataFileNotFoundError:
+            return NSLocalizedString("Error migrating from UserDefaults storage to Json: data file not found", comment: "")
         }
     }
 }
@@ -47,10 +56,17 @@ class PasswordService {
     // WARNING: Not tested for thread safety.
     
     static let `default` = PasswordService()
-    let kDefaultsKey = "passwordRecords"
+    static let kDefaultsKey = "passwordRecords"
+    static let kStorageFilename = "data.json"
+    static let kMigratedToJson = "migratedFromUserDefaultsToJson"
+    
     var updatesDelegate: PasswordServiceUpdatesDelegate?
     
     // MARK: - Private
+    
+    private var dataUrl: URL {
+        return getDocumentsDirectory().appendingPathComponent(PasswordService.kStorageFilename)
+    }
     
     private let defaults = UserDefaults.standard
     private var initialized = false
@@ -58,9 +74,25 @@ class PasswordService {
     private var passwordRecords = [Password]()
     private var appRecordsMap: AppRecordsMap { return Dictionary(grouping: passwordRecords, by: { $0.app }) }
     
-    private func loadPasswordRecords() throws {
-        let savedData = defaults.object(forKey: kDefaultsKey) as! Data
+    func migrate() throws {
+        // Migrate passwords from UserDefaults to json document
+        let savedData = UserDefaults.standard.object(forKey: PasswordService.kDefaultsKey) as! Data
         passwordRecords = try JSONDecoder().decode([Password].self, from: savedData)
+        initialized = true
+        try savePasswordRecords()
+        guard FileManager.default.fileExists(atPath: dataUrl.path) else { throw PasswordServiceError.migrationJsonDataFileNotFoundError }
+        UserDefaults.standard.set(true, forKey: PasswordService.kMigratedToJson)
+        debugPrint("PasswordService migrated from UserDefaults to Json")
+    }
+    
+    private func loadPasswordRecords() throws {
+        if !UserDefaults.standard.bool(forKey: PasswordService.kMigratedToJson) { try migrate() }
+        let dataUrl = getDocumentsDirectory().appendingPathComponent(PasswordService.kStorageFilename)
+        do {
+            passwordRecords = try JSONDecoder().decode([Password].self, from: Data(contentsOf: dataUrl))
+        } catch {
+            throw PasswordServiceError.readDataFromDocumentsError(error: error)
+        }
         initialized = true
         updatesDelegate?.dataHasChanged()
         debugPrint("PasswordService loaded \(passwordRecords.count) password records.")
@@ -69,7 +101,12 @@ class PasswordService {
     private func savePasswordRecords() throws {
         guard initialized else { throw PasswordServiceError.serviceUninitializedError }
         let encodedData = try JSONEncoder().encode(passwordRecords)
-        defaults.set(encodedData, forKey: kDefaultsKey)
+        let dataUrl = getDocumentsDirectory().appendingPathComponent(PasswordService.kStorageFilename)
+        do {
+            try encodedData.write(to: dataUrl)
+        } catch {
+            throw PasswordServiceError.writeDataToDocumentsError(error: error)
+        }
         updatesDelegate?.dataHasChanged()
         debugPrint("PasswordService saved \(passwordRecords.count) password records.")
     }

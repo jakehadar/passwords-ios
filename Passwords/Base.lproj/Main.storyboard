@@ -855,6 +855,30 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="0cu-Ke-Vve" detailTextLabel="z6Q-T3-9tL" style="IBUITableViewCellStyleValue1" id="CZI-xd-9Pk">
+                                        <rect key="frame" x="20" y="616.33334159851074" width="335" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CZI-xd-9Pk" id="daJ-aM-ZQy">
+                                            <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0cu-Ke-Vve">
+                                                    <rect key="frame" x="20" y="11.999999999999998" width="33" height="20.333333333333332"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="z6Q-T3-9tL">
+                                                    <rect key="frame" x="282.33333333333331" y="17" width="32.666666666666664" height="14.333333333333334"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -869,6 +893,7 @@
                         <outlet property="authTimeoutCell" destination="zhb-tX-Ybw" id="NXK-rb-cIe"/>
                         <outlet property="authTimeoutLabel" destination="te8-Rv-63D" id="Yr9-hU-4W8"/>
                         <outlet property="infoCell1" destination="WDH-oH-bIs" id="iki-72-P8n"/>
+                        <outlet property="infoCell2" destination="CZI-xd-9Pk" id="9ic-xi-UxV"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PEh-7B-7ea" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -929,6 +954,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="bqC-Qs-kiT" kind="show" id="hSm-J3-SgP"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -966,6 +994,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Id-nk-LSQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1957.5999999999999" y="2450.9852216748768"/>
+        </scene>
+        <!--Document Viewer View Controller-->
+        <scene sceneID="RdV-YE-mMj">
+            <objects>
+                <viewController id="bqC-Qs-kiT" customClass="DocumentViewerViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="U4d-ja-5Px">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hI4-31-xQo">
+                                <rect key="frame" x="0.0" y="91" width="375" height="638"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="12"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="NFW-st-Bf1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="NFW-st-Bf1" firstAttribute="trailing" secondItem="hI4-31-xQo" secondAttribute="trailing" id="JoY-8f-Nnm"/>
+                            <constraint firstItem="hI4-31-xQo" firstAttribute="leading" secondItem="NFW-st-Bf1" secondAttribute="leading" id="SkB-t1-uap"/>
+                            <constraint firstItem="hI4-31-xQo" firstAttribute="top" secondItem="NFW-st-Bf1" secondAttribute="top" id="lBh-Hg-py5"/>
+                            <constraint firstItem="NFW-st-Bf1" firstAttribute="bottom" secondItem="hI4-31-xQo" secondAttribute="bottom" id="voT-7p-jMO"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="pbp-5r-5sd"/>
+                    <connections>
+                        <outlet property="textView" destination="hI4-31-xQo" id="pw6-Fo-Xbp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V7Y-ot-EW0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3654" y="2451"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

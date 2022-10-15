@@ -13,6 +13,7 @@ class SettingsTableViewController: UITableViewController {
     @IBOutlet weak var authTimeoutLabel: UILabel!
     @IBOutlet weak var authTimeoutCell: UITableViewCell!
     @IBOutlet weak var infoCell1: UITableViewCell!
+    @IBOutlet weak var infoCell2: UITableViewCell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,11 @@ class SettingsTableViewController: UITableViewController {
         config.text = "Running on simulator"
         config.secondaryText = UIDevice.isSimulator ? "Yes" : "No"
         infoCell1.contentConfiguration = config
+        
+        config = infoCell2.defaultContentConfiguration()
+        config.text = "Storage"
+        config.secondaryText = UserDefaults.standard.bool(forKey: PasswordService.kMigratedToJson) ? PasswordService.kStorageFilename : "UserDefaults"
+        infoCell2.contentConfiguration = config
         
         authEnabledSwitch.isOn = UserDefaults.standard.bool(forKey: authController.kAuthEnabled)
         authTimeoutLabel.text = formatAuthTimeoutText(UserDefaults.standard.integer(forKey: authController.kAuthTimeout))

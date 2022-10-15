@@ -17,7 +17,7 @@ class DocumentsTableViewController: UITableViewController {
     var selectionDelegate: DocumentsListSelectionProtocol?
     var dismissOnSelection = false
     
-    var isPresentedModally: Bool {
+    private var isPresentedModally: Bool {
         return navigationController?.restorationIdentifier == "DocumentListNavigationController"
     }
 
@@ -90,7 +90,11 @@ class DocumentsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DocumentListCell", for: indexPath)
 
-        cell.textLabel?.text = documents[indexPath.row].lastPathComponent
+        let text = documents[indexPath.row].lastPathComponent
+        if text == PasswordService.kStorageFilename {
+            cell.textLabel?.textColor = .secondaryLabel
+        }
+        cell.textLabel?.text = text
 
         return cell
     }
@@ -99,6 +103,9 @@ class DocumentsTableViewController: UITableViewController {
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
+        if documents[indexPath.row].lastPathComponent == PasswordService.kStorageFilename {
+            return false
+        }
         return true
     }
     
@@ -133,15 +140,19 @@ class DocumentsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? DocumentViewerViewController, let indexPath = tableView.indexPathForSelectedRow {
+            vc.url = documents[indexPath.row]
+        }
     }
-    */
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        return !dismissOnSelection
+    }
     
     // MARK: - Actions
     @IBAction func cancelTapped(_ sender: UIBarButtonItem) {
