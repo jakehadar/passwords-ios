@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UzH-EP-fAg">
-    <device id="retina5_9" orientation="portrait" appearance="dark"/>
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
@@ -771,10 +771,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="te8-Rv-63D">
-                                                    <rect key="frame" x="264" y="17" width="32.666666666666664" height="14.333333333333334"/>
+                                                    <rect key="frame" x="253.00000000000003" y="11.999999999999998" width="43.666666666666664" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
-                                                    <nil key="textColor"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -891,8 +891,25 @@
                                             <segue destination="WqB-pK-hcv" kind="show" id="ff8-3L-oI3"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" tag="99" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InsertExampleRecords" textLabel="h6K-cb-njr" style="IBUITableViewCellStyleDefault" id="bLf-86-9GI">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SimulateTask" textLabel="FIc-G9-dYb" style="IBUITableViewCellStyleDefault" id="fCC-0Z-q36" userLabel="Task View Test">
                                         <rect key="frame" x="20" y="473.0000057220459" width="335" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fCC-0Z-q36" id="UHK-LQ-3qC">
+                                            <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Simulate Task View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FIc-G9-dYb">
+                                                    <rect key="frame" x="20" y="0.0" width="295" height="43.666667938232422"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" tag="99" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InsertExampleRecords" textLabel="h6K-cb-njr" style="IBUITableViewCellStyleDefault" id="bLf-86-9GI">
+                                        <rect key="frame" x="20" y="516.66667366027832" width="335" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bLf-86-9GI" id="BpJ-kq-rOY">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
@@ -909,7 +926,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DeleteAllRecords" textLabel="Xrr-Al-uuB" style="IBUITableViewCellStyleDefault" id="7Zj-kc-qZ0">
-                                        <rect key="frame" x="20" y="516.66667366027832" width="335" height="43.666667938232422"/>
+                                        <rect key="frame" x="20" y="560.33334159851074" width="335" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Zj-kc-qZ0" id="UOs-Ev-cFb">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
@@ -930,7 +947,7 @@
                             <tableViewSection headerTitle="Information" id="ypK-Vl-DXe">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Jmr-VQ-vS1" detailTextLabel="xaf-56-IQy" style="IBUITableViewCellStyleValue1" id="WDH-oH-bIs">
-                                        <rect key="frame" x="20" y="616.33334159851074" width="335" height="43.666667938232422"/>
+                                        <rect key="frame" x="20" y="660.00000953674316" width="335" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WDH-oH-bIs" id="FAc-gj-odd">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
@@ -954,7 +971,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="0cu-Ke-Vve" detailTextLabel="z6Q-T3-9tL" style="IBUITableViewCellStyleValue1" id="CZI-xd-9Pk">
-                                        <rect key="frame" x="20" y="660.00000953674316" width="335" height="43.666667938232422"/>
+                                        <rect key="frame" x="20" y="703.66667747497559" width="335" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CZI-xd-9Pk" id="daJ-aM-ZQy">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="43.666667938232422"/>
@@ -1146,11 +1163,60 @@
             </objects>
             <point key="canvasLocation" x="5036" y="1724.6305418719212"/>
         </scene>
+        <!--Task Progress View Controller-->
+        <scene sceneID="Qju-vZ-sdM">
+            <objects>
+                <viewController storyboardIdentifier="TaskProgressViewController" id="IXb-H7-bwB" customClass="TaskProgressViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="6ux-MT-Nei">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="nfP-UH-APs">
+                                <rect key="frame" x="20" y="67" width="335" height="691"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="UNN-4p-u8y">
+                                        <rect key="frame" x="157.66666666666666" y="0.0" width="20" height="20"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CYh-ZM-AoD">
+                                        <rect key="frame" x="149" y="40" width="37.333333333333343" height="627"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="e2n-3r-Uf4">
+                                        <rect key="frame" x="0.0" y="687" width="335" height="4"/>
+                                    </progressView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="e2n-3r-Uf4" firstAttribute="leading" secondItem="nfP-UH-APs" secondAttribute="leading" id="XnL-PW-NCa"/>
+                                    <constraint firstAttribute="trailing" secondItem="e2n-3r-Uf4" secondAttribute="trailing" id="wPR-oS-i3q"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="310-S1-r9X"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="310-S1-r9X" firstAttribute="bottom" secondItem="nfP-UH-APs" secondAttribute="bottom" constant="20" id="QgN-e7-YD3"/>
+                            <constraint firstItem="nfP-UH-APs" firstAttribute="leading" secondItem="310-S1-r9X" secondAttribute="leading" constant="20" id="Yda-Qm-LC6"/>
+                            <constraint firstItem="310-S1-r9X" firstAttribute="trailing" secondItem="nfP-UH-APs" secondAttribute="trailing" constant="20" id="e70-s9-PKn"/>
+                            <constraint firstItem="nfP-UH-APs" firstAttribute="top" secondItem="310-S1-r9X" secondAttribute="top" constant="20" id="eh4-dn-1Fw"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="activityIndicator" destination="UNN-4p-u8y" id="k9k-pd-pbB"/>
+                        <outlet property="messageLabel" destination="CYh-ZM-AoD" id="JnA-oC-D8G"/>
+                        <outlet property="progressBar" destination="e2n-3r-Uf4" id="FOF-VF-LxR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9tE-hc-vbV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5278" y="132"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="kH7-q4-Cry"/>
         <segue reference="yCm-QP-uHi"/>
-        <segue reference="lJN-EZ-Jtx"/>
+        <segue reference="baP-Gr-yct"/>
         <segue reference="ff8-3L-oI3"/>
         <segue reference="0Tt-BD-uS1"/>
     </inferredMetricsTieBreakers>

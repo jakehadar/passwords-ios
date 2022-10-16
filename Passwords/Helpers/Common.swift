@@ -34,6 +34,15 @@ func presentInfo(_ message: String, toViewController vc: UIViewController, forSe
     }
 }
 
+func getTaskProgressViewController(storyboard: UIStoryboard?, view: UIView) -> TaskProgressViewController? {
+    guard let vc = storyboard?.instantiateViewController(withIdentifier: "TaskProgressViewController") as? TaskProgressViewController else { return nil }
+    vc.view.frame = CGRect(origin: view.center, size: CGSize(width: 200, height: 150))
+    vc.view.center = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds))
+    vc.view.layer.cornerRadius = 10
+    vc.activityIndicator.isHidden = true
+    return vc
+}
+
 func formatAuthTimeoutText(_ seconds: Int) -> String {
     if seconds < 1 {
         return "Instantly"

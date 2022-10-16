@@ -61,8 +61,37 @@ class SettingsTableViewController: UITableViewController {
             deleteAllRecords()
         case "InsertExampleRecords":
             insertExampleRecords()
+        case "SimulateTask":
+            simulateTask()
         default:
             return
+        }
+    }
+    
+    func simulateTask() {
+        guard let child = getTaskProgressViewController(storyboard: storyboard, view: view) else { return }
+
+        addChildViewController(child)
+        view.addSubview(child.view)
+        child.didMove(toParentViewController: self)
+        
+        let maxTicks = 10
+        var curTick = 0
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+            curTick += 1
+            if curTick == maxTicks {
+                DispatchQueue.main.async {
+                    child.willMove(toParentViewController: nil)
+                    child.view.removeFromSuperview()
+                    child.removeFromParentViewController()
+                }
+                timer.invalidate()
+            } else {
+                DispatchQueue.main.async {
+                    debugPrint("\(curTick) \(maxTicks) \(Float(curTick/maxTicks))")
+                    child.progress = Float(curTick) / Float(maxTicks)
+                }
+            }
         }
     }
     

@@ -74,23 +74,43 @@ class ImportViewController: UIViewController {
             let keychainEntities = jsonContainer.keychainEntries
             let ac = UIAlertController(title: "Import", message: "Import \(passwordEntities.count) password entries? This may result in duplicates.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Import", style: .destructive, handler: { [passwordEntities, keychainEntities, unowned self] _ in
-                let uuidKeychainDict = keychainEntities.reduce(into: Dictionary<String, String>()) { $0[$1.uuid] = $1.text }
-                do {
-                    try passwordEntities.forEach {
-                        if KeychainWrapper.standard.hasValue(forKey: $0.uuid) {
-                            let pw = Password(uuid: $0.uuid, app: $0.app, user: $0.user, created: $0.created, modified: $0.modified)
-                            try passwordService.updatePasswordRecord(pw)
-                        } else {
-                            try passwordService.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "", created: $0.created, modified: $0.modified, uuid: $0.uuid)
+                let progressView = getTaskProgressViewController(storyboard: storyboard, view: view)!
+                addChildViewController(progressView)
+                view.addSubview(progressView.view)
+                progressView.didMove(toParentViewController: self)
+                
+                DispatchQueue.global(qos: .userInitiated).async {
+                    var progressCounter = 0
+                    let progressLimit = passwordEntities.count
+                    let uuidKeychainDict = keychainEntities.reduce(into: Dictionary<String, String>()) { $0[$1.uuid] = $1.text }
+                    do {
+                        try passwordEntities.forEach {
+                            if KeychainWrapper.standard.hasValue(forKey: $0.uuid) {
+                                let pw = Password(uuid: $0.uuid, app: $0.app, user: $0.user, created: $0.created, modified: $0.modified)
+                                try passwordService.updatePasswordRecord(pw)
+                            } else {
+                                try passwordService.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "", created: $0.created, modified: $0.modified, uuid: $0.uuid)
+                            }
+                            progressCounter += 1
+                            DispatchQueue.main.async {
+                                progressView.progress = Float(progressCounter) / Float(progressLimit)
+                            }
+                        }
+                    } catch {
+                        DispatchQueue.main.async {
+                            presentAlert(explaning: error, toViewController: self)
                         }
                     }
-                } catch {
-                    presentAlert(explaning: error, toViewController: self)
+                    DispatchQueue.main.async {
+                        progressView.willMove(toParentViewController: nil)
+                        progressView.view.removeFromSuperview()
+                        progressView.removeFromParentViewController()
+                        self.importButton.isEnabled = false
+                        let ac = UIAlertController(title: "Done", message: "Successfully imported \(passwordEntities.count) records.", preferredStyle: .alert)
+                        ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.present(ac, animated: true, completion: nil)
+                    }
                 }
-                self.importButton.isEnabled = false
-                let ac = UIAlertController(title: "Done", message: "Successfully imported \(passwordEntities.count) records.", preferredStyle: .alert)
-                ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self.present(ac, animated: true, completion: nil)
             }))
             ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(ac, animated: true, completion: nil)
