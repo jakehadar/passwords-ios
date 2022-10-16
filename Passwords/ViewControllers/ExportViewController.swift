@@ -26,19 +26,6 @@ class ExportViewController: UIViewController {
         copyButton.isEnabled = false
         saveToDocumentsButton.isEnabled = false
         
-        // TEsting
-        let a = "path_to_thing.json"
-        let b = "path/this/whatever.json"
-        let c = ":/asdf"
-        let d = "file name with spaces.json"
-        let e = "   filename with whitespaces.json   "
-        
-        debugPrint("\(a) - \(a.isValidFilename()) - \(a.convertToValidFileName())")
-        debugPrint("\(b) - \(b.isValidFilename()) - \(b.convertToValidFileName())")
-        debugPrint("\(c) - \(c.isValidFilename()) - \(c.convertToValidFileName())")
-        debugPrint("\(d) - \(d.isValidFilename()) - \(d.convertToValidFileName())")
-        debugPrint("\(e) - \(e.isValidFilename()) - \(e.convertToValidFileName())")
-        
         exportTapped(exportButton)
     }
     
@@ -48,7 +35,7 @@ class ExportViewController: UIViewController {
     }
     
     func exportJson() throws {
-        let passwords = passwordService.getPasswordRecords()
+        let passwords = passwordService.getRecords()
         let keychainEntries = passwords.reduce(into: [PasswordKeychainEntry]()) { $0.append(PasswordKeychainEntry(uuid: $1.uuid, text: $1.getPassword() ?? "")) }
         let jsonExportContainer = JSONExportContainer(passwords: passwords, keychainEntries: keychainEntries)
         let jsonExportString = prettyJsonString(try JSONEncoder().encode(jsonExportContainer))

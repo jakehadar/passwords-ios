@@ -135,7 +135,7 @@ class PasswordEditViewController: UITableViewController {
         
         switch editingMode {
         case .create:
-            try passwordService.createPasswordRecord(app: app, user: user, password: password)
+            try passwordService.createRecord(app: app, user: user, password: password)
             
         case .modify:
             guard let record = passwordRecord else { fatalError() }

@@ -145,18 +145,27 @@
                                             <action selector="unmaskButtonRelease:" destination="kbV-tw-48Q" eventType="touchDragOutside" id="eXI-hb-cWl"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last modified 0 days ago" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLF-7o-j3V">
-                                        <rect key="frame" x="20" y="478.66666666666657" width="335" height="159.33333333333331"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7xa-NE-NPH">
+                                        <rect key="frame" x="92.333333333333329" y="478.66666666666657" width="190.66666666666669" height="159.33333333333331"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last modified 0 days ago" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLF-7o-j3V">
+                                                <rect key="frame" x="0.0" y="0.0" width="190.66666666666666" height="143.66666666666666"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="UUID" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJ6-ju-7k2" userLabel="UUID Label">
+                                                <rect key="frame" x="0.0" y="143.66666666666674" width="190.66666666666666" height="15.666666666666657"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="hE7-ma-xx5" secondAttribute="trailing" constant="20" symbolic="YES" id="0yX-vn-bvJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="nLF-7o-j3V" secondAttribute="trailing" constant="20" symbolic="YES" id="6z7-01-1O4"/>
                                     <constraint firstItem="Bku-ST-LQM" firstAttribute="leading" secondItem="6UH-Qi-bJc" secondAttribute="leading" constant="20" symbolic="YES" id="8MM-qm-9Af"/>
-                                    <constraint firstItem="nLF-7o-j3V" firstAttribute="leading" secondItem="6UH-Qi-bJc" secondAttribute="leading" constant="20" symbolic="YES" id="MhF-E6-MtH"/>
                                     <constraint firstAttribute="trailing" secondItem="Bku-ST-LQM" secondAttribute="trailing" constant="20" symbolic="YES" id="ZpY-Zu-B9H"/>
                                     <constraint firstItem="BeZ-yb-chP" firstAttribute="leading" secondItem="6UH-Qi-bJc" secondAttribute="leading" constant="20" symbolic="YES" id="fHW-Ia-J2V"/>
                                     <constraint firstAttribute="trailing" secondItem="BeZ-yb-chP" secondAttribute="trailing" constant="20" symbolic="YES" id="rPJ-W0-oyF"/>
@@ -196,9 +205,10 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
-                        <outlet property="lastModifiedLabel" destination="nLF-7o-j3V" id="E6e-1J-sQk"/>
+                        <outlet property="lastModifiedLabel" destination="pJ6-ju-7k2" id="4Pf-KX-O7N"/>
                         <outlet property="passwordField" destination="BeZ-yb-chP" id="S2d-Fv-CPn"/>
                         <outlet property="userLabel" destination="Bku-ST-LQM" id="3lv-4B-l3o"/>
+                        <outlet property="uuidLabel" destination="pJ6-ju-7k2" id="hob-MN-Bsk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BcV-bN-bgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

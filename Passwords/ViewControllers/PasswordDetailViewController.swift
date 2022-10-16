@@ -13,6 +13,7 @@ class PasswordDetailViewController: UIViewController {
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var lastModifiedLabel: UILabel!
+    @IBOutlet weak var uuidLabel: UILabel!
     
     weak var passwordRecord: Password?
 
@@ -34,6 +35,8 @@ class PasswordDetailViewController: UIViewController {
             let dateModified = DateHelper.fromInt(record.modified)
             let unitsSinceLastModified = DateHelper.timeIntervalString(since: dateModified)
             lastModifiedLabel.text = "Last modified \(unitsSinceLastModified) ago"
+            
+            uuidLabel.text = record.uuid
         } else {
             // Only case where this code path should be entered is when passwordRecord is deleted from the Edit modal.
             self.dismiss(animated: true)
@@ -80,7 +83,7 @@ class PasswordDetailViewController: UIViewController {
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
             do {
-                try passwordService.deletePasswordRecord(passwordToDelete)
+                try passwordService.deleteRecord(passwordToDelete)
                 self.passwordRecord = nil
                 self.navigationController?.popViewController(animated: true)
             } catch {

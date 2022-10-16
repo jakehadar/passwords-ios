@@ -101,8 +101,8 @@ class SettingsTableViewController: UITableViewController {
         ac.addAction(UIAlertAction(title: "Erase", style: .destructive) { [unowned self] _ in
             var deletedRecordCount = 0
             do {
-                try passwordService.getPasswordRecords().forEach {
-                    try passwordService.deletePasswordRecord($0)
+                try passwordService.getRecords().forEach {
+                    try passwordService.deleteRecord($0)
                     deletedRecordCount += 1
                 }
             } catch {
@@ -132,7 +132,7 @@ class SettingsTableViewController: UITableViewController {
                 ["Apple", "user1@icloud.com", "pass"]
             ]
             do {
-                try dummyRecords.forEach { try passwordService.createPasswordRecord(app: $0[0], user: $0[1], password: $0[2]) }
+                try dummyRecords.forEach { try passwordService.createRecord(app: $0[0], user: $0[1], password: $0[2]) }
             } catch {
                 presentAlert(explaning: error, toViewController: self)
             }

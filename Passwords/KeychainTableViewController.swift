@@ -38,7 +38,7 @@ class KeychainTableViewController: UITableViewController {
         if let allKeys = try? KeychainWrapper.standard.allKeys() {
             keychainKeys = allKeys.reduce(into: [String]()) { $0.append($1) }
         }
-        let passwordUUIDs = Set(passwordService.getPasswordRecords().map { $0.uuid })
+        let passwordUUIDs = Set(passwordService.getRecords().map { $0.uuid })
         var keyDetails = [String]()
         keychainKeys.forEach {
             keyDetails.append(passwordUUIDs.contains($0) ? "Active" : "Orphaned")
@@ -52,11 +52,14 @@ class KeychainTableViewController: UITableViewController {
             }
         }
         
+        let activeCount = (try? getActiveKeychainKeys().count) ?? 0
+        let orphanedCount = (try? getOrphanedKeychainKeys().count) ?? 0
+        
         section0.append(["Service Name", KeychainWrapper.standard.serviceName])
         section0.append(["Access Group", KeychainWrapper.standard.accessGroup ?? ""])
         section0.append(["Key Count", "\(keychainKeys.count)"])
-        section0.append(["Active Keys", "\(passwordUUIDs.count)"])
-        section0.append(["Orphaned Keys", "\(keychainKeys.count - passwordUUIDs.count)"])
+        section0.append(["Active Keys", "\(activeCount)"])
+        section0.append(["Orphaned Keys", "\(orphanedCount)"])
         
         tableView.reloadData()
     }
