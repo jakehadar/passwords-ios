@@ -40,6 +40,11 @@ private let SecAttrAccount: String! = kSecAttrAccount as String
 private let SecAttrAccessGroup: String! = kSecAttrAccessGroup as String
 private let SecReturnAttributes: String = kSecReturnAttributes as String
 
+enum KeychainWrapperError: Error {
+    case noPassword
+    case unhandledError(status: OSStatus)
+}
+
 /// KeychainWrapper is a class to help make Keychain access in Swift more straightforward. It is designed to make accessing the Keychain services more like using NSUserDefaults, which is much more familiar to people.
 open class KeychainWrapper {
     
@@ -111,7 +116,7 @@ open class KeychainWrapper {
     }
 
     /// Get the keys of all keychain entries matching the current ServiceName and AccessGroup if one is set.
-    open func allKeys() -> Set<String> {
+    open func allKeys() throws -> Set<String> {
         var keychainQueryDictionary: [String:Any] = [
             SecClass: kSecClassGenericPassword,
             SecAttrService: serviceName,
@@ -123,13 +128,17 @@ open class KeychainWrapper {
             keychainQueryDictionary[SecAttrAccessGroup] = accessGroup
         }
 
-        var result: AnyObject?
-        let status = SecItemCopyMatching(keychainQueryDictionary as CFDictionary, &result)
-
-        guard status == errSecSuccess else { return [] }
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(keychainQueryDictionary as CFDictionary, &item)
+        
+        guard status != errSecItemNotFound else { throw KeychainWrapperError.noPassword }
+        
+        guard status == errSecSuccess else {
+            throw KeychainWrapperError.unhandledError(status: status)
+        }
 
         var keys = Set<String>()
-        if let results = result as? [[AnyHashable: Any]] {
+        if let results = item as? [[String: Any]] {
             for attributes in results {
                 if let accountData = attributes[SecAttrAccount] as? Data,
                     let account = String(data: accountData, encoding: String.Encoding.utf8) {

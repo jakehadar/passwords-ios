@@ -10,6 +10,8 @@ import Foundation
 
 enum PasswordError: Error {
     case keychainWrapperSetError
+    case keychainWrapperGetError
+    case keychainWrapperRemoveError
 }
 
 extension PasswordError: LocalizedError {
@@ -17,6 +19,10 @@ extension PasswordError: LocalizedError {
         switch self {
         case .keychainWrapperSetError:
             return NSLocalizedString("KeychainWrapper unsuccessful update.", comment: "")
+        case .keychainWrapperGetError:
+            return NSLocalizedString("KeychainWrapper unsuccessful get.", comment: "")
+        case .keychainWrapperRemoveError:
+            return NSLocalizedString("KeychainWrapper unsuccessful remove.", comment: "")
         }
     }
 }
@@ -81,12 +87,16 @@ class Password: NSObject, Codable {
     }
     
     func setPassword(_ password: String) throws {
-        if KeychainWrapper.standard.set(password, forKey: uuid) {
-            debugPrint("Password: set password for \(app) \(user)")
-            touch()
-        } else {
-            throw PasswordError.keychainWrapperSetError
+        guard KeychainWrapper.standard.set(password, forKey: uuid) else { throw PasswordError.keychainWrapperSetError }
+        touch()
+        debugPrint("Password: set password for \(app) \(user)")
+    }
+    
+    func removePassword() throws {
+        if KeychainWrapper.standard.hasValue(forKey: uuid) {
+            guard KeychainWrapper.standard.removeObject(forKey: uuid) else { throw PasswordError.keychainWrapperRemoveError }
         }
+        debugPrint("Password: removed from keychain for key \(uuid)")
     }
     
     // MARK: - Misc

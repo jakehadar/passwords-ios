@@ -52,6 +52,20 @@ func getDocumentsDirectory() -> URL {
     return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 }
 
+func getOrphanedKeychainKeys() throws -> [String] {
+    let keychainKeys = try KeychainWrapper.standard.allKeys()
+    let passwordUUIDs = Set(passwordService.getPasswordRecords().map { $0.uuid })
+    let orphanedKeys = keychainKeys.subtracting(passwordUUIDs)
+    return orphanedKeys.reduce(into: [String]()) { $0.append($1) }
+}
+
+func getActiveKeychainKeys() throws -> [String] {
+    let keychainKeys = try KeychainWrapper.standard.allKeys()
+    let passwordUUIDs = Set(passwordService.getPasswordRecords().map { $0.uuid })
+    let activeKeys = keychainKeys.union(passwordUUIDs)
+    return activeKeys.reduce(into: [String]()) { $0.append($1) }
+}
+
 extension UIDevice {
     static var isSimulator: Bool = {
         #if targetEnvironment(simulator)

@@ -600,7 +600,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="KeychainItemAccessibilityCell" textLabel="kDt-tX-Gvc" detailTextLabel="ZY0-hi-Dh5" style="IBUITableViewCellStyleSubtitle" id="OvZ-DO-0E5">
+                            <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="KeychainItemCell" textLabel="kDt-tX-Gvc" detailTextLabel="ZY0-hi-Dh5" style="IBUITableViewCellStyleSubtitle" id="OvZ-DO-0E5">
                                 <rect key="frame" x="0.0" y="93.666667938232422" width="375" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OvZ-DO-0E5" id="L7J-dO-2xl">
@@ -630,11 +630,20 @@
                             <outlet property="delegate" destination="WqB-pK-hcv" id="hnn-t6-tb3"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="kwu-mk-KOE"/>
+                        <barButtonItem title="Remove Orphaned Keys" id="qRI-C6-Tgh">
+                            <connections>
+                                <action selector="removeOrphanedKeysTapped:" destination="WqB-pK-hcv" id="tiH-hP-Lme"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Keychain Info" id="L1o-jv-nd6"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aCA-Ju-CDO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5036" y="1725"/>
+            <point key="canvasLocation" x="5978.3999999999996" y="1724.6305418719212"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="tCX-pX-fwv">
@@ -879,7 +888,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="WqB-pK-hcv" kind="show" id="xS2-vO-0SL"/>
+                                            <segue destination="WqB-pK-hcv" kind="show" id="ff8-3L-oI3"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" tag="99" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InsertExampleRecords" textLabel="h6K-cb-njr" style="IBUITableViewCellStyleDefault" id="bLf-86-9GI">
@@ -1118,11 +1127,31 @@
             </objects>
             <point key="canvasLocation" x="3508" y="2450"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="59z-1y-Okl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YVD-hC-Uzn" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="4zg-Je-jdj"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Zk3-8W-tgv">
+                        <rect key="frame" x="0.0" y="47" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="WqB-pK-hcv" kind="relationship" relationship="rootViewController" id="ODx-LT-5sk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i5Z-oj-T8i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5036" y="1724.6305418719212"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="kH7-q4-Cry"/>
         <segue reference="yCm-QP-uHi"/>
         <segue reference="lJN-EZ-Jtx"/>
+        <segue reference="ff8-3L-oI3"/>
         <segue reference="0Tt-BD-uS1"/>
     </inferredMetricsTieBreakers>
     <resources>

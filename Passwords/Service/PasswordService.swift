@@ -176,6 +176,7 @@ extension PasswordService: PasswordServiceProtocol {
     func deletePasswordRecord(_ record: Password) throws {
         for (index, cur) in passwordRecords.enumerated() {
             if cur.uuid == record.uuid {
+                try cur.removePassword()
                 passwordRecords.remove(at: index)
                 try savePasswordRecords()
                 debugPrint("PasswordService deleted password record \(record.uuid)")
