@@ -27,6 +27,7 @@
 		2E950D5328F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E950D5228F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift */; };
 		2E950D5528F9ADE0005C2039 /* DocumentsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E950D5428F9ADE0005C2039 /* DocumentsTableViewController.swift */; };
 		2E950D7E28FB2086005C2039 /* DocumentViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E950D7D28FB2086005C2039 /* DocumentViewerViewController.swift */; };
+		2E950D8028FB72B9005C2039 /* KeychainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E950D7F28FB72B9005C2039 /* KeychainTableViewController.swift */; };
 		2EB39EB323B2951500E6047B /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB39EB223B2951500E6047B /* AuthController.swift */; };
 		2EBE73E223A3AE88006C48C8 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,7 @@
 		2E950D5228F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthTimeoutSelectionTableViewController.swift; path = Passwords/AuthTimeoutSelectionTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		2E950D5428F9ADE0005C2039 /* DocumentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentsTableViewController.swift; path = Passwords/DocumentsTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		2E950D7D28FB2086005C2039 /* DocumentViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentViewerViewController.swift; path = Passwords/DocumentViewerViewController.swift; sourceTree = SOURCE_ROOT; };
+		2E950D7F28FB72B9005C2039 /* KeychainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeychainTableViewController.swift; path = Passwords/KeychainTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		2EB39EB223B2951500E6047B /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -113,6 +115,7 @@
 		2E84B81C208B95810096B512 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2E950D7F28FB72B9005C2039 /* KeychainTableViewController.swift */,
 				2E950D7D28FB2086005C2039 /* DocumentViewerViewController.swift */,
 				2E950D5428F9ADE0005C2039 /* DocumentsTableViewController.swift */,
 				2E950D5228F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift */,
@@ -231,6 +234,7 @@
 				2EBE73E223A3AE88006C48C8 /* ExportViewController.swift in Sources */,
 				2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */,
 				2E950D5128F71E80005C2039 /* ApplicationListTableViewController.swift in Sources */,
+				2E950D8028FB72B9005C2039 /* KeychainTableViewController.swift in Sources */,
 				2E84B834208F5C730096B512 /* AuthenticationViewController.swift in Sources */,
 				2E84B82D208BF0AE0096B512 /* DateHelper.swift in Sources */,
 				2E950D7E28FB2086005C2039 /* DocumentViewerViewController.swift in Sources */,

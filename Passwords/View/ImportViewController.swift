@@ -76,7 +76,7 @@ class ImportViewController: UIViewController {
             ac.addAction(UIAlertAction(title: "Import", style: .destructive, handler: { [passwordEntities, keychainEntities, unowned self] _ in
                 let uuidKeychainDict = keychainEntities.reduce(into: Dictionary<String, String>()) { $0[$1.uuid] = $1.text }
                 do {
-                    try passwordEntities.forEach { try passwordService.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "") }
+                    try passwordEntities.forEach { try passwordService.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "", created: $0.created, modified: $0.modified, uuid: $0.uuid) }
                 } catch {
                     presentAlert(explaning: error, toViewController: self)
                 }

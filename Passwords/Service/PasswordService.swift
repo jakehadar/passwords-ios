@@ -129,7 +129,9 @@ extension PasswordService: PasswordServiceProtocol {
             // App is running for the first time...
             
             // Create data.json file used to persist objects
-            try JSONEncoder().encode(passwordRecords).write(to: dataUrl)
+            if !FileManager.default.fileExists(atPath: dataUrl.path) {
+                try JSONEncoder().encode(passwordRecords).write(to: dataUrl)
+            }
             
             // Flag that UserDefaults migration does not need to happen
             UserDefaults.standard.set(true, forKey: PasswordService.kMigratedToJson)
@@ -151,6 +153,14 @@ extension PasswordService: PasswordServiceProtocol {
     
     func getPasswordRecords(forApp app: String) -> [Password]? {
         return appRecordsMap[app]
+    }
+    
+    func createPasswordRecord(app: String, user: String, password: String, created: Int, modified: Int, uuid: String) throws {
+        let passwordRecord = Password(uuid: uuid, app: app, user: user, created: created, modified: modified)
+        try passwordRecord.setPassword(password)
+        passwordRecords.append(passwordRecord)
+        try savePasswordRecords()
+        debugPrint("PasswordService added password record for \(app) \(user)")
     }
     
     func createPasswordRecord(app: String, user: String, password: String) throws {
