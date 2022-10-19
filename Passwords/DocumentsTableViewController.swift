@@ -12,7 +12,7 @@ protocol DocumentsListSelectionProtocol {
     func documentWasSelected(withUrl url: URL)
 }
 
-class DocumentsTableViewController: UITableViewController {
+class DocumentsTableViewController: UITableViewControllerAuthenticable {
     var documents = [URL]()
     var selectionDelegate: DocumentsListSelectionProtocol?
     var dismissOnSelection = false
@@ -36,9 +36,7 @@ class DocumentsTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        authController.authenticate()
-        
+        super.viewWillAppear(animated)        
         refreshDocuments()
     }
     

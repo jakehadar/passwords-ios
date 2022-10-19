@@ -14,12 +14,18 @@ class AuthenticationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "Locked"
+        
+        let blurEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
+        blurEffectView.frame = self.view.frame
+        self.view.insertSubview(blurEffectView, at: 0)
     }
     
-    static func instantiate() -> AuthenticationViewController {
+    static func instantiate(withAuthController authController: AuthController) -> AuthenticationViewController {
         guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as? AuthenticationViewController else { fatalError() }
+        vc.authController = authController
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
         return vc
     }
     

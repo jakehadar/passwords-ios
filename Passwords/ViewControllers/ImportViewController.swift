@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImportViewController: UIViewController {
+class ImportViewController: UIViewControllerAuthenticable {
 
     @IBOutlet weak var jsonTextView: UITextView!
     @IBOutlet weak var importButton: UIBarButtonItem!
@@ -24,11 +24,6 @@ class ImportViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         importButton.isEnabled = false
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        authController.authenticate()
     }
     
     func loadText(fromUrl url: URL) {
@@ -87,9 +82,9 @@ class ImportViewController: UIViewController {
                         try passwordEntities.forEach {
                             if KeychainWrapper.standard.hasValue(forKey: $0.uuid) {
                                 let pw = Password(uuid: $0.uuid, app: $0.app, user: $0.user, created: $0.created, modified: $0.modified)
-                                try passwordService.updatePasswordRecord(pw)
+                                try PasswordService.default.updatePasswordRecord(pw)
                             } else {
-                                try passwordService.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "", created: $0.created, modified: $0.modified, uuid: $0.uuid)
+                                try PasswordService.default.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "", created: $0.created, modified: $0.modified, uuid: $0.uuid)
                             }
                             progressCounter += 1
                             DispatchQueue.main.async {

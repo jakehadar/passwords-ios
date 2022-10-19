@@ -11,7 +11,7 @@ import UIKit
 
 /// Responsible for holding authentication state, and displaying the authentication modal.
 class AuthController {
-    private var rootViewController: UIViewController
+    static let `default` = AuthController()
     private var lastStartOfInactivityTime: Date?
     
     // User Defaults persistence keys
@@ -34,8 +34,14 @@ class AuthController {
         }
     }
     
-    init(_ rootViewController: UIViewController) {
-        self.rootViewController = rootViewController
+    private init() {}
+    
+    func topViewController() -> UIViewController {
+        guard var vc = UIApplication.shared.delegate?.window??.rootViewController else { fatalError() }
+        while let descendant = vc.presentedViewController {
+            vc = descendant
+        }
+        return vc
     }
     
     var secondsSinceLastStartOfInactivity: TimeInterval? {
@@ -58,9 +64,8 @@ class AuthController {
     
     func authenticate() {
         if shouldAuthenticate() {
-            let vc = AuthenticationViewController.instantiate()
-            vc.authController = self
-            rootViewController.present(vc, animated: false)
+            let vc = AuthenticationViewController.instantiate(withAuthController: self)
+            topViewController().present(vc, animated: false)
         }
     }
 }

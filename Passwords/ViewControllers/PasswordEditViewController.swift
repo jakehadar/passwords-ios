@@ -26,7 +26,7 @@ enum PasswordEditingMode {
     case modify
 }
 
-class PasswordEditViewController: UITableViewController {
+class PasswordEditViewController: UITableViewControllerAuthenticable {
     @IBOutlet weak var appTextField: UITextField!
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -72,9 +72,7 @@ class PasswordEditViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        authController.authenticate()
-        
+        super.viewWillAppear(animated)        
         editingCancelled = false
     }
     
@@ -135,14 +133,14 @@ class PasswordEditViewController: UITableViewController {
         
         switch editingMode {
         case .create:
-            try passwordService.createRecord(app: app, user: user, password: password)
+            try PasswordService.default.createRecord(app: app, user: user, password: password)
             
         case .modify:
             guard let record = passwordRecord else { fatalError() }
             record.app = app
             record.user = user
             try record.setPassword(password)
-            try passwordService.updatePasswordRecord(record)
+            try PasswordService.default.updatePasswordRecord(record)
         }
     }
     

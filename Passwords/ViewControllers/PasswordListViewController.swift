@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PasswordListViewController: UIViewController {
+class PasswordListViewController: UIViewControllerAuthenticable {
     @IBOutlet weak var tableView: UITableView!
     
     let searchController = UISearchController(searchResultsController: nil)
@@ -38,9 +38,9 @@ class PasswordListViewController: UIViewController {
         tableView.delegate = self
         
         
-        passwordService.updatesDelegate = self
+        PasswordService.default.updatesDelegate = self
         do {
-            try passwordService.initialize()
+            try PasswordService.default.initialize()
         } catch {
             presentAlert(explaning: error, toViewController: self)
         }
@@ -48,7 +48,6 @@ class PasswordListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        authController.authenticate()
         navigationController?.toolbar.isHidden = true
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedIndexPath, animated: animated)
@@ -61,8 +60,8 @@ class PasswordListViewController: UIViewController {
     }
     
     func refreshData() {
-        appNames = passwordService.getAppNames().map { $0.trimmingCharacters(in: .whitespaces).uppercased() }.sorted()
-        recordsForApp = Dictionary(grouping: passwordService.getRecords(), by: { $0.app.trimmingCharacters(in: .whitespaces).uppercased() })
+        appNames = PasswordService.default.getAppNames().map { $0.trimmingCharacters(in: .whitespaces).uppercased() }.sorted()
+        recordsForApp = Dictionary(grouping: PasswordService.default.getRecords(), by: { $0.app.trimmingCharacters(in: .whitespaces).uppercased() })
     }
     
     @objc func dismissKeyboard() {

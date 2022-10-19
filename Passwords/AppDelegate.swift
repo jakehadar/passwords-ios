@@ -8,10 +8,6 @@
 
 import UIKit
 
-//  TODO: Unwind these globals in a later refactoring.
-let passwordService: PasswordService = PasswordService.default
-var authController: AuthController!
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
@@ -19,8 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InitialViewController") as UIViewController
-        
-        authController = AuthController(vc)
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = vc
@@ -31,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillResignActive(_ application: UIApplication) {
         debugPrint("AppDelegate invoked method: \(#function).")
-        authController.applicationIsActive = false
+        AuthController.default.applicationIsActive = false
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -43,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
         debugPrint("AppDelegate invoked method: \(#function).")
-        authController.authenticate()
+        AuthController.default.authenticate()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

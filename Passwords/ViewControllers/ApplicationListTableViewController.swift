@@ -12,7 +12,7 @@ protocol ApplicationListSelectionDelegate {
     func applicationWasSelected(withName name: String?)
 }
 
-class ApplicationListTableViewController: UITableViewController {
+class ApplicationListTableViewController: UITableViewControllerAuthenticable {
     private let searchController = UISearchController(searchResultsController: nil)
     
     // MARK: - User configuration
@@ -32,7 +32,7 @@ class ApplicationListTableViewController: UITableViewController {
     private var selection: String?
     
     // Data sources for list and search views.
-    private var appNames = passwordService.getAppNames().map { $0.trimmingCharacters(in: .whitespaces) }.sorted { $0.lowercased() < $1.lowercased() }
+    private var appNames = PasswordService.default.getAppNames().map { $0.trimmingCharacters(in: .whitespaces) }.sorted { $0.lowercased() < $1.lowercased() }
     private var filteredAppNames = [String]()
     
     // App names the user created during this presentation.
@@ -67,7 +67,6 @@ class ApplicationListTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        authController.authenticate()
         
         if let initialSelection = initialSelection {
             // When the initial selection is a new item, add it to the top of the list view and select it.

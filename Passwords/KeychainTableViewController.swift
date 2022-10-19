@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KeychainTableViewController: UITableViewController {
+class KeychainTableViewController: UITableViewControllerAuthenticable {
     
     var section0 = [[String]]()
     var section1 = [[String]]()
@@ -38,7 +38,7 @@ class KeychainTableViewController: UITableViewController {
         if let allKeys = try? KeychainWrapper.standard.allKeys() {
             keychainKeys = allKeys.reduce(into: [String]()) { $0.append($1) }
         }
-        let passwordUUIDs = Set(passwordService.getRecords().map { $0.uuid })
+        let passwordUUIDs = Set(PasswordService.default.getRecords().map { $0.uuid })
         var keyDetails = [String]()
         keychainKeys.forEach {
             keyDetails.append(passwordUUIDs.contains($0) ? "Active" : "Orphaned")

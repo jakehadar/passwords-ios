@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsTableViewController: UITableViewController {
+class SettingsTableViewController: UITableViewControllerAuthenticable {
     @IBOutlet weak var authEnabledSwitch: UISwitch!
     @IBOutlet weak var authTimeoutLabel: UILabel!
     @IBOutlet weak var authTimeoutCell: UITableViewCell!
@@ -27,7 +27,6 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        authController.authenticate()
         
         var config = infoCell1.defaultContentConfiguration()
         config.text = "Running on simulator"
@@ -101,8 +100,8 @@ class SettingsTableViewController: UITableViewController {
         ac.addAction(UIAlertAction(title: "Erase", style: .destructive) { [unowned self] _ in
             var deletedRecordCount = 0
             do {
-                try passwordService.getRecords().forEach {
-                    try passwordService.deleteRecord($0)
+                try PasswordService.default.getRecords().forEach {
+                    try PasswordService.default.deleteRecord($0)
                     deletedRecordCount += 1
                 }
             } catch {
@@ -132,7 +131,7 @@ class SettingsTableViewController: UITableViewController {
                 ["Apple", "user1@icloud.com", "pass"]
             ]
             do {
-                try dummyRecords.forEach { try passwordService.createRecord(app: $0[0], user: $0[1], password: $0[2]) }
+                try dummyRecords.forEach { try PasswordService.default.createRecord(app: $0[0], user: $0[1], password: $0[2]) }
             } catch {
                 presentAlert(explaning: error, toViewController: self)
             }

@@ -12,7 +12,7 @@ protocol AuthTimeoutSelectionDelegate {
     func timeoutWasSelected(withSeconds seconds: Int?)
 }
 
-class AuthTimeoutSelectionTableViewController: UITableViewController {
+class AuthTimeoutSelectionTableViewController: UITableViewControllerAuthenticable {
     
     var selectionDelegate: AuthTimeoutSelectionDelegate?
     var selection: Int?
@@ -32,7 +32,6 @@ class AuthTimeoutSelectionTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        authController.authenticate()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

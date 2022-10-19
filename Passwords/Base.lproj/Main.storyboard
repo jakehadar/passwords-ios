@@ -12,7 +12,7 @@
         <!--Authentication View Controller-->
         <scene sceneID="Axt-Wr-ZrR">
             <objects>
-                <viewController storyboardIdentifier="AuthenticationViewController" modalPresentationStyle="fullScreen" id="beR-ig-8gu" customClass="AuthenticationViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthenticationViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="beR-ig-8gu" customClass="AuthenticationViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EYs-zO-dVm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1225,7 +1225,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="kH7-q4-Cry"/>
-        <segue reference="yCm-QP-uHi"/>
+        <segue reference="RZ1-bU-OG8"/>
         <segue reference="baP-Gr-yct"/>
         <segue reference="ff8-3L-oI3"/>
         <segue reference="0Tt-BD-uS1"/>

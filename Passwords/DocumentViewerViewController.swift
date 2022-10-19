@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DocumentViewerViewController: UIViewController {
+class DocumentViewerViewController: UIViewControllerAuthenticable {
 
     @IBOutlet weak var textView: UITextView!
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PasswordDetailViewController: UIViewController {
+class PasswordDetailViewController: UIViewControllerAuthenticable {
     
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var passwordField: UITextField!
@@ -23,7 +23,6 @@ class PasswordDetailViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        authController.authenticate()
         
         if let record = passwordRecord {
             title = record.app
@@ -83,7 +82,7 @@ class PasswordDetailViewController: UIViewController {
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
             do {
-                try passwordService.deleteRecord(passwordToDelete)
+                try PasswordService.default.deleteRecord(passwordToDelete)
                 self.passwordRecord = nil
                 self.navigationController?.popViewController(animated: true)
             } catch {
