@@ -36,7 +36,7 @@
 
 /* Begin PBXFileReference section */
 		2E08453C2349D42100E905F2 /* PasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordService.swift; sourceTree = "<group>"; };
-		2E0AF0C528F5E0B900A02859 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingsTableViewController.swift; path = Passwords/SettingsTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		2E0AF0C528F5E0B900A02859 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2E0AF0C728F5F59F00A02859 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		2E10A36628F3939E00FE4954 /* ImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewController.swift; sourceTree = "<group>"; };
 		2E48710428FF6FF700B215B9 /* ViewController+Authenticable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Authenticable.swift"; sourceTree = "<group>"; };
@@ -55,12 +55,12 @@
 		2E84B831208EB9070096B512 /* PasswordDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordDetailViewController.swift; sourceTree = "<group>"; };
 		2E84B833208F5C730096B512 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		2E950D5028F71E80005C2039 /* ApplicationListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationListTableViewController.swift; sourceTree = "<group>"; };
-		2E950D5228F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthTimeoutSelectionTableViewController.swift; path = Passwords/AuthTimeoutSelectionTableViewController.swift; sourceTree = SOURCE_ROOT; };
-		2E950D5428F9ADE0005C2039 /* DocumentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentsTableViewController.swift; path = Passwords/DocumentsTableViewController.swift; sourceTree = SOURCE_ROOT; };
-		2E950D7D28FB2086005C2039 /* DocumentViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentViewerViewController.swift; path = Passwords/DocumentViewerViewController.swift; sourceTree = SOURCE_ROOT; };
-		2E950D7F28FB72B9005C2039 /* KeychainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeychainTableViewController.swift; path = Passwords/KeychainTableViewController.swift; sourceTree = SOURCE_ROOT; };
+		2E950D5228F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTimeoutSelectionTableViewController.swift; sourceTree = "<group>"; };
+		2E950D5428F9ADE0005C2039 /* DocumentsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsTableViewController.swift; sourceTree = "<group>"; };
+		2E950D7D28FB2086005C2039 /* DocumentViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentViewerViewController.swift; sourceTree = "<group>"; };
+		2E950D7F28FB72B9005C2039 /* KeychainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTableViewController.swift; sourceTree = "<group>"; };
 		2E950D8128FC36D6005C2039 /* Passwords.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Passwords.entitlements; sourceTree = "<group>"; };
-		2E96B41728FC4BC000FCFF57 /* TaskProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskProgressViewController.swift; path = Passwords/TaskProgressViewController.swift; sourceTree = SOURCE_ROOT; };
+		2E96B41728FC4BC000FCFF57 /* TaskProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskProgressViewController.swift; sourceTree = "<group>"; };
 		2EB39EB223B2951500E6047B /* AuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
