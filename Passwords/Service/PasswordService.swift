@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import UIKit
+import AuthenticationServices
 
 typealias AppRecordsMap = Dictionary<String, [Password]>
 typealias UuidRecordMap = Dictionary<String, Password>
@@ -54,27 +54,28 @@ protocol PasswordServiceUpdatesDelegate {
 }
 
 class PasswordService {
+    // Shared instance
     // WARNING: Not tested for thread safety.
-    
     static let `default` = PasswordService()
+    
+    // Key constants
     static let kDefaultsKey = "passwordRecords"
     static let kStorageFilename = "data.json"
     static let kMigratedToJson = "migratedFromUserDefaultsToJson"
     static let kFirstLaunchSetupComplete = "firstLaunchSetupComplete"
     
+    // Configuration
     var updatesDelegate: PasswordServiceUpdatesDelegate?
+    var credentialIdentityStore: ASCredentialIdentityStore? = ASCredentialIdentityStore.shared
     
-    // MARK: - Private
-    
-    private var dataUrl: URL {
-        return getDocumentsDirectory().appendingPathComponent(PasswordService.kStorageFilename)
-    }
-    
+    // Internal state
     private var initialized = false
-    
     private var records = [Password]()
+    
+    // Helpers
     private var appRecordsMap: AppRecordsMap { return Dictionary(grouping: records, by: { $0.app }) }
     private var uuidRecordMap: UuidRecordMap { return records.reduce(into: UuidRecordMap()) { $0[$1.uuid] = $1 } }
+    private var dataUrl: URL { return getDocumentsDirectory().appendingPathComponent(PasswordService.kStorageFilename) }
     
     func migrate() throws {
         // Migrate passwords from UserDefaults to json document
@@ -156,8 +157,16 @@ extension PasswordService: PasswordServiceProtocol {
         return appRecordsMap[app]
     }
     
-    func createPasswordRecord(app: String, user: String, password: String, created: Int, modified: Int, uuid: String) throws {
-        let record = Password(uuid: uuid, app: app, user: user, created: created, modified: modified)
+    func createPasswordRecord(app: String, user: String, password: String, created: Int, modified: Int, uuid: String, domain: String?, url: String?) throws {
+        let record = Password(uuid: uuid, app: app, user: user, created: created, modified: modified, domain: domain, url: url)
+        try record.setPassword(password)
+        records.append(record)
+        try saveRecords()
+        debugPrint("PasswordService added password record \(record.uuid)")
+    }
+    
+    func createRecord(app: String, user: String, password: String, domain: String?, url: String?) throws {
+        let record = Password(app: app, user: user, domain: domain, url: url)
         try record.setPassword(password)
         records.append(record)
         try saveRecords()
@@ -187,6 +196,8 @@ extension PasswordService: PasswordServiceProtocol {
         if let existing = uuidRecordMap[reference.uuid] {
             existing.app = reference.app
             existing.user = reference.user
+            existing.domain = reference.domain
+            existing.url = reference.url
             if let updatedPassword = reference.getPassword() {
                 try existing.setPassword(updatedPassword)
             }
@@ -195,5 +206,37 @@ extension PasswordService: PasswordServiceProtocol {
             return
         }
         throw PasswordServiceError.updateReferenceError(uuid: reference.uuid)
+    }
+}
+
+extension PasswordService {
+    func shouldReplaceCredentialIdentities() -> Bool {
+        var decision = false
+        credentialIdentityStore?.getState { state in
+            if state.isEnabled && !state.supportsIncrementalUpdates {
+                decision = true
+            }
+        }
+        return decision
+    }
+    
+    func replaceCredentialIdentities() {
+        guard shouldReplaceCredentialIdentities() else { return }
+        let identities = records.reduce(into: [ASPasswordCredentialIdentity]()) { result, element in
+            let serviceIdentifier: ASCredentialServiceIdentifier? = {
+                if let identifier = element.domain {
+                    return ASCredentialServiceIdentifier(identifier: identifier, type: .domain)
+                } else if let identifier = element.url {
+                    return ASCredentialServiceIdentifier(identifier: identifier, type: .URL)
+                } else {
+                    return nil
+                }
+            }()
+            
+            if let serviceIdentifier = serviceIdentifier {
+                result.append(ASPasswordCredentialIdentity(serviceIdentifier: serviceIdentifier, user: element.user, recordIdentifier: element.uuid))
+            }
+        }
+        credentialIdentityStore?.replaceCredentialIdentities(with: identities)
     }
 }

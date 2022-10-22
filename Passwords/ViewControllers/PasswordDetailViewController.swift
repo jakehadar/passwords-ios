@@ -15,6 +15,9 @@ class PasswordDetailViewController: UIViewControllerAuthenticable {
     @IBOutlet weak var lastModifiedLabel: UILabel!
     @IBOutlet weak var uuidLabel: UILabel!
     
+    @IBOutlet weak var domainLabel: UILabel!
+    @IBOutlet weak var urlLabel: UILabel!
+    
     weak var passwordRecord: Password?
 
     override func viewDidLoad() {
@@ -36,6 +39,8 @@ class PasswordDetailViewController: UIViewControllerAuthenticable {
             lastModifiedLabel.text = "Last modified \(unitsSinceLastModified) ago"
             
             uuidLabel.text = record.uuid
+            domainLabel.text = record.domain ?? ""
+            urlLabel.text = record.url ?? ""
         } else {
             // Only case where this code path should be entered is when passwordRecord is deleted from the Edit modal.
             self.dismiss(animated: true)

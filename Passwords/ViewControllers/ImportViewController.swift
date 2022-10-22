@@ -80,11 +80,11 @@ class ImportViewController: UIViewControllerAuthenticable {
                     let uuidKeychainDict = keychainEntities.reduce(into: Dictionary<String, String>()) { $0[$1.uuid] = $1.text }
                     do {
                         try passwordEntities.forEach {
-                            if KeychainWrapper.standard.hasValue(forKey: $0.uuid) {
-                                let pw = Password(uuid: $0.uuid, app: $0.app, user: $0.user, created: $0.created, modified: $0.modified)
+                            if sharedKeychain.hasValue(forKey: $0.uuid) {
+                                let pw = Password(uuid: $0.uuid, app: $0.app, user: $0.user, created: $0.created, modified: $0.modified, domain: $0.domain, url: $0.url)
                                 try PasswordService.default.updatePasswordRecord(pw)
                             } else {
-                                try PasswordService.default.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "", created: $0.created, modified: $0.modified, uuid: $0.uuid)
+                                try PasswordService.default.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "", created: $0.created, modified: $0.modified, uuid: $0.uuid, domain: $0.domain, url: $0.url)
                             }
                             progressCounter += 1
                             DispatchQueue.main.async {

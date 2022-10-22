@@ -31,6 +31,8 @@ class PasswordEditViewController: UITableViewControllerAuthenticable {
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var maskSwitch: UISwitch!
+    @IBOutlet weak var domainTextField: UITextField!
+    @IBOutlet weak var urlTextField: UITextField!
     
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var commitButton: UIBarButtonItem!
@@ -80,12 +82,16 @@ class PasswordEditViewController: UITableViewControllerAuthenticable {
         appTextField.tag = 1
         userTextField.tag = 2
         passwordTextField.tag = 3
+        domainTextField.tag = 4
+        urlTextField.tag = 5
         
         switch editingMode {
         case .create:
             appTextField.returnKeyType = .next
             userTextField.returnKeyType = .next
-            passwordTextField.returnKeyType = .done
+            passwordTextField.returnKeyType = .next
+            domainTextField.returnKeyType = .next
+            urlTextField.returnKeyType = .done
             navigationController?.setToolbarHidden(true, animated: false)
             appTextField.becomeFirstResponder()
             
@@ -93,6 +99,8 @@ class PasswordEditViewController: UITableViewControllerAuthenticable {
             appTextField.text = passwordRecord!.app
             userTextField.text = passwordRecord!.user
             passwordTextField.text = passwordRecord!.getPassword()
+            domainTextField.text = passwordRecord?.domain
+            urlTextField.text = passwordRecord?.url
             navigationController?.setToolbarHidden(false, animated: false)
         }
     }
@@ -111,13 +119,19 @@ class PasswordEditViewController: UITableViewControllerAuthenticable {
     // MARK: - TableView
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0:
-            appTextField.becomeFirstResponder()
+        let cell = tableView.cellForRow(at: indexPath)
+        
+        switch cell?.tag {
         case 1:
-            userTextField.becomeFirstResponder()
+            appTextField.becomeFirstResponder()
         case 2:
+            userTextField.becomeFirstResponder()
+        case 3:
             passwordTextField.becomeFirstResponder()
+        case 4:
+            domainTextField.becomeFirstResponder()
+        case 5:
+            urlTextField.becomeFirstResponder()
         default:
             dismissKeyboard()
         }
@@ -130,15 +144,19 @@ class PasswordEditViewController: UITableViewControllerAuthenticable {
         let app = appTextField.text!
         let user = userTextField.text!
         let password = "\(passwordTextField.text!)"
+        let domain = domainTextField.text
+        let url = urlTextField.text
         
         switch editingMode {
         case .create:
-            try PasswordService.default.createRecord(app: app, user: user, password: password)
+            try PasswordService.default.createRecord(app: app, user: user, password: password, domain: domain, url: url)
             
         case .modify:
             guard let record = passwordRecord else { fatalError() }
             record.app = app
             record.user = user
+            record.domain = domain
+            record.url = url
             try record.setPassword(password)
             try PasswordService.default.updatePasswordRecord(record)
         }
@@ -160,8 +178,10 @@ class PasswordEditViewController: UITableViewControllerAuthenticable {
             let appUnchanged = appTextField.text == passwordRecord!.app
             let userUnchanged = userTextField.text == passwordRecord!.user
             let passwordUnchanged = passwordTextField.text == passwordRecord!.getPassword()
+            let domainUnchanged = domainTextField.text == passwordRecord!.domain
+            let urlUnchanged = urlTextField.text == passwordRecord!.url
             
-            if (appUnchanged && userUnchanged && passwordUnchanged) { return false }
+            if (appUnchanged && userUnchanged && passwordUnchanged && domainUnchanged && urlUnchanged) { return false }
         }
         
         return true
@@ -171,6 +191,8 @@ class PasswordEditViewController: UITableViewControllerAuthenticable {
         appTextField.resignFirstResponder()
         userTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
+        domainTextField.resignFirstResponder()
+        urlTextField.resignFirstResponder()
     }
     
     // MARK: - Actions
@@ -184,8 +206,14 @@ class PasswordEditViewController: UITableViewControllerAuthenticable {
             case 2:
                 sender.resignFirstResponder()
                 passwordTextField.becomeFirstResponder()
+            case 3:
+                sender.resignFirstResponder()
+                domainTextField.becomeFirstResponder()
+            case 4:
+                sender.resignFirstResponder()
+                urlTextField.becomeFirstResponder()
             default:
-                passwordTextField.resignFirstResponder()
+                urlTextField.resignFirstResponder()
             }
         } else {
             sender.resignFirstResponder()

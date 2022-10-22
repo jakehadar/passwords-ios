@@ -16,7 +16,7 @@ class KeychainTableViewController: UITableViewControllerAuthenticable {
     
     let sectionTitles = ["Properties", "Active Keys", "Orphaned Keys"]
     let reuseIdentifiers = ["KeychainInfoCell", "KeychainItemCell", "KeychainItemCell"]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,7 +35,7 @@ class KeychainTableViewController: UITableViewControllerAuthenticable {
         section2 = [[String]]()
         
         var keychainKeys = [String]()
-        if let allKeys = try? KeychainWrapper.standard.allKeys() {
+        if let allKeys = try? sharedKeychain.allKeys() {
             keychainKeys = allKeys.reduce(into: [String]()) { $0.append($1) }
         }
         let passwordUUIDs = Set(PasswordService.default.getRecords().map { $0.uuid })
@@ -55,8 +55,8 @@ class KeychainTableViewController: UITableViewControllerAuthenticable {
         let activeCount = (try? getActiveKeychainKeys().count) ?? 0
         let orphanedCount = (try? getOrphanedKeychainKeys().count) ?? 0
         
-        section0.append(["Service Name", KeychainWrapper.standard.serviceName])
-        section0.append(["Access Group", KeychainWrapper.standard.accessGroup ?? ""])
+        section0.append(["Service Name", sharedKeychain.serviceName])
+        section0.append(["Access Group", sharedKeychain.accessGroup ?? ""])
         section0.append(["Key Count", "\(keychainKeys.count)"])
         section0.append(["Active Keys", "\(activeCount)"])
         section0.append(["Orphaned Keys", "\(orphanedCount)"])
@@ -119,7 +119,7 @@ class KeychainTableViewController: UITableViewControllerAuthenticable {
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         ac.addAction(UIAlertAction(title: "Remove", style: .default) { [unowned self] _ in
             do {
-                try getOrphanedKeychainKeys().forEach { KeychainWrapper.standard.removeObject(forKey: $0) }
+                try getOrphanedKeychainKeys().forEach { sharedKeychain.removeObject(forKey: $0) }
                 self.refreshData()
                 presentInfo("Done", toViewController: self)
             } catch {

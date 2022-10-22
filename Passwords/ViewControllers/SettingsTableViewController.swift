@@ -119,19 +119,19 @@ class SettingsTableViewController: UITableViewControllerAuthenticable {
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         ac.addAction(UIAlertAction(title: "Continue", style: .destructive) { [unowned self] _ in
             let dummyRecords = [
-                ["Google", "account1@gmail.com", "password1"],
-                ["Google", "account2@gmail.com", "password2"],
-                ["Google", "account3@gmail.com", "password3"],
-                ["Amazon", "user1", "password"],
-                ["Facebook", "user1", "password"],
-                ["Instagram", "user1@gmail.com", "password"],
-                ["Instagram", "user2@gmail.com", "password"],
-                ["Netflix", "user1@gmail.com", "password"],
-                ["Github", "user1@gmail.com", "password"],
-                ["Apple", "user1@icloud.com", "pass"]
+                ["Google", "account1@gmail.com", "password1", "accounts.google.com"],
+                ["Google", "account2@gmail.com", "password2", "accounts.google.com"],
+                ["Google", "account3@gmail.com", "password3", "accounts.google.com"],
+                ["Amazon", "user1", "password", nil],
+                ["Facebook", "user1", "password", nil],
+                ["Instagram", "user1@gmail.com", "password", nil],
+                ["Instagram", "user2@gmail.com", "password", nil],
+                ["Netflix", "user1@gmail.com", "password", nil],
+                ["Github", "user1@gmail.com", "password", nil],
+                ["Apple", "user1@icloud.com", "pass", nil]
             ]
             do {
-                try dummyRecords.forEach { try PasswordService.default.createRecord(app: $0[0], user: $0[1], password: $0[2]) }
+                try dummyRecords.forEach { try PasswordService.default.createRecord(app: $0[0]!, user: $0[1]!, password: $0[2]!, domain: $0[3], url: nil) }
             } catch {
                 presentAlert(explaning: error, toViewController: self)
             }

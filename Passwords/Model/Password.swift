@@ -57,6 +57,18 @@ class Password: NSObject, Codable {
         }
     }
     
+    var domain: String? {
+        didSet {
+            touch()
+        }
+    }
+    
+    var url: String? {
+        didSet {
+            touch()
+        }
+    }
+    
     var user: String {
         didSet {
             touch()
@@ -72,10 +84,22 @@ class Password: NSObject, Codable {
         self.init(uuid: uuid, app: app, user: user, created: created, modified: created)
     }
     
-    init(uuid: String, app: String, user: String, created: Int, modified: Int) {
+    convenience init(app: String, user: String, domain: String?, url: String?) {
+        let uuid = UUID().uuidString
+        let created = DateHelper.toInt(Date())
+        self.init(uuid: uuid, app: app, user: user, created: created, modified: created, domain: domain, url: url)
+    }
+    
+    convenience init(uuid: String, app: String, user: String, created: Int, modified: Int) {
+        self.init(uuid: uuid, app: app, user: user, created: created, modified: created, domain: nil, url: nil)
+    }
+    
+    init(uuid: String, app: String, user: String, created: Int, modified: Int, domain: String?, url: String?) {
         self.uuid = uuid
         self.app = app
         self.user = user
+        self.domain = domain
+        self.url = url
         self.created = created
         self.modified = modified
     }
@@ -83,18 +107,18 @@ class Password: NSObject, Codable {
     // MARK: - Keychain
     
     func getPassword() -> String? {
-        return KeychainWrapper.standard.string(forKey: uuid)
+        return sharedKeychain.string(forKey: uuid)
     }
     
     func setPassword(_ password: String) throws {
-        guard KeychainWrapper.standard.set(password, forKey: uuid) else { throw PasswordError.keychainWrapperSetError }
+        guard sharedKeychain.set(password, forKey: uuid) else { throw PasswordError.keychainWrapperSetError }
         touch()
         debugPrint("Password: set password for \(app) \(user)")
     }
     
     func removePassword() throws {
-        if KeychainWrapper.standard.hasValue(forKey: uuid) {
-            guard KeychainWrapper.standard.removeObject(forKey: uuid) else { throw PasswordError.keychainWrapperRemoveError }
+        if sharedKeychain.hasValue(forKey: uuid) {
+            guard sharedKeychain.removeObject(forKey: uuid) else { throw PasswordError.keychainWrapperRemoveError }
         }
         debugPrint("Password: removed from keychain for key \(uuid)")
     }

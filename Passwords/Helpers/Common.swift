@@ -62,14 +62,14 @@ func getDocumentsDirectory() -> URL {
 }
 
 func getOrphanedKeychainKeys() throws -> [String] {
-    let keychainKeys = try KeychainWrapper.standard.allKeys()
+    let keychainKeys = try sharedKeychain.allKeys()
     let passwordUUIDs = Set(PasswordService.default.getRecords().map { $0.uuid })
     let orphanedKeys = keychainKeys.subtracting(passwordUUIDs)
     return orphanedKeys.reduce(into: [String]()) { $0.append($1) }
 }
 
 func getActiveKeychainKeys() throws -> [String] {
-    let keychainKeys = try KeychainWrapper.standard.allKeys()
+    let keychainKeys = try sharedKeychain.allKeys()
     let passwordUUIDs = Set(PasswordService.default.getRecords().map { $0.uuid })
     let activeKeys = keychainKeys.union(passwordUUIDs)
     return activeKeys.reduce(into: [String]()) { $0.append($1) }

@@ -8,12 +8,16 @@
 
 import UIKit
 
+public let kAppGroupName = "group.ar.had.Passwords"
+public let kSharedDataTestString = "sharedDataTestString"
+public let sharedKeychain = KeychainWrapper(serviceName: Bundle.main.bundleIdentifier!, accessGroup: kAppGroupName)
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
+        UserDefaults(suiteName: kAppGroupName)!.set("This is some shared data 1234asdf", forKey: kSharedDataTestString)
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "InitialViewController") as UIViewController
         
         window = UIWindow(frame: UIScreen.main.bounds)

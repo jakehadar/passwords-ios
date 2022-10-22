@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E08453D2349D42100E905F2 /* PasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E08453C2349D42100E905F2 /* PasswordService.swift */; };
 		2E0AF0C628F5E0B900A02859 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0AF0C528F5E0B900A02859 /* SettingsTableViewController.swift */; };
 		2E0AF0C828F5F59F00A02859 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0AF0C728F5F59F00A02859 /* Common.swift */; };
 		2E10A36728F3939E00FE4954 /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E10A36628F3939E00FE4954 /* ImportViewController.swift */; };
+		2E26B94529045E24000F9ADF /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E26B94329045E24000F9ADF /* KeychainWrapper.swift */; };
+		2E26B94629045E24000F9ADF /* KeychainItemAccessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E26B94429045E24000F9ADF /* KeychainItemAccessibility.swift */; };
+		2E26B948290477C2000F9ADF /* CredentialProviderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E26B947290477C2000F9ADF /* CredentialProviderCollectionViewCell.swift */; };
 		2E48710528FF6FF700B215B9 /* ViewController+Authenticable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48710428FF6FF700B215B9 /* ViewController+Authenticable.swift */; };
 		2E48715F290370C000B215B9 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E48715E290370C000B215B9 /* AuthenticationServices.framework */; };
 		2E487162290370C000B215B9 /* CredentialProviderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E487161290370C000B215B9 /* CredentialProviderViewController.swift */; };
 		2E487165290370C000B215B9 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E487163290370C000B215B9 /* MainInterface.storyboard */; };
 		2E48716B290370C000B215B9 /* AutofillCredentialProvider.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2E48715C290370C000B215B9 /* AutofillCredentialProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2E4871702904449300B215B9 /* PasswordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E08453C2349D42100E905F2 /* PasswordService.swift */; };
 		2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B7D5208B81450096B512 /* AppDelegate.swift */; };
 		2E84B7DB208B81450096B512 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E84B7D9208B81450096B512 /* Main.storyboard */; };
 		2E84B7DD208B81460096B512 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E84B7DC208B81460096B512 /* Assets.xcassets */; };
@@ -67,6 +70,9 @@
 		2E0AF0C528F5E0B900A02859 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2E0AF0C728F5F59F00A02859 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		2E10A36628F3939E00FE4954 /* ImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewController.swift; sourceTree = "<group>"; };
+		2E26B94329045E24000F9ADF /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainWrapper.swift; path = Passwords/Helpers/KeychainWrapper.swift; sourceTree = SOURCE_ROOT; };
+		2E26B94429045E24000F9ADF /* KeychainItemAccessibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeychainItemAccessibility.swift; path = Passwords/Helpers/KeychainItemAccessibility.swift; sourceTree = SOURCE_ROOT; };
+		2E26B947290477C2000F9ADF /* CredentialProviderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialProviderCollectionViewCell.swift; sourceTree = "<group>"; };
 		2E48710428FF6FF700B215B9 /* ViewController+Authenticable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Authenticable.swift"; sourceTree = "<group>"; };
 		2E48715C290370C000B215B9 /* AutofillCredentialProvider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AutofillCredentialProvider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E48715E290370C000B215B9 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
@@ -146,8 +152,11 @@
 		2E487160290370C000B215B9 /* AutofillCredentialProvider */ = {
 			isa = PBXGroup;
 			children = (
+				2E26B94429045E24000F9ADF /* KeychainItemAccessibility.swift */,
+				2E26B94329045E24000F9ADF /* KeychainWrapper.swift */,
 				2E487161290370C000B215B9 /* CredentialProviderViewController.swift */,
 				2E487163290370C000B215B9 /* MainInterface.storyboard */,
+				2E26B947290477C2000F9ADF /* CredentialProviderCollectionViewCell.swift */,
 				2E487166290370C000B215B9 /* Info.plist */,
 				2E487167290370C000B215B9 /* AutofillCredentialProvider.entitlements */,
 			);
@@ -334,6 +343,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E487162290370C000B215B9 /* CredentialProviderViewController.swift in Sources */,
+				2E26B94529045E24000F9ADF /* KeychainWrapper.swift in Sources */,
+				2E26B948290477C2000F9ADF /* CredentialProviderCollectionViewCell.swift in Sources */,
+				2E26B94629045E24000F9ADF /* KeychainItemAccessibility.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,10 +360,10 @@
 				2E950D5328F8E15D005C2039 /* AuthTimeoutSelectionTableViewController.swift in Sources */,
 				2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */,
 				2E950D5528F9ADE0005C2039 /* DocumentsTableViewController.swift in Sources */,
-				2E08453D2349D42100E905F2 /* PasswordService.swift in Sources */,
 				2E0AF0C628F5E0B900A02859 /* SettingsTableViewController.swift in Sources */,
 				2E84B7E9208B83A30096B512 /* KeychainItemAccessibility.swift in Sources */,
 				2EBE73E223A3AE88006C48C8 /* ExportViewController.swift in Sources */,
+				2E4871702904449300B215B9 /* PasswordService.swift in Sources */,
 				2E84B832208EB9070096B512 /* PasswordDetailViewController.swift in Sources */,
 				2E950D5128F71E80005C2039 /* ApplicationListTableViewController.swift in Sources */,
 				2E950D8028FB72B9005C2039 /* KeychainTableViewController.swift in Sources */,
@@ -590,6 +602,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 974F777EET;
 				INFOPLIST_FILE = Passwords/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ar.had.Passwords;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -612,6 +625,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 974F777EET;
 				INFOPLIST_FILE = Passwords/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ar.had.Passwords;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
