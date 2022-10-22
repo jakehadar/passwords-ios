@@ -12,6 +12,10 @@
 		2E0AF0C828F5F59F00A02859 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E0AF0C728F5F59F00A02859 /* Common.swift */; };
 		2E10A36728F3939E00FE4954 /* ImportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E10A36628F3939E00FE4954 /* ImportViewController.swift */; };
 		2E48710528FF6FF700B215B9 /* ViewController+Authenticable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48710428FF6FF700B215B9 /* ViewController+Authenticable.swift */; };
+		2E48715F290370C000B215B9 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E48715E290370C000B215B9 /* AuthenticationServices.framework */; };
+		2E487162290370C000B215B9 /* CredentialProviderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E487161290370C000B215B9 /* CredentialProviderViewController.swift */; };
+		2E487165290370C000B215B9 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E487163290370C000B215B9 /* MainInterface.storyboard */; };
+		2E48716B290370C000B215B9 /* AutofillCredentialProvider.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2E48715C290370C000B215B9 /* AutofillCredentialProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2E84B7D6208B81450096B512 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B7D5208B81450096B512 /* AppDelegate.swift */; };
 		2E84B7DB208B81450096B512 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E84B7D9208B81450096B512 /* Main.storyboard */; };
 		2E84B7DD208B81460096B512 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E84B7DC208B81460096B512 /* Assets.xcassets */; };
@@ -34,12 +38,42 @@
 		2EBE73E223A3AE88006C48C8 /* ExportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EBE73E123A3AE88006C48C8 /* ExportViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		2E487168290370C000B215B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E84B7CA208B81450096B512 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2E48715B290370C000B215B9;
+			remoteInfo = AutofillCredentialProvider;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2E48716A290370C000B215B9 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2E48716B290370C000B215B9 /* AutofillCredentialProvider.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2E08453C2349D42100E905F2 /* PasswordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordService.swift; sourceTree = "<group>"; };
 		2E0AF0C528F5E0B900A02859 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2E0AF0C728F5F59F00A02859 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		2E10A36628F3939E00FE4954 /* ImportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportViewController.swift; sourceTree = "<group>"; };
 		2E48710428FF6FF700B215B9 /* ViewController+Authenticable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Authenticable.swift"; sourceTree = "<group>"; };
+		2E48715C290370C000B215B9 /* AutofillCredentialProvider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AutofillCredentialProvider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E48715E290370C000B215B9 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
+		2E487161290370C000B215B9 /* CredentialProviderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialProviderViewController.swift; sourceTree = "<group>"; };
+		2E487164290370C000B215B9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		2E487166290370C000B215B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E487167290370C000B215B9 /* AutofillCredentialProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AutofillCredentialProvider.entitlements; sourceTree = "<group>"; };
 		2E84B7D2208B81450096B512 /* Passwords.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Passwords.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E84B7D5208B81450096B512 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2E84B7DA208B81450096B512 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -66,6 +100,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2E487159290370C000B215B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E48715F290370C000B215B9 /* AuthenticationServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2E84B7CF208B81450096B512 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -93,10 +135,31 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		2E48715D290370C000B215B9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2E48715E290370C000B215B9 /* AuthenticationServices.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2E487160290370C000B215B9 /* AutofillCredentialProvider */ = {
+			isa = PBXGroup;
+			children = (
+				2E487161290370C000B215B9 /* CredentialProviderViewController.swift */,
+				2E487163290370C000B215B9 /* MainInterface.storyboard */,
+				2E487166290370C000B215B9 /* Info.plist */,
+				2E487167290370C000B215B9 /* AutofillCredentialProvider.entitlements */,
+			);
+			path = AutofillCredentialProvider;
+			sourceTree = "<group>";
+		};
 		2E84B7C9208B81450096B512 = {
 			isa = PBXGroup;
 			children = (
 				2E84B7D4208B81450096B512 /* Passwords */,
+				2E487160290370C000B215B9 /* AutofillCredentialProvider */,
+				2E48715D290370C000B215B9 /* Frameworks */,
 				2E84B7D3208B81450096B512 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -105,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				2E84B7D2208B81450096B512 /* Passwords.app */,
+				2E48715C290370C000B215B9 /* AutofillCredentialProvider.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,6 +233,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2E48715B290370C000B215B9 /* AutofillCredentialProvider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E48716E290370C000B215B9 /* Build configuration list for PBXNativeTarget "AutofillCredentialProvider" */;
+			buildPhases = (
+				2E487158290370C000B215B9 /* Sources */,
+				2E487159290370C000B215B9 /* Frameworks */,
+				2E48715A290370C000B215B9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AutofillCredentialProvider;
+			productName = AutofillCredentialProvider;
+			productReference = 2E48715C290370C000B215B9 /* AutofillCredentialProvider.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		2E84B7D1208B81450096B512 /* Passwords */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2E84B7E4208B81470096B512 /* Build configuration list for PBXNativeTarget "Passwords" */;
@@ -176,10 +257,12 @@
 				2E84B7CE208B81450096B512 /* Sources */,
 				2E84B7CF208B81450096B512 /* Frameworks */,
 				2E84B7D0208B81450096B512 /* Resources */,
+				2E48716A290370C000B215B9 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2E487169290370C000B215B9 /* PBXTargetDependency */,
 			);
 			name = Passwords;
 			productName = Passwords;
@@ -192,10 +275,13 @@
 		2E84B7CA208B81450096B512 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0930;
+				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "James Hadar";
 				TargetAttributes = {
+					2E48715B290370C000B215B9 = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
 					2E84B7D1208B81450096B512 = {
 						CreatedOnToolsVersion = 9.3;
 					};
@@ -215,11 +301,20 @@
 			projectRoot = "";
 			targets = (
 				2E84B7D1208B81450096B512 /* Passwords */,
+				2E48715B290370C000B215B9 /* AutofillCredentialProvider */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2E48715A290370C000B215B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E487165290370C000B215B9 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2E84B7D0208B81450096B512 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -233,6 +328,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2E487158290370C000B215B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E487162290370C000B215B9 /* CredentialProviderViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2E84B7CE208B81450096B512 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -264,7 +367,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		2E487169290370C000B215B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2E48715B290370C000B215B9 /* AutofillCredentialProvider */;
+			targetProxy = 2E487168290370C000B215B9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		2E487163290370C000B215B9 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2E487164290370C000B215B9 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		2E84B7D9208B81450096B512 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -284,6 +403,67 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2E48716C290370C000B215B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = AutofillCredentialProvider/AutofillCredentialProvider.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 974F777EET;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AutofillCredentialProvider/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AutofillCredentialProvider;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 James Hadar. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ar.had.Passwords.AutofillCredentialProvider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2E48716D290370C000B215B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CODE_SIGN_ENTITLEMENTS = AutofillCredentialProvider/AutofillCredentialProvider.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 974F777EET;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AutofillCredentialProvider/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AutofillCredentialProvider;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 James Hadar. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = ar.had.Passwords.AutofillCredentialProvider;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		2E84B7E2208B81470096B512 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -401,6 +581,7 @@
 		2E84B7E5208B81470096B512 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Passwords/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -412,7 +593,7 @@
 					"@executable_path/Frameworks",
 				);
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DDEBUG";
-				PRODUCT_BUNDLE_IDENTIFIER = me.jakehadar.Passwords;
+				PRODUCT_BUNDLE_IDENTIFIER = ar.had.Passwords;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -422,6 +603,7 @@
 		2E84B7E6208B81470096B512 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Passwords/Passwords.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -433,7 +615,7 @@
 					"@executable_path/Frameworks",
 				);
 				"OTHER_SWIFT_FLAGS[arch=*]" = "-DRELEASE";
-				PRODUCT_BUNDLE_IDENTIFIER = me.jakehadar.Passwords;
+				PRODUCT_BUNDLE_IDENTIFIER = ar.had.Passwords;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -443,6 +625,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2E48716E290370C000B215B9 /* Build configuration list for PBXNativeTarget "AutofillCredentialProvider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E48716C290370C000B215B9 /* Debug */,
+				2E48716D290370C000B215B9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2E84B7CD208B81450096B512 /* Build configuration list for PBXProject "Passwords" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
