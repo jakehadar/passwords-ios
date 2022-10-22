@@ -12,11 +12,11 @@ import UIKit
 /// Responsible for holding authentication state, and displaying the authentication modal.
 class AuthController {
     static let `default` = AuthController()
-    private var lastStartOfInactivityTime: Date?
     
     // User Defaults persistence keys
     static let kAuthEnabled = "authenticationEnabled"
     static let kAuthTimeout = "authenticationTimeout"
+    static let kAuthTimeoutStartTime = "authenticationTimeoutStartTime"
     
     var authenticated: Bool = false {
         didSet {
@@ -29,7 +29,7 @@ class AuthController {
     var applicationIsActive: Bool = false {
         didSet {
             if !applicationIsActive {
-                lastStartOfInactivityTime = Date()
+                UserDefaults.standard.set(Date(), forKey: AuthController.kAuthTimeoutStartTime)
             }
         }
     }
@@ -44,8 +44,8 @@ class AuthController {
         return vc
     }
     
-    var secondsSinceLastStartOfInactivity: TimeInterval? {
-        return lastStartOfInactivityTime?.timeIntervalSinceNow
+    var timeoutCounterSeconds: TimeInterval? {
+        return (UserDefaults.standard.object(forKey: AuthController.kAuthTimeoutStartTime) as? Date)?.timeIntervalSinceNow
     }
     
     func shouldAuthenticate() -> Bool {
@@ -55,8 +55,8 @@ class AuthController {
         guard authEnabled else { return false }
         
         let timeout = UserDefaults.standard.integer(forKey: AuthController.kAuthTimeout)
-        if let timeElapsed = secondsSinceLastStartOfInactivity, Int(-1 * timeElapsed) >= timeout && !applicationIsActive {
-            debugPrint("secondsSinceLastStartOfInactivity: \(Int(-1 * timeElapsed)), timeout: \(timeout)")
+        if let timeElapsed = timeoutCounterSeconds, Int(-1 * timeElapsed) >= timeout && !applicationIsActive {
+            debugPrint("timeoutCounterSeconds: \(Int(-1 * timeElapsed)), timeout: \(timeout)")
             authenticated = false
         }
         return !authenticated
