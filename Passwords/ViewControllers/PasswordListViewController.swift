@@ -83,7 +83,7 @@ class PasswordListViewController: UIViewControllerAuthenticable {
                 vc.passwordRecord = recordsForApp[appNames[indexPath.section]]?[indexPath.row]
             }
             
-        } else if let nc = segue.destination as? UINavigationController, let vc = nc.childViewControllers.first as? PasswordEditViewController {
+        } else if let nc = segue.destination as? UINavigationController, let vc = nc.children.first as? PasswordEditViewController {
             // Creating a new record
             vc.passwordRecord = nil
         }

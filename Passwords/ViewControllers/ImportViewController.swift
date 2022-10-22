@@ -70,9 +70,9 @@ class ImportViewController: UIViewControllerAuthenticable {
             let ac = UIAlertController(title: "Import", message: "Import \(passwordEntities.count) password entries? This may result in duplicates.", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "Import", style: .destructive, handler: { [passwordEntities, keychainEntities, unowned self] _ in
                 let progressView = getTaskProgressViewController(storyboard: storyboard, view: view)!
-                addChildViewController(progressView)
+                addChild(progressView)
                 view.addSubview(progressView.view)
-                progressView.didMove(toParentViewController: self)
+                progressView.didMove(toParent: self)
                 
                 DispatchQueue.global(qos: .userInitiated).async {
                     var progressCounter = 0
@@ -97,9 +97,9 @@ class ImportViewController: UIViewControllerAuthenticable {
                         }
                     }
                     DispatchQueue.main.async {
-                        progressView.willMove(toParentViewController: nil)
+                        progressView.willMove(toParent: nil)
                         progressView.view.removeFromSuperview()
-                        progressView.removeFromParentViewController()
+                        progressView.removeFromParent()
                         self.importButton.isEnabled = false
                         let ac = UIAlertController(title: "Done", message: "Successfully imported \(passwordEntities.count) records.", preferredStyle: .alert)
                         ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

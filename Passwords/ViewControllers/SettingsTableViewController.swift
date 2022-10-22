@@ -70,9 +70,9 @@ class SettingsTableViewController: UITableViewControllerAuthenticable {
     func simulateTask() {
         guard let child = getTaskProgressViewController(storyboard: storyboard, view: view) else { return }
 
-        addChildViewController(child)
+        addChild(child)
         view.addSubview(child.view)
-        child.didMove(toParentViewController: self)
+        child.didMove(toParent: self)
         
         let maxTicks = 10
         var curTick = 0
@@ -80,9 +80,9 @@ class SettingsTableViewController: UITableViewControllerAuthenticable {
             curTick += 1
             if curTick == maxTicks {
                 DispatchQueue.main.async {
-                    child.willMove(toParentViewController: nil)
+                    child.willMove(toParent: nil)
                     child.view.removeFromSuperview()
-                    child.removeFromParentViewController()
+                    child.removeFromParent()
                 }
                 timer.invalidate()
             } else {
