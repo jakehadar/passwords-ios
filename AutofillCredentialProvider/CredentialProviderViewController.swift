@@ -8,7 +8,6 @@
 
 import AuthenticationServices
 import PasswordServices
-import Passwords
 
 public let kAppGroup = "group.ar.had.Passwords"
 

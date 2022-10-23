@@ -26,13 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillResignActive(_ application: UIApplication) {
         debugPrint("AppDelegate invoked method: \(#function).")
-        sharedAuthController.applicationIsActive = false
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         debugPrint("AppDelegate invoked method: \(#function).")
+        sharedAuthController.applicationBecameInactiveHook()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

@@ -15,7 +15,7 @@
 		2E1022DF2904A72D001F3B2B /* ViewController+Authenticable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E48710428FF6FF700B215B9 /* ViewController+Authenticable.swift */; };
 		2E1022E02904A73E001F3B2B /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E84B833208F5C730096B512 /* AuthenticationViewController.swift */; };
 		2E1022E22904A81C001F3B2B /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1022E12904A81C001F3B2B /* Common.swift */; };
-		2E1022E42904AA15001F3B2B /* ServicesMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E1022E32904AA15001F3B2B /* ServicesMain.storyboard */; };
+		2E1022E42904AA15001F3B2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2E1022E32904AA15001F3B2B /* Main.storyboard */; };
 		2E1022E62904AC9F001F3B2B /* Containers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1022E52904AC9F001F3B2B /* Containers.swift */; };
 		2E1022E82904AD93001F3B2B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1022E72904AD93001F3B2B /* Extensions.swift */; };
 		2E1022EF2904AFA2001F3B2B /* SharedInstances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E1022EE2904AFA2001F3B2B /* SharedInstances.swift */; };
@@ -113,7 +113,7 @@
 		2E0AF0C528F5E0B900A02859 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		2E0AF0C728F5F59F00A02859 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		2E1022E12904A81C001F3B2B /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
-		2E1022E32904AA15001F3B2B /* ServicesMain.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ServicesMain.storyboard; sourceTree = "<group>"; };
+		2E1022E32904AA15001F3B2B /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2E1022E52904AC9F001F3B2B /* Containers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Containers.swift; sourceTree = "<group>"; };
 		2E1022E72904AD93001F3B2B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2E1022EE2904AFA2001F3B2B /* SharedInstances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedInstances.swift; sourceTree = "<group>"; };
@@ -334,7 +334,7 @@
 				2E1022EA2904ADC5001F3B2B /* Extensions */,
 				2E1022E92904ADBC001F3B2B /* ViewControllers */,
 				2E9E7422290490AE00A01B38 /* PasswordServices.h */,
-				2E1022E32904AA15001F3B2B /* ServicesMain.storyboard */,
+				2E1022E32904AA15001F3B2B /* Main.storyboard */,
 			);
 			path = PasswordServices;
 			sourceTree = "<group>";
@@ -476,7 +476,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E1022E42904AA15001F3B2B /* ServicesMain.storyboard in Resources */,
+				2E1022E42904AA15001F3B2B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -825,7 +825,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = me.jakehadar.PasswordServices;
+				PRODUCT_BUNDLE_IDENTIFIER = ar.had.PasswordServices;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -858,7 +858,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = me.jakehadar.PasswordServices;
+				PRODUCT_BUNDLE_IDENTIFIER = ar.had.PasswordServices;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

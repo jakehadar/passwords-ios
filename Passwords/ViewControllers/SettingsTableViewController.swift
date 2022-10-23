@@ -8,6 +8,7 @@
 
 import UIKit
 import PasswordServices
+import LocalAuthentication
 
 class SettingsTableViewController: UITableViewControllerAuthenticable {
     var passwordService: PasswordService! = sharedPasswordService
@@ -160,15 +161,44 @@ class SettingsTableViewController: UITableViewControllerAuthenticable {
         }
     }
     
+    private func verifyBioAuthIsSupportedOnDevice(error: inout NSError?) -> Bool {
+        let context = LAContext()
+        var biometryIsSupported = false
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Identify yourself to verify device is capible of biometric authentication."
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { (success, authenticationError) in
+                DispatchQueue.main.async {
+                    biometryIsSupported = success
+                }
+            }
+        }
+        return biometryIsSupported
+    }
+    
     // MARK: - Actions
 
     @IBAction func authEnabledSwitchToggled(_ sender: UISwitch) {
-        sharedDefaults.set(sender.isOn, forKey: AuthController.kAuthEnabled)
         if sender.isOn {
-            authTimeoutCell.isUserInteractionEnabled = true
-            authTimeoutCell.accessoryType = .disclosureIndicator
-            authTimeoutLabel.text = formatAuthTimeoutText(sharedDefaults.integer(forKey: AuthController.kAuthTimeout))
+            var error: NSError?
+            if verifyBioAuthIsSupportedOnDevice(error: &error) {
+                sharedDefaults.set(true, forKey: AuthController.kAuthEnabled)
+                authTimeoutCell.isUserInteractionEnabled = true
+                authTimeoutCell.accessoryType = .disclosureIndicator
+                authTimeoutLabel.text = formatAuthTimeoutText(sharedDefaults.integer(forKey: AuthController.kAuthTimeout))
+            } else {
+                sharedDefaults.set(false, forKey: AuthController.kAuthEnabled)
+                let ac = UIAlertController(title: "Biometry unavailable", message: "Your device reported it is not capible of biometric authentication. Details: \(error?.localizedDescription ?? "none")", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default) { [unowned self] _ in
+                    authEnabledSwitch.setOn(false, animated: true)
+                    self.dismiss(animated: true)
+                })
+                self.present(ac, animated: true)
+            }
+            
         } else {
+            sharedDefaults.set(false, forKey: AuthController.kAuthEnabled)
             authTimeoutCell.isUserInteractionEnabled = false
             authTimeoutCell.accessoryType = .none
             authTimeoutLabel.text = kAutoLockNotApplicableText

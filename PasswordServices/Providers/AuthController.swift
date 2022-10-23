@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+public enum ActivityState {
+    case active
+    case inactive
+}
+
 /// Responsible for holding authentication state, and displaying the authentication modal.
 public class AuthController {
     public static let `default` = AuthController()
@@ -18,20 +23,33 @@ public class AuthController {
     public static let kAuthTimeout = "authenticationTimeout"
     public static let kAuthTimeoutStartTime = "authenticationTimeoutStartTime"
     
-    public var authenticated: Bool = false {
+    private var isAuthenticating = false
+    
+    public internal(set) var authenticated: Bool = false {
         didSet {
             if authenticated {
-                applicationIsActive = true
+                isAuthenticating = false
+                activityState = .active
             }
         }
     }
     
-    public var applicationIsActive: Bool = false {
+    public private(set) var activityState: ActivityState = .inactive {
         didSet {
-            if !applicationIsActive {
+            if oldValue == .active && activityState == .inactive {
                 sharedDefaults.set(Date(), forKey: AuthController.kAuthTimeoutStartTime)
             }
         }
+    }
+    
+    // Call this hook from the AppDelegate's applicationDidEnterBackground
+    public func applicationBecameInactiveHook() {
+        activityState = .inactive
+    }
+    
+    // Call this hook from the AppDelegate's applicationDidBecomeActive
+    public func applicationBecameActiveHook() {
+        activityState = .active
     }
     
     private init() {}
@@ -49,21 +67,24 @@ public class AuthController {
     }
     
     private func shouldAuthenticate() -> Bool {
+        guard !isAuthenticating else { return false }
         let authEnabled = sharedDefaults.bool(forKey: AuthController.kAuthEnabled)
         guard authEnabled else { return false }
-        guard !applicationIsActive else { return false }
-        guard !UIDevice.isSimulator else { return false }
+        guard activityState == .inactive else { return false }
         
         let timeout = sharedDefaults.integer(forKey: AuthController.kAuthTimeout)
         if let timeElapsed = timeoutCounterSeconds, Int(-1 * timeElapsed) >= timeout {
             debugPrint("timeoutCounterSeconds: \(Int(-1 * timeElapsed)), timeout: \(timeout)")
             authenticated = false
         }
-        return !authenticated
+        return !isAuthenticating && !authenticated
     }
     
+    //TODO: This should be synchronized or locked
     public func authenticate() {
         if shouldAuthenticate() {
+            guard !isAuthenticating else { return }
+            isAuthenticating = true
             let vc = AuthenticationViewController.instantiate(withAuthController: self)
             topViewController().present(vc, animated: false)
         }

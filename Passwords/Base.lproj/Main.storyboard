@@ -59,7 +59,7 @@
                     <navigationItem key="navigationItem" id="yQ6-Jl-oLb">
                         <barButtonItem key="leftBarButtonItem" title="Settings" image="gear" catalog="system" id="l4S-Ev-x80">
                             <connections>
-                                <segue destination="46H-lR-wnb" kind="show" id="yCm-QP-uHi"/>
+                                <segue destination="46H-lR-wnb" kind="show" id="FbJ-nM-sL3"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qRk-rp-zu1">
@@ -1263,10 +1263,10 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="kH7-q4-Cry"/>
-        <segue reference="RZ1-bU-OG8"/>
-        <segue reference="baP-Gr-yct"/>
+        <segue reference="FbJ-nM-sL3"/>
+        <segue reference="lJN-EZ-Jtx"/>
         <segue reference="ff8-3L-oI3"/>
-        <segue reference="LgB-1q-Voi"/>
+        <segue reference="0Tt-BD-uS1"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="gear" catalog="system" width="128" height="122"/>

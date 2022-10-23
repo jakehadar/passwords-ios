@@ -10,8 +10,8 @@ import UIKit
 
 open class UIViewControllerAuthenticable: UIViewController {
 
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         sharedAuthController.authenticate()
     }
     
@@ -20,8 +20,8 @@ open class UIViewControllerAuthenticable: UIViewController {
 
 open class UITableViewControllerAuthenticable: UITableViewController {
     
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         sharedAuthController.authenticate()
     }
     
