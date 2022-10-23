@@ -7,8 +7,18 @@
 //
 
 import UIKit
+import PasswordServices
 
-class PasswordListViewController: UIViewControllerAuthenticable {
+public protocol PasswordListViewControllerDelegate {
+    func didSelectCredential(_ credential: Password)
+}
+
+public class PasswordListViewController: UIViewControllerAuthenticable {
+    var passwordService: PasswordService = sharedPasswordService
+    
+    public var returnsAfterSelection = false
+    public var delegate: PasswordListViewControllerDelegate?
+    
     @IBOutlet weak var tableView: UITableView!
     
     let searchController = UISearchController(searchResultsController: nil)
@@ -20,7 +30,7 @@ class PasswordListViewController: UIViewControllerAuthenticable {
     var filteredAppNames = [String]()
     var filteredRecordsForApp = Dictionary<String, [Password]>()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Applications"
@@ -38,15 +48,15 @@ class PasswordListViewController: UIViewControllerAuthenticable {
         tableView.delegate = self
         
         
-        PasswordService.default.updatesDelegate = self
+        passwordService.updatesDelegate = self
         do {
-            try PasswordService.default.initialize()
+            try passwordService.initialize()
         } catch {
             presentAlert(explaning: error, toViewController: self)
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.toolbar.isHidden = true
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
@@ -54,14 +64,14 @@ class PasswordListViewController: UIViewControllerAuthenticable {
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.toolbar.isHidden = false
     }
     
     func refreshData() {
-        appNames = PasswordService.default.getAppNames().map { $0.trimmingCharacters(in: .whitespaces).uppercased() }.sorted()
-        recordsForApp = Dictionary(grouping: PasswordService.default.getRecords(), by: { $0.app.trimmingCharacters(in: .whitespaces).uppercased() })
+        appNames = passwordService.getAppNames().map { $0.trimmingCharacters(in: .whitespaces).uppercased() }.sorted()
+        recordsForApp = Dictionary(grouping: passwordService.getRecords(), by: { $0.app.trimmingCharacters(in: .whitespaces).uppercased() })
     }
     
     @objc func dismissKeyboard() {
@@ -71,7 +81,7 @@ class PasswordListViewController: UIViewControllerAuthenticable {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    public override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
         
@@ -91,7 +101,7 @@ class PasswordListViewController: UIViewControllerAuthenticable {
 }
 
 extension PasswordListViewController: PasswordServiceUpdatesDelegate {
-    func dataHasChanged() {
+    public func dataHasChanged() {
         debugPrint("PasswordService has updates, reloading table data")
         refreshData()
         tableView.reloadData()
@@ -99,11 +109,11 @@ extension PasswordListViewController: PasswordServiceUpdatesDelegate {
 }
 
 extension PasswordListViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         return searchController.isActive ? filteredAppNames.count : appNames.count
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchController.isActive {
             return filteredRecordsForApp[filteredAppNames[section]]!.count
         } else {
@@ -111,7 +121,7 @@ extension PasswordListViewController: UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PasswordRecordCell")!
         if searchController.isActive {
             let app = filteredAppNames[indexPath.section]
@@ -127,13 +137,13 @@ extension PasswordListViewController: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return searchController.isActive ? filteredAppNames[section] : appNames[section]
     }
 }
 
 extension PasswordListViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
+    public func updateSearchResults(for searchController: UISearchController) {
         if searchController.searchBar.text != "" {
             filteredAppNames = appNames.filter {
                 $0.lowercased().range(of: searchController.searchBar.text?.lowercased() ?? "") != nil
@@ -151,11 +161,11 @@ extension PasswordListViewController: UISearchResultsUpdating {
 }
 
 extension PasswordListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "PasswordDetail", sender: nil)
     }
     
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         searchController.searchBar.resignFirstResponder()
     }
 

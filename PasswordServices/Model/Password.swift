@@ -27,74 +27,54 @@ extension PasswordError: LocalizedError {
     }
 }
 
-class JSONExportContainer: NSObject, Codable {
-    var passwords: [Password]
-    var keychainEntries: [PasswordKeychainEntry]
+public class Password: NSObject, Codable {
     
-    init(passwords: [Password], keychainEntries: [PasswordKeychainEntry]) {
-        self.passwords = passwords
-        self.keychainEntries = keychainEntries
-    }
-}
-
-class PasswordKeychainEntry: NSObject, Codable {
-    var uuid: String
-    var text: String
+    public var uuid: String
     
-    init(uuid: String, text: String) {
-        self.uuid = uuid
-        self.text = text
-    }
-}
-
-class Password: NSObject, Codable {
-    
-    var uuid: String
-    
-    var app: String {
+    public var app: String {
         didSet {
             touch()
         }
     }
     
-    var domain: String? {
+    public var domain: String? {
         didSet {
             touch()
         }
     }
     
-    var url: String? {
+    public var url: String? {
         didSet {
             touch()
         }
     }
     
-    var user: String {
+    public var user: String {
         didSet {
             touch()
         }
     }
     
-    var created: Int
-    var modified: Int
+    public var created: Int
+    public var modified: Int
     
-    convenience init(app: String, user: String) {
+    public convenience init(app: String, user: String) {
         let uuid = UUID().uuidString
         let created = DateHelper.toInt(Date())
         self.init(uuid: uuid, app: app, user: user, created: created, modified: created)
     }
     
-    convenience init(app: String, user: String, domain: String?, url: String?) {
+    public convenience init(app: String, user: String, domain: String?, url: String?) {
         let uuid = UUID().uuidString
         let created = DateHelper.toInt(Date())
         self.init(uuid: uuid, app: app, user: user, created: created, modified: created, domain: domain, url: url)
     }
     
-    convenience init(uuid: String, app: String, user: String, created: Int, modified: Int) {
+    public convenience init(uuid: String, app: String, user: String, created: Int, modified: Int) {
         self.init(uuid: uuid, app: app, user: user, created: created, modified: created, domain: nil, url: nil)
     }
     
-    init(uuid: String, app: String, user: String, created: Int, modified: Int, domain: String?, url: String?) {
+    public init(uuid: String, app: String, user: String, created: Int, modified: Int, domain: String?, url: String?) {
         self.uuid = uuid
         self.app = app
         self.user = user
@@ -106,17 +86,17 @@ class Password: NSObject, Codable {
     
     // MARK: - Keychain
     
-    func getPassword() -> String? {
+    public func getPassword() -> String? {
         return sharedKeychain.string(forKey: uuid)
     }
     
-    func setPassword(_ password: String) throws {
+    public func setPassword(_ password: String) throws {
         guard sharedKeychain.set(password, forKey: uuid) else { throw PasswordError.keychainWrapperSetError }
         touch()
         debugPrint("Password: set password for \(app) \(user)")
     }
     
-    func removePassword() throws {
+    public func removePassword() throws {
         if sharedKeychain.hasValue(forKey: uuid) {
             guard sharedKeychain.removeObject(forKey: uuid) else { throw PasswordError.keychainWrapperRemoveError }
         }
@@ -125,7 +105,7 @@ class Password: NSObject, Codable {
     
     // MARK: - Misc
     
-    func touch() {
+    public func touch() {
         modified = DateHelper.toInt(Date())
         debugPrint("Password: modified \(app) \(user)")
     }

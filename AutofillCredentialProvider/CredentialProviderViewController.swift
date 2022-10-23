@@ -7,15 +7,14 @@
 //
 
 import AuthenticationServices
+import PasswordServices
+import Passwords
 
 public let kAppGroup = "group.ar.had.Passwords"
 
 class CredentialProviderViewController: ASCredentialProviderViewController {
-    var passwordService: AnyObject? = nil
-    var keychain = KeychainWrapper(serviceName: "ar.had.Passwords", accessGroup: kAppGroup)
     var identifiers = [ASCredentialServiceIdentifier]()
     
-    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var doneButton: UIBarButtonItem!
 
     
@@ -28,7 +27,6 @@ class CredentialProviderViewController: ASCredentialProviderViewController {
     */
     override func prepareCredentialList(for serviceIdentifiers: [ASCredentialServiceIdentifier]) {
         doneButton.isEnabled = false
-        collectionView.register(CredentialProviderCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         identifiers = serviceIdentifiers
     }
 
@@ -87,23 +85,4 @@ class CredentialProviderViewController: ASCredentialProviderViewController {
         self.extensionContext.completeRequest(withSelectedCredential: passwordCredential, completionHandler: nil)
     }
 
-}
-
-extension CredentialProviderViewController: UICollectionViewDelegate {
-    
-}
-
-extension CredentialProviderViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return identifiers.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CredentialProviderCollectionViewCell
-        let identifier = identifiers[indexPath.item]
-        cell.textView.text = identifier.identifier
-        return cell
-    }
-    
-    
 }

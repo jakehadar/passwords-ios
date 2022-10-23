@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PasswordServices
 
 protocol AuthTimeoutSelectionDelegate {
     func timeoutWasSelected(withSeconds seconds: Int?)
@@ -18,7 +19,7 @@ class AuthTimeoutSelectionTableViewController: UITableViewControllerAuthenticabl
     var selection: Int?
     var dismissOnSelection = false
     
-    let selections = [0, 30, 60, 60*2, 60*3, 60*4, 60*5, 60*30, 60*60]
+    let groupedSelections = [[0], [30, 60, 60*2, 60*3, 60*4, 60*5, 60*30, 60*60]]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,15 +37,14 @@ class AuthTimeoutSelectionTableViewController: UITableViewControllerAuthenticabl
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        if let selection = selection, let index = selections.firstIndex(of: selection), let cell = tableView.cellForRow(at: IndexPath(row: index, section: 0)) {
-            cell.accessoryType = .none
+        if let oldSelection = selection, let oldIndexPath = findIndexPath(ofFirstElement: oldSelection, in2DArray: groupedSelections), let oldCell = tableView.cellForRow(at: oldIndexPath) {
+            oldCell.accessoryType = .none
         }
         
-        let cell = tableView.cellForRow(at: indexPath)
-        cell?.accessoryType = .checkmark
+        let newCell = tableView.cellForRow(at: indexPath)
+        newCell?.accessoryType = .checkmark
         
-        selection = selections[indexPath.row]
+        selection = groupedSelections[indexPath.section][indexPath.row]
         selectionDelegate?.timeoutWasSelected(withSeconds: selection)
         
         if dismissOnSelection {
@@ -56,25 +56,25 @@ class AuthTimeoutSelectionTableViewController: UITableViewControllerAuthenticabl
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return groupedSelections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return selections.count
+        return groupedSelections[section].count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AuthTimeoutSelectionCell", for: indexPath)
         
-        if let selection = selection, selection == selections[indexPath.row] {
+        if let selection = selection, selection == groupedSelections[indexPath.section][indexPath.row] {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
         }
         
         var config = cell.defaultContentConfiguration()
-        config.text = formatAuthTimeoutText(selections[indexPath.row])
+        config.text = formatAuthTimeoutText(groupedSelections[indexPath.section][indexPath.row])
         cell.contentConfiguration = config
 
         return cell

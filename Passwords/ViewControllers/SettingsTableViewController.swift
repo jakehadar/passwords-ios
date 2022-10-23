@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import PasswordServices
 
 class SettingsTableViewController: UITableViewControllerAuthenticable {
+    var passwordService: PasswordService! = sharedPasswordService
+    
     @IBOutlet weak var authEnabledSwitch: UISwitch!
     @IBOutlet weak var authTimeoutLabel: UILabel!
     @IBOutlet weak var authTimeoutCell: UITableViewCell!
     @IBOutlet weak var infoCell1: UITableViewCell!
     @IBOutlet weak var infoCell2: UITableViewCell!
+    
+    let kAutoLockNotApplicableText = "Not Applicable"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +40,13 @@ class SettingsTableViewController: UITableViewControllerAuthenticable {
         
         config = infoCell2.defaultContentConfiguration()
         config.text = "Storage"
-        config.secondaryText = UserDefaults.standard.bool(forKey: PasswordService.kMigratedToJson) ? PasswordService.kStorageFilename : "UserDefaults"
+        config.secondaryText = sharedDefaults.bool(forKey: PasswordService.kMigratedToJson) ? PasswordService.kStorageFilename : "UserDefaults"
         infoCell2.contentConfiguration = config
         
-        authEnabledSwitch.isOn = UserDefaults.standard.bool(forKey: AuthController.kAuthEnabled)
-        authTimeoutLabel.text = formatAuthTimeoutText(UserDefaults.standard.integer(forKey: AuthController.kAuthTimeout))
+        let authEnabled = sharedDefaults.bool(forKey: AuthController.kAuthEnabled)
+        authEnabledSwitch.isOn = authEnabled
+        
+        authTimeoutLabel.text = authEnabled ? formatAuthTimeoutText(sharedDefaults.integer(forKey: AuthController.kAuthTimeout)) : kAutoLockNotApplicableText
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -100,8 +107,8 @@ class SettingsTableViewController: UITableViewControllerAuthenticable {
         ac.addAction(UIAlertAction(title: "Erase", style: .destructive) { [unowned self] _ in
             var deletedRecordCount = 0
             do {
-                try PasswordService.default.getRecords().forEach {
-                    try PasswordService.default.deleteRecord($0)
+                try passwordService.getRecords().forEach {
+                    try passwordService.deleteRecord($0)
                     deletedRecordCount += 1
                 }
             } catch {
@@ -131,7 +138,7 @@ class SettingsTableViewController: UITableViewControllerAuthenticable {
                 ["Apple", "user1@icloud.com", "pass", nil]
             ]
             do {
-                try dummyRecords.forEach { try PasswordService.default.createRecord(app: $0[0]!, user: $0[1]!, password: $0[2]!, domain: $0[3], url: nil) }
+                try dummyRecords.forEach { try passwordService.createRecord(app: $0[0]!, user: $0[1]!, password: $0[2]!, domain: $0[3], url: nil) }
             } catch {
                 presentAlert(explaning: error, toViewController: self)
             }
@@ -141,30 +148,6 @@ class SettingsTableViewController: UITableViewControllerAuthenticable {
         })
         self.present(ac, animated: true, completion: nil)
     }
-
-    // MARK: - Table view data source
-    
-    /*
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
-     */
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
     
     // MARK: - Navigation
 
@@ -172,23 +155,23 @@ class SettingsTableViewController: UITableViewControllerAuthenticable {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? AuthTimeoutSelectionTableViewController {
             vc.selectionDelegate = self
-            vc.selection = UserDefaults.standard.integer(forKey: AuthController.kAuthTimeout)
-            vc.dismissOnSelection = true
+            vc.selection = sharedDefaults.integer(forKey: AuthController.kAuthTimeout)
+            vc.dismissOnSelection = false
         }
     }
     
     // MARK: - Actions
 
     @IBAction func authEnabledSwitchToggled(_ sender: UISwitch) {
-        UserDefaults.standard.set(sender.isOn, forKey: AuthController.kAuthEnabled)
+        sharedDefaults.set(sender.isOn, forKey: AuthController.kAuthEnabled)
         if sender.isOn {
             authTimeoutCell.isUserInteractionEnabled = true
             authTimeoutCell.accessoryType = .disclosureIndicator
-            authTimeoutLabel.text = formatAuthTimeoutText(UserDefaults.standard.integer(forKey: AuthController.kAuthTimeout))
+            authTimeoutLabel.text = formatAuthTimeoutText(sharedDefaults.integer(forKey: AuthController.kAuthTimeout))
         } else {
             authTimeoutCell.isUserInteractionEnabled = false
             authTimeoutCell.accessoryType = .none
-            authTimeoutLabel.text = "Not Applicable"
+            authTimeoutLabel.text = kAutoLockNotApplicableText
         }
     }
 }
@@ -196,7 +179,7 @@ class SettingsTableViewController: UITableViewControllerAuthenticable {
 extension SettingsTableViewController: AuthTimeoutSelectionDelegate {
     func timeoutWasSelected(withSeconds seconds: Int?) {
         let seconds = seconds ?? 0
-        UserDefaults.standard.set(seconds, forKey: AuthController.kAuthTimeout)
+        sharedDefaults.set(seconds, forKey: AuthController.kAuthTimeout)
         authTimeoutLabel.text = formatAuthTimeoutText(seconds)
     }
 }

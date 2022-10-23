@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import PasswordServices
 
 class ExportViewController: UIViewControllerAuthenticable {
+    var passwordService: PasswordService = sharedPasswordService
 
     @IBOutlet weak var exportButton: UIBarButtonItem!
     @IBOutlet weak var exportTextView: UITextView!
@@ -27,7 +29,7 @@ class ExportViewController: UIViewControllerAuthenticable {
     }
     
     func exportJson() throws {
-        let passwords = PasswordService.default.getRecords()
+        let passwords = passwordService.getRecords()
         let keychainEntries = passwords.reduce(into: [PasswordKeychainEntry]()) { $0.append(PasswordKeychainEntry(uuid: $1.uuid, text: $1.getPassword() ?? "")) }
         let jsonExportContainer = JSONExportContainer(passwords: passwords, keychainEntries: keychainEntries)
         let jsonExportString = prettyJsonString(try JSONEncoder().encode(jsonExportContainer))

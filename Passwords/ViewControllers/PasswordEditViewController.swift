@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PasswordServices
 
 enum PasswordEditError: Error {
     case inputValidationAbortedCommitError
@@ -27,6 +28,8 @@ enum PasswordEditingMode {
 }
 
 class PasswordEditViewController: UITableViewControllerAuthenticable {
+    var passwordService: PasswordService = sharedPasswordService
+    
     @IBOutlet weak var appTextField: UITextField!
     @IBOutlet weak var userTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -149,7 +152,7 @@ class PasswordEditViewController: UITableViewControllerAuthenticable {
         
         switch editingMode {
         case .create:
-            try PasswordService.default.createRecord(app: app, user: user, password: password, domain: domain, url: url)
+            try passwordService.createRecord(app: app, user: user, password: password, domain: domain, url: url)
             
         case .modify:
             guard let record = passwordRecord else { fatalError() }
@@ -158,7 +161,7 @@ class PasswordEditViewController: UITableViewControllerAuthenticable {
             record.domain = domain
             record.url = url
             try record.setPassword(password)
-            try PasswordService.default.updatePasswordRecord(record)
+            try passwordService.updatePasswordRecord(record)
         }
     }
     

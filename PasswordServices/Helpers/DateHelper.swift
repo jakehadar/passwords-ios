@@ -8,18 +8,18 @@
 
 import Foundation
 
-class DateHelper {
-    static func toInt(_ date: Date) -> Int {
+public class DateHelper {
+    public static func toInt(_ date: Date) -> Int {
         let timeInterval = date.timeIntervalSince1970
         return Int(timeInterval)
     }
     
-    static func fromInt(_ int: Int) -> Date {
+    public static func fromInt(_ int: Int) -> Date {
         let timeInterval = Double(int)
         return Date(timeIntervalSince1970: timeInterval)
     }
     
-    static func timeIntervalString(since date: Date) -> String {
+    public static func timeIntervalString(since date: Date) -> String {
         let rightNow = DateHelper.toInt(Date())
         let backThen = DateHelper.toInt(date)
         

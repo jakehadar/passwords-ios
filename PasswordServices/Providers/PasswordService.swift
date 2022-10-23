@@ -49,24 +49,28 @@ protocol PasswordServiceProtocol {
     func deleteRecord(_ record: Password) throws
 }
 
-protocol PasswordServiceUpdatesDelegate {
+public protocol PasswordServiceUpdatesDelegate {
     func dataHasChanged() -> Void
 }
 
-class PasswordService {
+public class PasswordService {
     // Shared instance
     // WARNING: Not tested for thread safety.
-    static let `default` = PasswordService()
+    public static let `default` = PasswordService()
     
     // Key constants
-    static let kDefaultsKey = "passwordRecords"
-    static let kStorageFilename = "data.json"
-    static let kMigratedToJson = "migratedFromUserDefaultsToJson"
-    static let kFirstLaunchSetupComplete = "firstLaunchSetupComplete"
+    public static let kDefaultsKey = "passwordRecords"
+    public static let kStorageFilename = "data.json"
+    public static let kMigratedToJson = "migratedFromUserDefaultsToJson"
+    public static let kFirstLaunchSetupComplete = "firstLaunchSetupComplete"
     
     // Configuration
-    var updatesDelegate: PasswordServiceUpdatesDelegate?
-    var credentialIdentityStore: ASCredentialIdentityStore? = ASCredentialIdentityStore.shared
+    public var updatesDelegate: PasswordServiceUpdatesDelegate? {
+        willSet {
+            guard updatesDelegate == nil else { fatalError("There can be only one delegate for now until class is verified thread safe.") }
+        }
+    }
+    public var credentialIdentityStore: ASCredentialIdentityStore? = ASCredentialIdentityStore.shared
     
     // Internal state
     private var initialized = false
@@ -85,7 +89,7 @@ class PasswordService {
         initialized = true
         try saveRecords()
         guard FileManager.default.fileExists(atPath: dataUrl.path) else { throw PasswordServiceError.migrationJsonDataFileNotFoundError }
-        UserDefaults.standard.set(true, forKey: PasswordService.kMigratedToJson)
+        sharedDefaults.set(true, forKey: PasswordService.kMigratedToJson)
         debugPrint("PasswordService migrated from UserDefaults to Json")
     }
     
@@ -118,12 +122,12 @@ class PasswordService {
 // MARK: - PasswordServiceProtocol
 extension PasswordService: PasswordServiceProtocol {
     
-    func initialize() throws {
-        if UserDefaults.standard.bool(forKey: PasswordService.kFirstLaunchSetupComplete) {
+    public func initialize() throws {
+        if sharedDefaults.bool(forKey: PasswordService.kFirstLaunchSetupComplete) {
             // App has already launched before and purportedly has data...
             
             // Check if UserDefaults migration needs to happen
-            if !UserDefaults.standard.bool(forKey: PasswordService.kMigratedToJson) {
+            if !sharedDefaults.bool(forKey: PasswordService.kMigratedToJson) {
                 try migrate()
             }
             
@@ -136,28 +140,28 @@ extension PasswordService: PasswordServiceProtocol {
             }
             
             // Flag that UserDefaults migration does not need to happen
-            UserDefaults.standard.set(true, forKey: PasswordService.kMigratedToJson)
+            sharedDefaults.set(true, forKey: PasswordService.kMigratedToJson)
             
             // Flag that the app's first time launch setup has finished
-            UserDefaults.standard.set(true, forKey: PasswordService.kFirstLaunchSetupComplete)
+            sharedDefaults.set(true, forKey: PasswordService.kFirstLaunchSetupComplete)
         }
         try loadRecords()
         initialized = true
     }
     
-    func getAppNames() -> [String] {
+    public func getAppNames() -> [String] {
         return Array(appRecordsMap.keys)
     }
     
-    func getRecords() -> [Password] {
+    public func getRecords() -> [Password] {
         return records
     }
     
-    func getRecords(forApp app: String) -> [Password]? {
+    public func getRecords(forApp app: String) -> [Password]? {
         return appRecordsMap[app]
     }
     
-    func createPasswordRecord(app: String, user: String, password: String, created: Int, modified: Int, uuid: String, domain: String?, url: String?) throws {
+    public func createPasswordRecord(app: String, user: String, password: String, created: Int, modified: Int, uuid: String, domain: String?, url: String?) throws {
         let record = Password(uuid: uuid, app: app, user: user, created: created, modified: modified, domain: domain, url: url)
         try record.setPassword(password)
         records.append(record)
@@ -165,7 +169,7 @@ extension PasswordService: PasswordServiceProtocol {
         debugPrint("PasswordService added password record \(record.uuid)")
     }
     
-    func createRecord(app: String, user: String, password: String, domain: String?, url: String?) throws {
+    public func createRecord(app: String, user: String, password: String, domain: String?, url: String?) throws {
         let record = Password(app: app, user: user, domain: domain, url: url)
         try record.setPassword(password)
         records.append(record)
@@ -173,7 +177,7 @@ extension PasswordService: PasswordServiceProtocol {
         debugPrint("PasswordService added password record \(record.uuid)")
     }
     
-    func createRecord(app: String, user: String, password: String) throws {
+    public func createRecord(app: String, user: String, password: String) throws {
         let record = Password(app: app, user: user)
         try record.setPassword(password)
         records.append(record)
@@ -181,7 +185,7 @@ extension PasswordService: PasswordServiceProtocol {
         debugPrint("PasswordService added password record \(record.uuid)")
     }
     
-    func deleteRecord(_ reference: Password) throws {
+    public func deleteRecord(_ reference: Password) throws {
         if let existing = uuidRecordMap[reference.uuid], let index = records.firstIndex(of: existing) {
             try existing.removePassword()
             records.remove(at: index)
@@ -192,7 +196,7 @@ extension PasswordService: PasswordServiceProtocol {
         throw PasswordServiceError.deleteReferenceError(uuid: reference.uuid)
     }
     
-    func updatePasswordRecord(_ reference: Password) throws {
+    public func updatePasswordRecord(_ reference: Password) throws {
         if let existing = uuidRecordMap[reference.uuid] {
             existing.app = reference.app
             existing.user = reference.user

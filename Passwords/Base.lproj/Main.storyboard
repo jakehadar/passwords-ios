@@ -9,36 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Authentication View Controller-->
-        <scene sceneID="Axt-Wr-ZrR">
-            <objects>
-                <viewController storyboardIdentifier="AuthenticationViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="beR-ig-8gu" customClass="AuthenticationViewController" customModule="Passwords" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="EYs-zO-dVm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CQb-0h-Egp">
-                                <rect key="frame" x="143.66666666666666" y="397.66666666666669" width="88" height="30"/>
-                                <state key="normal" title="Authenticate">
-                                    <color key="titleColor" systemColor="linkColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="authenticateTapped:" destination="beR-ig-8gu" eventType="touchUpInside" id="Rki-9p-DUA"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="v49-5X-iKf"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="CQb-0h-Egp" firstAttribute="centerX" secondItem="v49-5X-iKf" secondAttribute="centerX" id="TkZ-Gl-Z1q"/>
-                            <constraint firstItem="CQb-0h-Egp" firstAttribute="centerY" secondItem="v49-5X-iKf" secondAttribute="centerY" id="X6x-7g-BbB"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0iw-al-4qF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1180" y="935"/>
-        </scene>
         <!--Password List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -1100,7 +1070,6 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="HUa-hQ-p8m">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AuthTimeoutSelectionCell" textLabel="6d6-QR-ad1" style="IBUITableViewCellStyleDefault" id="2Q5-v4-UqI">
                                 <rect key="frame" x="20" y="55.333332061767578" width="335" height="43.666667938232422"/>

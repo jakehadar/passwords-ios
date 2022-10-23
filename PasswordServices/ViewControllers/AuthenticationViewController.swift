@@ -9,10 +9,10 @@
 import UIKit
 import LocalAuthentication
 
-class AuthenticationViewController: UIViewController {
+public class AuthenticationViewController: UIViewController {
     var authController: AuthController? = nil
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         title = "Locked"
         
@@ -21,7 +21,7 @@ class AuthenticationViewController: UIViewController {
         self.view.insertSubview(blurEffectView, at: 0)
     }
     
-    static func instantiate(withAuthController authController: AuthController) -> AuthenticationViewController {
+    public static func instantiate(withAuthController authController: AuthController) -> AuthenticationViewController {
         guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AuthenticationViewController") as? AuthenticationViewController else { fatalError() }
         vc.authController = authController
         vc.modalPresentationStyle = .overCurrentContext
@@ -29,7 +29,7 @@ class AuthenticationViewController: UIViewController {
         return vc
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         doAuthentication()

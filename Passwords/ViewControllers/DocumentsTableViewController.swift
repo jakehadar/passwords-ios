@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PasswordServices
 
 protocol DocumentsListSelectionProtocol {
     func documentWasSelected(withUrl url: URL)

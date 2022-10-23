@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PasswordServices
 
 class DocumentViewerViewController: UIViewControllerAuthenticable {
 

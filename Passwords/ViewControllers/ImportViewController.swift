@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import PasswordServices
 
 class ImportViewController: UIViewControllerAuthenticable {
+    var passwordService: PasswordService = sharedPasswordService
 
     @IBOutlet weak var jsonTextView: UITextView!
     @IBOutlet weak var importButton: UIBarButtonItem!
@@ -74,7 +76,7 @@ class ImportViewController: UIViewControllerAuthenticable {
                 view.addSubview(progressView.view)
                 progressView.didMove(toParent: self)
                 
-                DispatchQueue.global(qos: .userInitiated).async {
+                DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
                     var progressCounter = 0
                     let progressLimit = passwordEntities.count
                     let uuidKeychainDict = keychainEntities.reduce(into: Dictionary<String, String>()) { $0[$1.uuid] = $1.text }
@@ -82,9 +84,9 @@ class ImportViewController: UIViewControllerAuthenticable {
                         try passwordEntities.forEach {
                             if sharedKeychain.hasValue(forKey: $0.uuid) {
                                 let pw = Password(uuid: $0.uuid, app: $0.app, user: $0.user, created: $0.created, modified: $0.modified, domain: $0.domain, url: $0.url)
-                                try PasswordService.default.updatePasswordRecord(pw)
+                                try self.passwordService.updatePasswordRecord(pw)
                             } else {
-                                try PasswordService.default.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "", created: $0.created, modified: $0.modified, uuid: $0.uuid, domain: $0.domain, url: $0.url)
+                                try self.passwordService.createPasswordRecord(app: $0.app, user: $0.user, password: uuidKeychainDict[$0.uuid] ?? "", created: $0.created, modified: $0.modified, uuid: $0.uuid, domain: $0.domain, url: $0.url)
                             }
                             progressCounter += 1
                             DispatchQueue.main.async {

@@ -10,15 +10,15 @@ import Foundation
 import UIKit
 
 /// Responsible for holding authentication state, and displaying the authentication modal.
-class AuthController {
-    static let `default` = AuthController()
+public class AuthController {
+    public static let `default` = AuthController()
     
     // User Defaults persistence keys
-    static let kAuthEnabled = "authenticationEnabled"
-    static let kAuthTimeout = "authenticationTimeout"
-    static let kAuthTimeoutStartTime = "authenticationTimeoutStartTime"
+    public static let kAuthEnabled = "authenticationEnabled"
+    public static let kAuthTimeout = "authenticationTimeout"
+    public static let kAuthTimeoutStartTime = "authenticationTimeoutStartTime"
     
-    var authenticated: Bool = false {
+    public var authenticated: Bool = false {
         didSet {
             if authenticated {
                 applicationIsActive = true
@@ -26,17 +26,17 @@ class AuthController {
         }
     }
     
-    var applicationIsActive: Bool = false {
+    public var applicationIsActive: Bool = false {
         didSet {
             if !applicationIsActive {
-                UserDefaults.standard.set(Date(), forKey: AuthController.kAuthTimeoutStartTime)
+                sharedDefaults.set(Date(), forKey: AuthController.kAuthTimeoutStartTime)
             }
         }
     }
     
     private init() {}
     
-    func topViewController() -> UIViewController {
+    private func topViewController() -> UIViewController {
         guard var vc = UIApplication.shared.delegate?.window??.rootViewController else { fatalError() }
         while let descendant = vc.presentedViewController {
             vc = descendant
@@ -44,25 +44,25 @@ class AuthController {
         return vc
     }
     
-    var timeoutCounterSeconds: TimeInterval? {
-        return (UserDefaults.standard.object(forKey: AuthController.kAuthTimeoutStartTime) as? Date)?.timeIntervalSinceNow
+    private var timeoutCounterSeconds: TimeInterval? {
+        return (sharedDefaults.object(forKey: AuthController.kAuthTimeoutStartTime) as? Date)?.timeIntervalSinceNow
     }
     
-    func shouldAuthenticate() -> Bool {
+    private func shouldAuthenticate() -> Bool {
+        let authEnabled = sharedDefaults.bool(forKey: AuthController.kAuthEnabled)
+        guard authEnabled else { return false }
+        guard !applicationIsActive else { return false }
         guard !UIDevice.isSimulator else { return false }
         
-        let authEnabled = UserDefaults.standard.bool(forKey: AuthController.kAuthEnabled)
-        guard authEnabled else { return false }
-        
-        let timeout = UserDefaults.standard.integer(forKey: AuthController.kAuthTimeout)
-        if let timeElapsed = timeoutCounterSeconds, Int(-1 * timeElapsed) >= timeout && !applicationIsActive {
+        let timeout = sharedDefaults.integer(forKey: AuthController.kAuthTimeout)
+        if let timeElapsed = timeoutCounterSeconds, Int(-1 * timeElapsed) >= timeout {
             debugPrint("timeoutCounterSeconds: \(Int(-1 * timeElapsed)), timeout: \(timeout)")
             authenticated = false
         }
         return !authenticated
     }
     
-    func authenticate() {
+    public func authenticate() {
         if shouldAuthenticate() {
             let vc = AuthenticationViewController.instantiate(withAuthController: self)
             topViewController().present(vc, animated: false)

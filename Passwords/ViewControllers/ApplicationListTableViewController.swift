@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import PasswordServices
 
 protocol ApplicationListSelectionDelegate {
     func applicationWasSelected(withName name: String?)
 }
 
 class ApplicationListTableViewController: UITableViewControllerAuthenticable {
+    var passwordService: PasswordService = sharedPasswordService
+    
     private let searchController = UISearchController(searchResultsController: nil)
     
     // MARK: - User configuration
@@ -32,7 +35,10 @@ class ApplicationListTableViewController: UITableViewControllerAuthenticable {
     private var selection: String?
     
     // Data sources for list and search views.
-    private var appNames = PasswordService.default.getAppNames().map { $0.trimmingCharacters(in: .whitespaces) }.sorted { $0.lowercased() < $1.lowercased() }
+    lazy private var appNames: [String] = {
+        return passwordService.getAppNames().map { $0.trimmingCharacters(in: .whitespaces) }.sorted { $0.lowercased() < $1.lowercased() }
+    }()
+    
     private var filteredAppNames = [String]()
     
     // App names the user created during this presentation.

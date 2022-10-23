@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import PasswordServices
 
 class PasswordDetailViewController: UIViewControllerAuthenticable {
+    var passwordService: PasswordService = sharedPasswordService
     
     @IBOutlet weak var userLabel: UILabel!
     @IBOutlet weak var passwordField: UITextField!
@@ -87,7 +89,7 @@ class PasswordDetailViewController: UIViewControllerAuthenticable {
         let ac = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         ac.addAction(UIAlertAction(title: "Delete", style: .destructive) { [unowned self] _ in
             do {
-                try PasswordService.default.deleteRecord(passwordToDelete)
+                try passwordService.deleteRecord(passwordToDelete)
                 self.passwordRecord = nil
                 self.navigationController?.popViewController(animated: true)
             } catch {
